@@ -4,23 +4,28 @@
 | Name | Type | Unique | Optional |
 |-|-|-|-|
 | username | string | yes | no |
+| password | string | no  | no |
 | email | string | yes | no |
+| fav_businesses | list | no | yes |
 
 The `user` entity contains the data about the user.
 
-## Locations
+## Businesses
 | Name | Type | Unique | Optional |
 |-|-|-|-|
-| id | string | yes | no |
+| business_id | string | yes | no |
 | city | string | no | no |
 | state | string | no | no |
-| activities | string | no | no |
+| country | string | no | no |
+| categories | list | no | no |
+| rating | int | no | no |
 
-The `locations` entity contains the data about the specified location.
+The `businesses` entity contains the data about the specified businesses.
 
-## Activities
+## Ratings
 | Name | Type | Unique | Optional |
 |-|-|-|-|
-
-The `activities` entity contains the data about the activities available
-in each specific location.
+| business_id | yes | no | no |
+| rating | int | no | no |
+| user_id | int | no | yes |
+The `ratings` entity contains the data about the ratings provided by the users on specific businesses
