@@ -25,3 +25,9 @@ Our expected intended market are people who are interested in a specific activit
 * Users can rate locations and activities
 * Users can make preferences based on various parameters
 * Capability to poll from API to determine ranking system for certain locations
+
+## Design
+* [API design](docs/apis.md)
+* [Data model](docs/data-model.md)
+* [GHI](docs/ghi.md)
+* [Integrations](docs/integrations.md)
