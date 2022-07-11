@@ -22,11 +22,12 @@ The `user` entity contains the data about the user.
 
 The `businesses` entity contains the data about the specified businesses.
 
-## Ratings
+<!-- Stretch Goal -->
+<!-- ## Ratings
 | Name | Type | Unique | Optional |
 |-|-|-|-|
 | business_id | yes | no | no |
 | rating | int | no | no |
 | user_id | int | no | yes |
 
-The `ratings` entity contains the data about the ratings provided by the users on specific businesses
+The `ratings` entity contains the data about the ratings provided by the users on specific businesses -->
