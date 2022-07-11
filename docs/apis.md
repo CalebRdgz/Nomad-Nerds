@@ -1,9 +1,9 @@
 # APIS
 
-## Get buisness Information
+## Get business Information
 
 * **Method**: 'GET'
-* **Path**: /api/buisness
+* **Path**: /api/business
 
 Input:
 
@@ -28,12 +28,12 @@ Output
 }
 ```
 
-Input for a business can be any of the three shown above, depending on the need. For example, if you are looking for all buisnesses in city which match certain categories, you would need 'categories' and 'location'. However, if you were just trying to find the review/rating for a buisness, you would only need its buisness_id. The Output will be all information pertinent to our application from the API, which is listed above.
+Input for a business can be any of the three shown above, depending on the need. For example, if you are looking for all businesses in city which match certain categories, you would need 'categories' and 'location'. However, if you were just trying to find the review/rating for a business, you would only need its business_id. The Output will be all information pertinent to our application from the API, which is listed above.
 
 ## Create a Rating
 
 * **Method**: 'POST'
-* **Path**: /api/buisness/rating
+* **Path**: /api/business/rating
 
 Input:
 
@@ -56,7 +56,7 @@ Output
 }
 ```
 
-Creating a rating for a buisness would require the. business ID and the new rating. This rating would be averaged with the other internal ratings for specifiv buisness and returned aloong with the business ID.
+Creating a rating for a business would require the. business ID and the new rating. This rating would be averaged with the other internal ratings for specific business and returned along with the business ID.
 
 ## Create a User
 
