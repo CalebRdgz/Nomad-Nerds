@@ -9,8 +9,8 @@ class BusinessVO(models.Model):
         USER_MODEL
     )
 
-    class Meta:
-        unique_together = (("business_id", "username"))
+    # class Meta:
+    #     unique_together = (("business_id", "username"))
 
 
 class Favorite(models.Model):
