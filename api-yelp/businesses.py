@@ -4,7 +4,7 @@ import psycopg
 import os
 import bson
 import pymongo
-from acls import businesses_request, category_request
+from acls import businesses_request, category_request, category_suggestions
 from cities import cities
 
 dbhost = os.environ["MONGOHOST"]
@@ -70,3 +70,12 @@ def get_locations(categories: str, quantity: int = 2):
         local_list.append((key, value))
     sorted_local_list = sorted(local_list, key=lambda x: x[1], reverse=True)
     return {"count": len(locations), "categories": sorted_local_list}
+
+@yelp_router.get("/api-yelp/businesses/categories/match/")
+def get_category_suggestions(text: str):
+    categories = []
+    raw_data = category_suggestions(text = text)
+    for cat in raw_data['categories']:
+        categories.append([cat['title']])
+    return categories
+

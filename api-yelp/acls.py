@@ -37,3 +37,13 @@ def category_request(categories=[], quantity=2):
             res = requests.get(url, headers=headers, params=params)
             data += res.json()["businesses"]
     return data
+
+def category_suggestions(text=''):
+    url = 'https://api.yelp.com/v3/autocomplete'
+    headers = {"Authorization": "Bearer {}".format(YELP_API_KEY)}
+    params = {
+        "text": text,
+    }
+    res =  requests.get(url, headers=headers, params=params)
+    data = res.json()
+    return data
