@@ -1,14 +1,11 @@
-Back-end Progress:
+## July 13, 2022
 
-    Done:
-        Have the ability to pull businesses given a location and categories:
+Today I worked on:
 
-    To-Be-Done:
-        Have the ability to pull businesses from various locations given categories
-        Have the ability to pull top categories at a given location
+* Getting the required data from the Yelp API
 
-            Get first 1000 Businesses from a location sorted by Rating, # of reviews.
-            Create dictionary of all categories, and list top 10-20 categories.
-            
-                If a category is selected/click on, do search of known category/location
+The team and I created the functionality for pulling data from the yelp api. I was screen sharing and coding with the rest of the team helping me determine what to do.
 
+Later in the evening I created the third method required to get the needed information from the yelp API. I still don't know the more efficient way to implement it, because currently each call takes about 30 seconds to load and makes ~200 calls to the API, eating into our 5000 daily limit. 
+
+Even later in the evening, I built another api-yelp method which, given text, will return a list of category suggestions. This will be implemented in our front-end search bar.
