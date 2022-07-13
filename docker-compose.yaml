@@ -18,9 +18,11 @@ services:
     volumes:
       - ./api-yelp:/app
     environment:
-      DATABASE_URL: mongodb://root:password@mongo
-      DATABASE_NAME: db-name
-      WAIT_HOSTS: mongo:27017
+      MONGOHOST: mongo
+      # DATABASE_URL: mongodb://root:password@mongo
+      MONGODATABASE: db-name
+      MONGOUSER: nomad-nerds
+      MONGOPASSWORD: nomad-nerds
   business:
     build:
       context: ./business
@@ -44,9 +46,13 @@ services:
     volumes:
       - ./user:/app
     environment:
-      DATABASE_URL: mongodb://root:password@mongo
-      DATABASE_NAME: db-name
-      WAIT_HOSTS: mongo:27017
+      MONGOHOST: mongo
+      MONGODATABASE: db-name
+      MONGOUSER: nomad-nerds
+      MONGOPASSWORD: nomad-nerds
+      # DATABASE_URL: mongodb://root:password@mongo
+      # DATABASE_NAME: db-name
+      # WAIT_HOSTS: mongo:27017
       # DATABASE_URL: postgresql://user-name:password@postgres/db-name
       # WAIT_HOSTS: postgres:5432
   ghi:

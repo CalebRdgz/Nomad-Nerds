@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-api_keys
+api-yelp/keys.py
 
 # C extensions
 *.so
