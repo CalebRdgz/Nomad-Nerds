@@ -23,6 +23,7 @@ services:
       MONGODATABASE: db-name
       MONGOUSER: nomad-nerds
       MONGOPASSWORD: nomad-nerds
+      API_YELP_KEY: ${API_YELP_KEY}
   business:
     build:
       context: ./business
