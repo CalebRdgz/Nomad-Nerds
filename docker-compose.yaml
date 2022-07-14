@@ -1,14 +1,18 @@
 volumes:
-  mongo-data:
+  postgres-data:
     external: true
 services:
-  mongo:
-    image: mongo:5
+  postgres:
+    build:
+      context: ./relational-data
+      dockerfile: ./Dockerfile.dev
     volumes:
-      - mongo-data:/data/db
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      MONGO_INITDB_ROOT_USERNAME: nomad-nerds
-      MONGO_INITDB_ROOT_PASSWORD: nomad-nerds
+      - POSTGRES_MULTIPLE_DATABASES=user
+      - POSTGRES_PASSWORD=test-databases
+    ports:
+      - 15432:5432
   api-yelp:
     build:
       context: ./api-yelp
@@ -18,44 +22,20 @@ services:
     volumes:
       - ./api-yelp:/app
     environment:
-      MONGOHOST: mongo
-      # DATABASE_URL: mongodb://root:password@mongo
-      MONGODATABASE: db-name
-      MONGOUSER: nomad-nerds
-      MONGOPASSWORD: nomad-nerds
+      DATABASE_URL: postgresql://user-name:password@postgres/db-name
+      WAIT_HOSTS: postgres:5432
       API_YELP_KEY: ${API_YELP_KEY}
-  business:
-    build:
-      context: ./business
-      dockerfile: ./Dockerfile.dev
-    ports:
-      - "8001:8000"
-    volumes:
-      - ./business:/app
-    environment:
-      DATABASE_URL: mongodb://root:password@mongo
-      DATABASE_NAME: db-name
-      WAIT_HOSTS: mongo:27017
-      # DATABASE_URL: postgresql://user-name:password@postgres/db-name
-      # WAIT_HOSTS: postgres:5432
   user:
     build:
       context: ./user
       dockerfile: ./Dockerfile.dev
     ports:
-      - "8002:8000"
+      - "8001:8000"
     volumes:
       - ./user:/app
     environment:
-      MONGOHOST: mongo
-      MONGODATABASE: db-name
-      MONGOUSER: nomad-nerds
-      MONGOPASSWORD: nomad-nerds
-      # DATABASE_URL: mongodb://root:password@mongo
-      # DATABASE_NAME: db-name
-      # WAIT_HOSTS: mongo:27017
-      # DATABASE_URL: postgresql://user-name:password@postgres/db-name
-      # WAIT_HOSTS: postgres:5432
+      DATABASE_URL: postgresql://user-name:password@postgres/db-name
+      WAIT_HOSTS: postgres:5432
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -69,22 +49,5 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       REACT_APP_API-YELP: http://localhost:8000
-      REACT_APP_BUSINESS: http://localhost:8001
-      REACT_APP_USER: http://localhost:8002
+      REACT_APP_USER: http://localhost:8001
       REACT_APP_THIRD_PARTY_SERVICE: https://api.yelp.com/v3
-  user-poller:
-    build:
-      context: ./user/poll
-      dockerfile: ./Dockerfile.dev
-    volumes:
-      - ./user/poll:/app
-      - ./user/user:/app/user
-      - ./user/user_rest:/app/user_rest
-    depends_on:
-      - mongo
-      - user
-    environment:
-      DATABASE_URL: mongodb://root:password@mongo
-      DATABASE_NAME: db-name
-      WAIT_HOSTS: mongo:27017
-      WAIT_TIMEOUT: 240

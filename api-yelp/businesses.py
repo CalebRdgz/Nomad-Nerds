@@ -2,16 +2,8 @@ from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 import psycopg
 import os
-import bson
-import pymongo
 from acls import businesses_request, category_request, category_suggestions
-from cities import cities
 
-dbhost = os.environ["MONGOHOST"]
-dbname = os.environ["MONGODATABASE"]
-dbuser = os.environ["MONGOUSER"]
-dbpass = os.environ["MONGOPASSWORD"]
-mongo_str = f"mongodb://{dbuser}:{dbpass}@{dbhost}"
 
 yelp_router = APIRouter()
 
