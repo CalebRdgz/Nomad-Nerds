@@ -1,4 +1,3 @@
-from keys import YELP_API_KEY
 import requests
 from cities import us_cities
 import os
