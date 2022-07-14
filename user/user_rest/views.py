@@ -8,13 +8,6 @@ from .forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 
-# class BusinessVOEncoder(ModelEncoder):
-#     model = BusinessVO
-#     properties = [
-#         "business_id",
-#         "username",
-#     ]
-
 
 class FavoriteEncoder(ModelEncoder):
     model = Favorite
@@ -25,12 +18,13 @@ class FavoriteEncoder(ModelEncoder):
     ]
 
 
+
 def signup(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             username = request.POST.get("username")
-            password = request.POST.get("password1")
+            password = request.POST.get("password")
             email = request.POST.get("email")
             user = User.objects.create_user(
                 username=username, password=password, email=email
