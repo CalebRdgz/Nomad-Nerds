@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import MainPage from './MainPage';
 import Login from './LoginForm';
+import SignupForm from './SignupForm'
 
 
 
@@ -42,8 +43,8 @@ class App extends React.Component {
           <Route path="/" element={<MainPage />} />
           <Route path="user">
             <Route path="" />
-            {/* <Route path="signup" element={<SignupForm />} />
-            <Route path="login" element={<LoginForm />} />
+            <Route path="signup" element={<SignupForm />} />
+            {/* <Route path="login" element={<LoginForm />} />
             <Route path="favorites" element={<UserFavorites />} /> */}
           </Route>
         </Routes>

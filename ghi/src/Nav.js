@@ -13,12 +13,12 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0"></ul>
-            <li className="nav-item">
-              <NavLink aria-current="page" to="/signup/">Signup</NavLink>
-            </li>
-            <li className="nav-item">
+            <ul className="nav-item">
+              <NavLink aria-current="page" to="user/signup/">Signup</NavLink>
+            </ul>
+            <ul className="nav-item">
               <NavLink aria-current="page" to="/login/">Login</NavLink>
-            </li>
+            </ul>
         </div>
     </div>
     </nav>
