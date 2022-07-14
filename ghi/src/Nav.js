@@ -17,7 +17,7 @@ function Nav() {
               <NavLink aria-current="page" to="user/signup/">Signup</NavLink>
             </ul>
             <ul className="nav-item">
-              <NavLink aria-current="page" to="/login/">Login</NavLink>
+              <NavLink aria-current="page" to="user/login/">Login</NavLink>
             </ul>
         </div>
     </div>
