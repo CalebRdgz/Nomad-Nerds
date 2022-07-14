@@ -1,8 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 from django.conf import settings
 
 USER_MODEL = settings.AUTH_USER_MODEL
-
 # class BusinessVO(models.Model):
 #     business_id = models.CharField(max_length=30, unique=True)
 #     username = models.ManyToManyField(

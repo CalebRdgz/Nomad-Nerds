@@ -2,32 +2,29 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import MainPage from './MainPage';
-import Login from './Login';
-
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm'
 
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      users: [],
       favorites: [],
     };
-    this.loadUsers = this.loadUsers.bind(this);
     this.loadFavorites = this.loadFavorites.bind(this);
   }
   async componentDidMount() {
-    this.loadUsers()
     this.loadFavorites()
   }
 
-  async loadUsers() {
-    const response = await fetch("http://localhost:8002/user");
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({users: data.users});
-    }
-  }
+  // async loadUsers() {
+  //   const response = await fetch("http://localhost:8002/user/");
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //     this.setState({users: data.users});
+  //   }
+  // }
 
   async loadFavorites() {
     const response = await fetch("http://localhost:8002/user/favorites/");
@@ -36,17 +33,20 @@ class App extends React.Component {
       this.setState({favorites: data.favorites});
     }
   }
-
   render() {
     return (
       <BrowserRouter>
       <Nav />
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="user">
+            <Route path="signup" element={<SignupForm />} />
+            <Route path="login" element={<LoginForm />} />
+            {/* <Route path="favorites" element={<UserFavorites />} /> */}
+          </Route>
         </Routes>
       </BrowserRouter>
     )
   }
 }
-
 export default App;
