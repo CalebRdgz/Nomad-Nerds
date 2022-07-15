@@ -2,11 +2,13 @@ from common.json import ModelEncoder
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from .models import Favorite
 import json
 from .forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+# from django.views.decorators.http import required_http_methods
 
 
 class FavoriteEncoder(ModelEncoder):
@@ -18,7 +20,6 @@ class FavoriteEncoder(ModelEncoder):
     ]
 
 
-
 def signup(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -26,31 +27,37 @@ def signup(request):
             username = request.POST.get("username")
             password = request.POST.get("password")
             email = request.POST.get("email")
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
             user = User.objects.create_user(
-                username=username, password=password, email=email
+                username=username, password=password, email=email, first_name=first_name, last_name=last_name
             )
             user.save()
             login(request, user)
-            return redirect("home")
+            return redirect("signup")
     else:
         form = UserCreationForm(request.POST)
-    context = {
-        "form": form,
-    }
+        context = {
+        "form": form,}
     return render(request, "registration/signup.html", context)
 
+#goal: write a post endpoint for the database
+#treat the user the same way
+#how important is it that sign in page is more than just  
+#use session  
 
+@login_required
 @require_http_methods(["GET", "POST"])
-def user_favorites(request):
+def user_favorites(request, pk):
     user = request.user
-    if request.method == "GET":
-        favorites = Favorite.objects.filter(user=user)
+    if request.method == "GET" and request.user.is_authenticated:
+        favorites = Favorite.objects.filter(pk=user)
         return JsonResponse(
             {"favorites": favorites},
             encoder=FavoriteEncoder,
             safe=False,
         )
-    else:
+    elif request.method == "POST":
         try:
             content = json.loads(request.body)
             favorite = Favorite.objects.create(**content)

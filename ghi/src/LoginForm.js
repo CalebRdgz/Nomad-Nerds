@@ -23,7 +23,7 @@ const LoginForm = () => {
       password: password
     };
 
-    fetch('http://127.0.0.1:8000/users/login/', {
+    fetch('http://localhost:8001/users/login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -54,26 +54,28 @@ const LoginForm = () => {
       {loading === false && (
         <form onSubmit={handleSubmit}>
           <div className="form-floating mb-3">
-          <label htmlFor='username'>Username</label>
           <input
+            placeholder="username"
             className="form-control"
             name='username'
-            type='username'
+            required type='username'
             value={username}
-            required
             onChange={e => setUsername(e.target.value)}
-          />{' '}
+          />
+          <label htmlFor='username'>Username</label>
+          {' '}
           </div>
           <div className="form-floating mb-3">
-          <label htmlFor='password'>Password</label>
           <input
+            onChange={e => setPassword(e.target.value)}
+            placeholder="username"
             className="form-control"
             name='password'
-            type='password'
+            required type='password'
             value={password}
-            required
-            onChange={e => setPassword(e.target.value)}
-          />{' '}
+          />
+            <label htmlFor='password'>Password</label>
+          {' '}
           </div>
           <button 
                 onClick={handleSubmit} 

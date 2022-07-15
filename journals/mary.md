@@ -1,3 +1,9 @@
+## July 14, 2022
+* Our group decided to change from MongoDB to PostgreSQL for databases in order to have a more seamless transition
+from Django to React. This involved changing a significant amount of code in our docker-compose.yaml file and we
+then rebuilt. Prior to that, Emma, Caleb, and I were stuck on getting the user model to function with Emma sharing her screen. We ended up having to revert back to a previous git commit in order to reverse changes that were made. In the afternoon, we worked on once again trying to get the User info to function properly. I realized after class that we may have an issue with our user/favorites url path since the favorites are directly dependent on specific users and that a user is already logged in, so we'll have to address that tomorrow.
+
+
 ## July 13, 2022
 * Our group worked together in the morning on finding an API to autocomplete when
 we type in our main page's search bar - with Arthur sharing his screen
