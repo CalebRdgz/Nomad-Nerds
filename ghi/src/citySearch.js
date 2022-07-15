@@ -1,10 +1,10 @@
-import { useEffect, useState} from "react"
+import { useState} from "react"
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import cities from "./worldcities.json"
 
 
 
-function Test(props) {
+function CitySearch(props) {
 
   const [selectedCities, setSelectedCities] = useState([{city:'Denver', admin_name: 'Colorado', country: 'United States', id: 0}])
 
@@ -49,7 +49,7 @@ function Test(props) {
           <p className="list-group-item">
             {item.city}, {item.admin_name}, {item.country}
           </p>
-          <button onClick={() => setSelectedCities(selectedCities.filter(city => city.id != item.id))} className="btn btn-danger btn-sm list-group-item">X</button>
+          <button onClick={() => setSelectedCities(selectedCities.filter(city => city.id !== item.id))} className="btn btn-danger btn-sm list-group-item">X</button>
         </li>
       )})}
     </ul>
@@ -82,6 +82,6 @@ function Test(props) {
       
 
 
-export default Test
+export default CitySearch
 
 
