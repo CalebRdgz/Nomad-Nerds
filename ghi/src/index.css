@@ -12,8 +12,12 @@ code {
     monospace;
 }
 
-.wrapper {
-  min-height: 100%;
+p {
+  margin-bottom: 100px;
+}
+
+html {
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: top left;
 }
