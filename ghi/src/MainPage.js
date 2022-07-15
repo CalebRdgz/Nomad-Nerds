@@ -1,3 +1,4 @@
+import CitySearch from './citySearch'
 import background from './images/SF.png';
 
 function MainPage() {
@@ -10,6 +11,7 @@ function MainPage() {
             Connecting you to your favorite activities and locations!
           </p>
         </div>
+        <CitySearch/>
       </div>
     </div>
   );

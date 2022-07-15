@@ -37,11 +37,14 @@ def signup(request):
             return redirect("signup")
     else:
         form = UserCreationForm(request.POST)
-    context = {
-        "form": form,
-    }
+        context = {
+        "form": form,}
     return render(request, "registration/signup.html", context)
 
+#goal: write a post endpoint for the database
+#treat the user the same way
+#how important is it that sign in page is more than just  
+#use session  
 
 @login_required
 @require_http_methods(["GET", "POST"])
