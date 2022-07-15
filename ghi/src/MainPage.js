@@ -1,3 +1,5 @@
+import CitySearch from './citySearch'
+
 function MainPage() {
     return (
       <div className="px-4 py-5 my-5 text-center">
@@ -7,6 +9,7 @@ function MainPage() {
             Connecting you to your favorite activities and locations!
           </p>
         </div>
+        <CitySearch/>
       </div>
     );
 }
