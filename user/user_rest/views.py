@@ -2,6 +2,7 @@ from common.json import ModelEncoder
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from .models import Favorite
 import json
 from .forms import UserCreationForm
@@ -45,17 +46,18 @@ def signup(request):
 #how important is it that sign in page is more than just  
 #use session  
 
+@login_required
 @require_http_methods(["GET", "POST"])
-def user_favorites(request):
+def user_favorites(request, pk):
     user = request.user
-    if request.method == "GET":
-        favorites = Favorite.objects.filter(user=user)
+    if request.method == "GET" and request.user.is_authenticated:
+        favorites = Favorite.objects.filter(pk=user)
         return JsonResponse(
             {"favorites": favorites},
             encoder=FavoriteEncoder,
             safe=False,
         )
-    else:
+    elif request.method == "POST":
         try:
             content = json.loads(request.body)
             favorite = Favorite.objects.create(**content)
