@@ -26,12 +26,12 @@ class App extends React.Component {
   //   }
   // }
 
-  async loadFavorites() {
-    const response = await fetch("http://localhost:8002/user/favorites/");
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({favorites: data.favorites});
-    }
+  async loadFavorites() {console.log('ok')
+    // const response = await fetch("http://localhost:8002/user/favorites/");
+    // if (response.ok) {
+    //   const data = await response.json();
+    //   this.setState({favorites: data.favorites});
+    // }
   }
   render() {
     return (
