@@ -5,7 +5,7 @@ export default function SignUpForm() {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [password1, setPassword1] = useState('');
+    const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
@@ -21,8 +21,8 @@ export default function SignUpForm() {
         setSubmitted(false);
     };
 
-    const handlePassword1 = (e) => {
-        setPassword1(e.target.value);
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
         setSubmitted(false);
     };
 
@@ -33,14 +33,14 @@ export default function SignUpForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (username === '' || email === '' || password1 === '' || password2 === '') {
+        if (username === '' || email === '' || password === '' || password2 === '') {
             setError(true);
         } else {
             setSubmitted(true);
             setError(false);
             setUsername("");
             setEmail("");
-            setPassword1("");
+            setPassword("");
             setPassword2("");
         }
     };
@@ -73,7 +73,6 @@ return (
         </div>
         <form id="signup">
           <div className="form-floating mb-3">
-            <label className="label">Username</label>
             <input 
                 onChange={handleUsername} 
                 className="form-control" 
@@ -82,9 +81,9 @@ return (
                 value={username} 
                 required type="text" 
             />
+            <label className="label">Username</label>
           </div>
           <div className="form-floating mb-3">
-            <label className="label">Email</label>
             <input 
                 onChange={handleEmail} 
                 className="form-control"
@@ -93,19 +92,20 @@ return (
                 value={email} 
                 required type="email" 
             />
+            <label className="label">Email</label>
           </div>
           <div className="form-floating mb-3">
-            <label className="label">Password</label>
             <input 
-                onChange={handlePassword1} 
+                onChange={handlePassword} 
                 className="form-control"
-                id="password1"
-                name="password1" 
-                value={password1} 
-                required type="password1" />
+                id="password"
+                name="password" 
+                value={password} 
+                required type="password" 
+            />
+            <label className="password">Password</label>
           </div>
           <div className="form-floating mb-3">
-            <label className="label">Password</label>
             <input 
                 onChange={handlePassword2} 
                 className="form-control" 
@@ -113,6 +113,7 @@ return (
                 value={password2} 
                 required type="password2" 
             />
+            <label className="label">Password</label>
           </div>
             <button 
                 onClick={handleSubmit} 

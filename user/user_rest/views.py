@@ -2,6 +2,7 @@ from common.json import ModelEncoder
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from .models import Favorite
 import json
 from .forms import UserCreationForm
@@ -40,11 +41,12 @@ def signup(request):
     return render(request, "registration/signup.html", context)
 
 
+@login_required
 @require_http_methods(["GET", "POST"])
 def user_favorites(request):
     user = request.user
     if request.method == "GET":
-        favorites = Favorite.objects.filter(user=user)
+        favorites = Favorite.objects.filter(user=request.user)
         return JsonResponse(
             {"favorites": favorites},
             encoder=FavoriteEncoder,
