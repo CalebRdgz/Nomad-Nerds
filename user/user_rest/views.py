@@ -8,6 +8,7 @@ import json
 from .forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+# from django.views.decorators.http import required_http_methods
 
 
 class FavoriteEncoder(ModelEncoder):
@@ -26,12 +27,14 @@ def signup(request):
             username = request.POST.get("username")
             password = request.POST.get("password")
             email = request.POST.get("email")
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
             user = User.objects.create_user(
-                username=username, password=password, email=email
+                username=username, password=password, email=email, first_name=first_name, last_name=last_name
             )
             user.save()
             login(request, user)
-            return redirect("home")
+            return redirect("signup")
     else:
         form = UserCreationForm(request.POST)
     context = {
