@@ -16,7 +16,7 @@ class App extends React.Component {
     this.loadFavorites = this.loadFavorites.bind(this);
   }
   async componentDidMount() {
-    this.loadFavorites()
+    // this.loadFavorites()
   }
 
   // async loadUsers() {
@@ -27,12 +27,12 @@ class App extends React.Component {
   //   }
   // }
 
-  async loadFavorites() {
-    const response = await fetch("http://localhost:8001/user/favorites/");
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({favorites: data.favorites});
-    }
+  async loadFavorites() {(console.log('ok'))
+    // const response = await fetch("http://localhost:8001/user/favorites/");
+    // if (response.ok) {
+    //   const data = await response.json();
+    //   this.setState({favorites: data.favorites});
+    // }
   }
   render() {
     return (
