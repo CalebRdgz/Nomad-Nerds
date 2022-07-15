@@ -19,7 +19,6 @@ class FavoriteEncoder(ModelEncoder):
     ]
 
 
-
 def signup(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -43,16 +42,16 @@ def signup(request):
 
 @login_required
 @require_http_methods(["GET", "POST"])
-def user_favorites(request):
+def user_favorites(request, pk):
     user = request.user
-    if request.method == "GET":
-        favorites = Favorite.objects.filter(user=request.user)
+    if request.method == "GET" and request.user.is_authenticated:
+        favorites = Favorite.objects.filter(pk=user)
         return JsonResponse(
             {"favorites": favorites},
             encoder=FavoriteEncoder,
             safe=False,
         )
-    else:
+    elif request.method == "POST":
         try:
             content = json.loads(request.body)
             favorite = Favorite.objects.create(**content)
