@@ -36,7 +36,7 @@ services:
     volumes:
       - ./user:/app
     environment:
-      DATABASE_URL: postgresql://users:password@postgres:5432/user
+      DATABASE_URL: postgresql://users:password@postgres:5432/users
       WAIT_HOSTS: postgres:5432
   ghi:
     image: node:lts-bullseye
@@ -55,11 +55,11 @@ services:
       REACT_APP_THIRD_PARTY_SERVICE: https://api.yelp.com/v3
   pgadmin:
     image: dpage/pgadmin4
-    volumes: 
+    volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
       - "8082:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: person@email.com
-      PGADMIN_DEFAULT_PASSWORD: password 
+      PGADMIN_DEFAULT_PASSWORD: password
 
