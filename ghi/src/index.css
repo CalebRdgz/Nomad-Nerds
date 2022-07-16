@@ -21,15 +21,20 @@ html {
   background-repeat: no-repeat;
 }
 
+
+
+/* --------- FORMS --------- */
 .form-control {
   width: 60%;
 }
-
 
 .btn {
   max-height: 40px;
 }
 
+
+
+/* --------- FOOTER --------- */
 .main-footer {
   color: white;
   background-color: #c7c7c4;
@@ -43,6 +48,9 @@ html {
   color: black;
 }
 
-.navbar navbar-expand-lg {
+
+
+/* --------- NAVBAR --------- */
+.navbar {
   background-color: gray;
 }
