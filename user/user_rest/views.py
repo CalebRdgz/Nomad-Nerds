@@ -1,17 +1,12 @@
 from common.json import ModelEncoder
-from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
-from .models import Favorite
+from .models import Favorite, USER_MODEL
 import json
-from .forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from django.middleware.csrf import get_token
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_POST
-# from django.views.decorators.http import required_http_methods
+from django.db import IntegrityError
+import djwto.authentication as auth
 
 
 class FavoriteEncoder(ModelEncoder):
@@ -22,32 +17,16 @@ class FavoriteEncoder(ModelEncoder):
         "business",
     ]
 
+class UserEncoder(ModelEncoder):
+    model = USER_MODEL
+    properties = [
+        "id",
+        "username",
+        "email",
+        "first_name",
+        "last_name"
+    ]
 
-def signup(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            email = request.POST.get("email")
-            first_name = request.POST.get("first_name")
-            last_name = request.POST.get("last_name")
-            user = User.objects.create_user(
-                username=username, password=password, email=email, first_name=first_name, last_name=last_name
-            )
-            user.save()
-            login(request, user)
-            return redirect("signup")
-    else:
-        form = UserCreationForm(request.POST)
-        context = {
-        "form": form,}
-    return render(request, "registration/signup.html", context)
-
-#goal: write a post endpoint for the database
-#treat the user the same way
-#how important is it that sign in page is more than just  
-#use session  
 
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -87,48 +66,113 @@ def user_delete_favorite(request, pk):
     except Favorite.DoesNotExist:
         return JsonResponse({"message": "Could not delete this favorite"})
 
-def get_csrf(request):
-    response = JsonResponse({'detail': 'CSRF cookie set'})
-    response['X-CSRFToken'] = get_token(request)
+
+
+@require_http_methods(["GET", "POST"])
+def user_list(request):
+    if request.method == "POST":
+        try:
+            content = json.loads(request.body)
+            user = User.objects.create_user(
+                username=content["username"],
+                password=content["password"],
+                email=content["email"],
+                first_name=content["first_name"],
+                last_name=content["last_name"],
+            )
+            return JsonResponse(
+                {"user": user},
+                encoder=UserEncoder,
+            )
+        except IntegrityError:
+            response = JsonResponse(
+                {"detail": "Please enter a different username and email"}
+            )
+            response.status_code = 409
+            return response
+    else:
+        users = User.objects.all()
+        return JsonResponse(
+            {"users": users},
+            encoder=UserEncoder,
+            safe=False
+        )
+
+
+@require_http_methods(["GET"])
+def get_specific_user(request, pk):
+    if request.method == "GET":
+        user = User.objects.get(id=pk)
+        return JsonResponse(
+            {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+            }
+        )
+
+
+@require_http_methods(["GET"])
+def user_token(request):
+    if "jwt_access_token" in request.COOKIES:
+        token = request.COOKIES["jwt_access_token"]
+        if token:
+            return JsonResponse({"token": token})
+    response = JsonResponse({"detail": "no session"})
+    response.status_code = 404
     return response
 
 
-@require_POST
-def login_view(request):
-    data = json.loads(request.body)
-    username = data.get('username')
-    password = data.get('password')
+@require_http_methods(["GET"])
+# @auth.jwt_login_required
+def get_current_user(request):
 
-    if username is None or password is None:
-        return JsonResponse({'detail': 'Please provide username and password.'}, status=400)
-
-    user = authenticate(username=username, password=password)
-
-    if user is None:
-        return JsonResponse({'detail': 'Invalid credentials.'}, status=400)
-
-    login(request, user)
-    return JsonResponse({'detail': 'Successfully logged in.'})
+    return JsonResponse(
+        {
+            "id": request.payload["user"]["id"],
+            "username": request.payload["user"]["username"],
+        }
+    )
 
 
-def logout_view(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'detail': 'You\'re not logged in.'}, status=400)
-
-    logout(request)
-    return JsonResponse({'detail': 'Successfully logged out.'})
 
 
-@ensure_csrf_cookie
-def session_view(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'isAuthenticated': False})
+# @require_POST
+# def login_view(request):
+#     data = json.loads(request.body)
+#     username = data.get('username')
+#     password = data.get('password')
 
-    return JsonResponse({'isAuthenticated': True})
+#     if username is None or password is None:
+#         return JsonResponse({'detail': 'Please provide username and password.'}, status=400)
+
+#     user = authenticate(username=username, password=password)
+
+#     if user is None:
+#         return JsonResponse({'detail': 'Invalid credentials.'}, status=400)
+
+#     login(request, user)
+#     return JsonResponse({'detail': 'Successfully logged in.'})
 
 
-def whoami_view(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'isAuthenticated': False})
+# def logout_view(request):
+#     if not request.user.is_authenticated:
+#         return JsonResponse({'detail': 'You\'re not logged in.'}, status=400)
 
-    return JsonResponse({'username': request.user.username})
+#     logout(request)
+#     return JsonResponse({'detail': 'Successfully logged out.'})
+
+
+# @ensure_csrf_cookie
+# def session_view(request):
+#     if not request.user.is_authenticated:
+#         return JsonResponse({'isAuthenticated': False})
+
+#     return JsonResponse({'isAuthenticated': True})
+
+
+# def whoami_view(request):
+#     if not request.user.is_authenticated:
+#         return JsonResponse({'isAuthenticated': False})
+
+#     return JsonResponse({'username': request.user.username})

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import dj_database_url
 from pathlib import Path
+from datetime import timedelta
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,22 +29,27 @@ SECRET_KEY = "django-insecure-nlshruui5ml-t7jetxo-n3cgvu&$h6x2j$nn2(!0if#7mi3up3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:8001"
+ALLOWED_HOSTS = [
+    'localhost',
+    'user',
+    os.environ.get("HOST_NAME", "127.0.0.1")
 ]
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    'http://127.0.0.1:3000',
+    'http://localhost:8000',
+    os.environ.get("CORS_HOST", "http://localhost:3001")
 ]
-CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+
 CORS_ALLOW_CREDENTIALS = True
 
 DJWTO_MODE = "TWO-COOKIES"
-DJWTO_ACCESS_TOKEN_LIFETIME = None
+DJWTO_CSRF = False
+DJWTO_ACCESS_TOKEN_LIFETIME = timedelta(days=1)
+DJWTO_SAME_SITE = "Lax" if DEBUG else "None"
+
 
 
 # Application definition
@@ -56,6 +63,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "djwto"
 ]
 
 MIDDLEWARE = [
@@ -63,7 +71,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -140,10 +148,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
