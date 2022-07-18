@@ -55,11 +55,11 @@ services:
       REACT_APP_THIRD_PARTY_SERVICE: https://api.yelp.com/v3
   pgadmin:
     image: dpage/pgadmin4
-    volumes: 
+    volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
       - "8082:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: person@email.com
-      PGADMIN_DEFAULT_PASSWORD: password 
+      PGADMIN_DEFAULT_PASSWORD: password
 

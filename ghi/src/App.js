@@ -1,53 +1,38 @@
 import React from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import MainPage from './MainPage';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
+import { useToken } from './users/Auth';
+import Footer from './Footer';
+import LoginForm from './users/LoginForm';
+import SignupForm from './users/SignupForm';
 import UserFavorites from './UserFavorites';
+import LogoutForm from './users/LogoutForm';
 
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      favorites: [],
-    };
-    this.loadFavorites = this.loadFavorites.bind(this);
-  }
-  async componentDidMount() {
-    this.loadFavorites()
+function App () {
+  const [token, login, logout, signup, user] = useToken();
+  const [userName, setUserName] = useState('');
+
+  if (user && !userName) {
+    setUserName(user.username)
   }
 
-  // async loadUsers() {
-  //   const response = await fetch("http://localhost:8002/user/");
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     this.setState({users: data.users});
-  //   }
-  // }
-
-  async loadFavorites() {
-    const response = await fetch("http://localhost:8001/user/favorites/");
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({favorites: data.favorites});
-    }
-  }
-  render() {
     return (
       <BrowserRouter>
-      <Nav />
+      <Nav token={token}/>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="user">
-            <Route path="signup" element={<SignupForm />} />
-            <Route path="login" element={<LoginForm />} />
-            <Route path="favorites" element={<UserFavorites favorites={this.state.favorites}/>} />
+            <Route path="signup" element={<SignupForm token={token} signup={signup} setUN={setUserName}/>} />
+            <Route path="login" element={<LoginForm token={token} login={login} setUN={setUserName}/>} />
+            <Route path="logout" element={<LogoutForm logout={logout}/>} />
+            {/* <Route path="favorites" element={<UserFavorites favorites={this.state.favorites}/>} /> */}
           </Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
-    )
-  }
+    );
 }
 export default App;

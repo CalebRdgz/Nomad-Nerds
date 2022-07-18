@@ -49,7 +49,7 @@ function CitySearch(props) {
           <p className="list-group-item">
             {item.city}, {item.admin_name}, {item.country}
           </p>
-          <button onClick={() => setSelectedCities(selectedCities.filter(city => city.id !== item.id))} className="btn btn-danger btn-sm list-group-item">X</button>
+          <button onClick={() => setSelectedCities(selectedCities.filter(city => city.id !== item.id))} className="btn btn-danger">X</button>
         </li>
       )})}
     </ul>
@@ -70,6 +70,7 @@ function CitySearch(props) {
             autoFocus
             formatResult={formatResult}
             maxResults={5}
+            placeholder="Enter location"
           />
         </div>
         <div>

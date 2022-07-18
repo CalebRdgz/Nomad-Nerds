@@ -13,6 +13,8 @@ function MainPage() {
         </div>
         <CitySearch/>
       </div>
+      <div className="footer-container">
+      </div>
     </div>
   );
 }
