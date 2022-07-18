@@ -30,16 +30,10 @@ function CitySearch(props) {
   const formatResult = (item) => {
     return (
       <>
-        {/* <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span> */}
         <span style={{ display: 'block', textAlign: 'left' }}>{item.city}, {item.admin_name}, {item.country}</span>
       </>
     )
   }
-
-  // function removeCity(item_key) {
-  //   setSelectedCities(selectedCities.filter())
-  // }
-
 
   const listSelectedCities = (city_list) => (
     <ul>
@@ -54,7 +48,7 @@ function CitySearch(props) {
       )})}
     </ul>
   )
-  console.log(selectedCities)
+
   return (
     <div className="Test">
       <header className="Test-header">
@@ -72,15 +66,11 @@ function CitySearch(props) {
             maxResults={5}
           />
         </div>
-        <div>
-          {listSelectedCities(selectedCities)}
-        </div>
       </header>
+      {listSelectedCities(selectedCities)}
     </div>
   )
   }
-      
-
 
 export default CitySearch
 
