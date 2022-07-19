@@ -1,41 +1,49 @@
-import Carousel from 'react-bootstrap/Carousel';
-import SF from './images/SF.png';
-import kayak from './images/kayak.png';
+import { Carousel } from 'react-bootstrap';
+import image from './images/kayak.png';
+import image2 from './images/grandcanyon.png';
+import image3 from './images/SF.png';
 
-
-function CarouselTest() {
+function CarouselFadeExample() {
   return (
-    <Carousel>
-      <Carousel.Item>
+    <Carousel fade className="carousel">
+        
+        <Carousel.Item>
         <img
           className="d-block w-100"
-          src={ SF }
+          src={ image } height={400}
           alt="First slide"
         />
+        <Carousel.Caption>
+          <h3>Nomad Nerds</h3>
+          <p>Connecting you to all your favorite activities and locations</p>
+        </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src={ kayak }
+          src={ image2 } height={400}
           alt="Second slide"
         />
+
+        <Carousel.Caption>
+            <h3>Nomad Nerds</h3>
+            <p>Connecting you to all your favorite activities and locations</p>
+        </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="holder.js/800x400?text=Third slide&bg=20232a"
+          src={ image3 } height={400}
           alt="Third slide"
         />
 
         <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+          <h3>Nomad Nerds</h3>
+          <p>Connecting you to all your favorite activities and locations</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
   );
 }
 
-export default CarouselTest;
+export default CarouselFadeExample;

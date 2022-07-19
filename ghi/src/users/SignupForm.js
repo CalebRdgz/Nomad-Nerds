@@ -48,7 +48,7 @@ function SignupForm(props) {
                       <label htmlFor="password">Password</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input onChange={e => setPassword(e.target.value)} 
+                      <input onChange={e => setFirstName(e.target.value)} 
                       placeholder="First Name" 
                       required type="text" 
                       name="first_name" 
@@ -76,7 +76,7 @@ function SignupForm(props) {
                       name="email" 
                       id="email" 
                       className="form-control" 
-                      value={password}
+                      value={email}
                       />
                       <label htmlFor="Email">Email</label>
                     </div>

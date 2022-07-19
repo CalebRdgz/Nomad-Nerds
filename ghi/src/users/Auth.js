@@ -6,7 +6,7 @@ export function getToken() {
 }
 
 async function getTokenInternal() {
-  const url = `${process.env.REACT_APP_ACCOUNT_API}/api/users/me/token/`;
+  const url = `http://localhost:8001/user/me/token/`;
   try {
     const response = await fetch(url, {
       credentials: 'include',
@@ -22,7 +22,7 @@ async function getTokenInternal() {
 
 
 async function getCurrentUser() {
-  const url = `${process.env.REACT_APP_ACCOUNT_API}/api/users/me/`;
+  const url = `http://localhost:8001/user/me/`;
   try {
     const response = await fetch(url, {
       credentials: 'include',
@@ -71,7 +71,7 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      const url = `${process.env.REACT_APP_ACCOUNT_API}/api/token/refresh/logout/`;
+      const url = `http://localhost:8001/token/refresh/logout/`;
       await fetch(url, { method: 'delete', credentials: 'include' });
       internalToken = null;
       setToken(null);
@@ -79,7 +79,7 @@ export function useToken() {
   }
 
   async function login(username, password) {
-    const url = `${process.env.REACT_APP_ACCOUNT_API}/login/`;
+    const url = `http://localhost:8001/login/`;
     const form = new FormData();
     form.append('username', username);
     form.append('password', password);
@@ -97,13 +97,14 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
-  async function signup(username, password, email, phone, first_name, last_name, is_owner, is_foodie) {
-    const url = `${process.env.REACT_APP_ACCOUNT_API}/api/users/`;
+  async function signup(username, password, email, first_name, last_name) {
+    const url = `http://localhost:8001/user/`;
     const response = await fetch(url, {
       method: 'post',
-      body: JSON.stringify({ username, password, email, first_name, last_name, phone, is_owner, is_foodie }),
+      body: JSON.stringify({ username, password, email, first_name, last_name }),
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }
     });
     if (response.ok) {

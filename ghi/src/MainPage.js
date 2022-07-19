@@ -1,21 +1,24 @@
-import CitySearch from './citySearch'
-import CarouselTest from './Carousel';
+import CitySearch from './citySearch';
+import background from './images/SF.png';
+import IndividualIntervals from './Carousel.js';
 
 function MainPage() {
     return (
-      <div className="wrapper" style={{ backgroundImage: `url(${background})`}}>
-        <div className="px-5 py-5 my-5 text-center">
+      // <div className="wrapper" style={{ backgroundImage: `url(${background})`}}>
+      <>
+      <IndividualIntervals />
+        {/* <div className="px-5 py-5 my-5 text-center">
           <h1 className="display-5 fw-bold">Nomad-Nerds</h1>
           <div className="col-lg-6 mx-auto">
             <p className="lead mb-30 pb-5">
               Connecting you to your favorite activities and locations!
             </p>
-          </div>
+            </div> */}
           <CitySearch/>
-        </div>
+        {/* </div> */}
         <div className="footer-container">
         </div>
-      </div>
+      </>
    
   );
 }

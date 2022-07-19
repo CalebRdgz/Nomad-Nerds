@@ -19,7 +19,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -28,29 +27,6 @@ SECRET_KEY = "django-insecure-nlshruui5ml-t7jetxo-n3cgvu&$h6x2j$nn2(!0if#7mi3up3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = [
-    'localhost',
-    'user',
-    os.environ.get("HOST_NAME", "127.0.0.1")
-]
-
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    'http://localhost:8000',
-    os.environ.get("CORS_HOST", "http://localhost:3001")
-]
-
-CORS_ALLOW_CREDENTIALS = True
-
-DJWTO_MODE = "TWO-COOKIES"
-DJWTO_CSRF = False
-DJWTO_ACCESS_TOKEN_LIFETIME = timedelta(days=1)
-DJWTO_SAME_SITE = "Lax" if DEBUG else "None"
-
-
 
 # Application definition
 
@@ -76,6 +52,29 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+# AUTH_USER_MODEL = "user_rest.User"
+
+ALLOWED_HOSTS = [
+    'localhost',
+    'user',
+    os.environ.get("HOST_NAME", "127.0.0.1")
+]
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    'http://localhost:8000',
+    os.environ.get("CORS_HOST", "http://localhost:3001")
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+DJWTO_MODE = "TWO-COOKIES"
+DJWTO_CSRF = False
+DJWTO_ACCESS_TOKEN_LIFETIME = timedelta(days=1)
+DJWTO_SAME_SITE = "Lax" if DEBUG else "None"
 
 ROOT_URLCONF = "user.urls"
 

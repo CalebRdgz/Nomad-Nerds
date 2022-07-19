@@ -1,32 +1,47 @@
-import { useState} from "react"
+import { useState, useEffect } from "react"
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import cities from "./worldcities.json"
 
 
-
-function CitySearch(props) {
-
+function CitySearchResult(props) {
   const [selectedCities, setSelectedCities] = useState([{city:'Denver', admin_name: 'Colorado', country: 'United States', id: 0}])
-
+  const [activities, setActivities] = useState([]);  
+  
+  useEffect(() => {
+    async function getActivities() {
+        const url = "http://localhost:8000/api-yelp/businesses/categories/?location=Denver&quantity=2";
+        // `https://localhost:8000/api-yelp/businesses/categories/?location=${selectedCities[0].city}&quantity=2`;
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+        console.log(response)
+        if (response.ok) {
+            console.log('ok')
+            const data = await response.json();
+            setActivities(data);
+            console.log(data)
+        }
+    }
+    getActivities();
+  }, [setActivities]);
   const handleOnSearch = (string, results) => {
       // onSearch will have as the first callback parameter
       // the string searched and for the second the results.
       console.log('OnSearch')
     }
-
   const handleOnHover = (result) => {
     // the item hovered
     console.log('OnHover')
   }
-
   const handleOnSelect = function (item)  {
     setSelectedCities([...selectedCities,{city: item.city, admin_name: item.admin_name, country: item.country, id: item.id}])
   }
-
   const handleOnFocus = () => {
     console.log('Focused')
   }
-
   const formatResult = (item) => {
     return (
       <>
@@ -35,12 +50,9 @@ function CitySearch(props) {
       </>
     )
   }
-
   // function removeCity(item_key) {
   //   setSelectedCities(selectedCities.filter())
   // }
-
-
   const listSelectedCities = (city_list) => (
     <ul>
       {city_list.map(item => {
@@ -54,7 +66,7 @@ function CitySearch(props) {
       )})}
     </ul>
   )
-  console.log(selectedCities)
+  
   return (
     <div className="Test">
       <header className="Test-header">
@@ -80,9 +92,7 @@ function CitySearch(props) {
     </div>
   )
   }
-      
-
-
-export default CitySearch
+// }
+export default CitySearchResult
 
 

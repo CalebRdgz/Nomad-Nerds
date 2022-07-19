@@ -1,7 +1,6 @@
 from common.json import ModelEncoder
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required
 from .models import Favorite, USER_MODEL
 import json
 from django.contrib.auth.models import User
@@ -28,7 +27,6 @@ class UserEncoder(ModelEncoder):
     ]
 
 
-@login_required
 @require_http_methods(["GET", "POST"])
 def user_favorites(request, pk):
     user = request.user
@@ -124,7 +122,7 @@ def user_token(request):
 
 
 @require_http_methods(["GET"])
-# @auth.jwt_login_required
+@auth.jwt_login_required
 def get_current_user(request):
 
     return JsonResponse(
