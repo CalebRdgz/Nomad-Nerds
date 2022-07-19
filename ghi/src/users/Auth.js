@@ -98,7 +98,7 @@ export function useToken() {
   }
 
   async function signup(username, password, email, first_name, last_name) {
-    const url = `http://localhost:8001/user/`;
+    const url = `http://localhost:8001/`;
     const response = await fetch(url, {
       method: 'post',
       body: JSON.stringify({ username, password, email, first_name, last_name }),

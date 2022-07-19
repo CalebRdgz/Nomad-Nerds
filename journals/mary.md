@@ -1,3 +1,8 @@
+## July 18, 2022
+* This morning, I was at a doctor's appointment throughout our entire project time, so I unfortunately did not get to contribute to any work. 
+* In the afternoon, I implemented a carousel of multiple images for our main page and styled it so the images fade and are sized accordingly. I also went back to the back-end user functionality and believe the login form is now functioning after rebuilding the docker containers and making migrations. Our sign up form is not currently functioning, however, so I'm trying to debug that.
+
+
 ## July 15, 2022
 * We spent a significant portion of today trying to get the user authentication functionality working, with initially using "session" and then switching to "jwt" and we still haven't gotten it to fully work, which has been frustrating. We created the signup and login forms using the both "session" and then "jwt," which we can hopefully get to work on Monday. I added a footer and then played around with some formatting of the main page and forms to improve the appearance of the site, but it still needs a lot of work. We discussed using a carousel of 3 location photos as a wrapper/background image for the main page.
 

@@ -3,47 +3,66 @@ import image from './images/kayak.png';
 import image2 from './images/grandcanyon.png';
 import image3 from './images/SF.png';
 
-function CarouselFadeExample() {
+function CarouselFade() {
   return (
     <Carousel fade className="carousel">
         
         <Carousel.Item>
+        <Carousel.Caption>
+          <div className="px-4 py-2 my-5 text-center">
+            <h1 className="display-5 fw-bold">Nomad Nerds</h1>
+              <div className="col-lg-6 mx-auto">
+                <p className="lead mb-30 pb-6">
+                  Connecting you to your favorite activities and locations!
+                </p>
+              </div>
+            </div>
+        </Carousel.Caption>
         <img
           className="d-block w-100"
           src={ image } height={400}
           alt="First slide"
         />
-        <Carousel.Caption>
-          <h3>Nomad Nerds</h3>
-          <p>Connecting you to all your favorite activities and locations</p>
-        </Carousel.Caption>
       </Carousel.Item>
+
       <Carousel.Item>
+        <Carousel.Caption>
+        <div className="px-4 py-2 my-5 text-center">
+            <h1 className="display-5 fw-bold">Nomad Nerds</h1>
+              <div className="col-lg-6 mx-auto">
+                <p className="lead mb-30 pb-5">
+                  Connecting you to your favorite activities and locations!
+                </p>
+              </div>
+            </div>
+        </Carousel.Caption>
         <img
           className="d-block w-100"
           src={ image2 } height={400}
           alt="Second slide"
         />
-
-        <Carousel.Caption>
-            <h3>Nomad Nerds</h3>
-            <p>Connecting you to all your favorite activities and locations</p>
-        </Carousel.Caption>
+        
       </Carousel.Item>
+
       <Carousel.Item>
+        <Carousel.Caption>
+          <div className="px-5 py-2 my-5 text-center">
+            <h1 className="display-5 fw-bold">Nomad Nerds</h1>
+              <div className="col-lg-6 mx-auto">
+                <p className="lead mb-30 pb-5">
+                  Connecting you to your favorite activities and locations!
+                </p>
+              </div>
+            </div>
+        </Carousel.Caption>
         <img
           className="d-block w-100"
           src={ image3 } height={400}
           alt="Third slide"
         />
-
-        <Carousel.Caption>
-          <h3>Nomad Nerds</h3>
-          <p>Connecting you to all your favorite activities and locations</p>
-        </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
   );
 }
 
-export default CarouselFadeExample;
+export default CarouselFade;
