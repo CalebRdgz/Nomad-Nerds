@@ -1,4 +1,4 @@
-import CitySearch from './citySearch'
+import CitySearch from './citySearch';
 import background from './images/SF.png';
 
 function MainPage() {
