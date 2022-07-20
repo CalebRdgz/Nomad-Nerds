@@ -88,9 +88,6 @@ function Signup(props) {
                       <button className="btn btn-primary" onClick={() => 
                         signup(username, password, email, first_name, last_name)} type="button">Sign Up</button>
                   </form>
-                  <NavLink to="/">
-                    Go to home
-                  </NavLink>
                 </div>
             </div>
         </div>
