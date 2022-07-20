@@ -1,3 +1,6 @@
+## July 19, 2022
+* Our whole team worked together today on getting the user authorization to function. We went step-by-step through the cookbook and even then, spent the entire day debugging. We finally got the login and logout functionality to work and our sign up page is partially working (not getting errors at least). We realized a few things along the way. One main realization was that when using djwto, the login and logout pages are somewhat predefined, so it isn't necessary to create specific URL paths within the user app for login and logout. We also realized that we weren't consistent with what we were using as "User" model, which led to errors with user sign up. Hopefully now that we have authentication mostly debugged, we can focus on the functionality and appearance of the application.
+
 ## July 18, 2022
 * This morning, I was at a doctor's appointment throughout our entire project time, so I unfortunately did not get to contribute to any work. 
 * In the afternoon, I implemented a carousel of multiple images for our main page and styled it so the images fade and are sized accordingly. I also went back to the back-end user functionality and believe the login form is now functioning after rebuilding the docker containers and making migrations. Our sign up form is not currently functioning, however, so I'm trying to debug that.
