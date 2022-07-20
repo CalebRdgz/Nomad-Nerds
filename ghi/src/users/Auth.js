@@ -81,7 +81,7 @@ export function useToken() {
       internalToken = null;
       console.log('token', token)
       setToken(null);
-      navigate("/");
+      window.location.reload();
     } else {
       console.log('not logged out')
     }
