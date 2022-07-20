@@ -1,5 +1,4 @@
 import requests
-
 import os
 
 cities = ['Denver']
@@ -17,12 +16,16 @@ def businesses_request(categories=[], location="NYC", quantity=1):
             "categories": ",".join(categories),
         }
         res = requests.get(url, headers=headers, params=params)
+<<<<<<< HEAD
         print("res", res)
+=======
+        print(res, "hello")
+>>>>>>> main
         data += res.json()["businesses"]
     return data
 
 
-def category_request(categories=[], quantity=2):
+def category_request(categories=[], quantity=2, cities=cities):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
     data = []
@@ -36,7 +39,11 @@ def category_request(categories=[], quantity=2):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
+<<<<<<< HEAD
             print("res", res)
+=======
+            print(res, "hello")
+>>>>>>> main
             data += res.json()["businesses"]
     return data
 
