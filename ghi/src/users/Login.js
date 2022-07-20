@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useToken } from './Auth';
 
 
-function LoginForm(props) {
+function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login, token } = props;
-
+  const [token,login] = useToken();
+  console.log("token", token)
 
   if (token) {
     return <Navigate to='/' />;
@@ -52,4 +53,4 @@ function LoginForm(props) {
   );
 }
 
-export default LoginForm;
+export default Login;
