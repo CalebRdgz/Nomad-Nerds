@@ -1,3 +1,7 @@
+## July 19th, 2022
+
+* Today the group and I all walked through the authorization feature of the app. After following Curtis's cookbook and hours of troubleshooting with the instructors and seirs, we have finally made some notable progress.
+
 ## July 14, 2022
 
 * Today I worked on creating a search bar which auto completes with suggestions for city locations.

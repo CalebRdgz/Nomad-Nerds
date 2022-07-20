@@ -15,9 +15,9 @@ function Footer() {
           {/* Column2 */}
           <div className="col">
             <h4>About our company</h4>
-            <ui className="list-unstyled">
+            <ul className="list-unstyled">
               <li>Nomad-Nerds</li>
-            </ui>
+            </ul>
           </div>
           {/* Column3 */}
           <div className="col">
