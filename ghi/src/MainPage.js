@@ -14,7 +14,7 @@ function MainPage() {
               Connecting you to your favorite activities and locations!
             </p>
             </div> */}
-          {/* <CitySearch/> */}
+          <CitySearch/>
         {/* </div> */}
         <div className="footer-container">
         </div>

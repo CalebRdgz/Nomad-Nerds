@@ -1,20 +1,20 @@
 import React from 'react';
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Nav from './Nav';
 import MainPage from './MainPage';
 import { useToken } from './users/Auth';
 import Footer from './Footer';
 import Login from './users/Login';
-import SignupForm from './users/SignupForm';
-import UserFavorites from './UserFavorites';
+import Signup from './users/SignupForm';
+import Favorites from './users/Favorites';
 import Logout from './users/Logout';
 import { AuthProvider } from './users/Auth';
 
 
 
 function App () {
-  const [token, login, logout, signup, user] = useToken();
+  const [token, login, logout, signup, user, favorites] = useToken();
   const [userName, setUserName] = useState('');
 
   if (user && !userName) {
@@ -29,10 +29,10 @@ function App () {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="user">
-            <Route path="signup" element={<SignupForm token={token} signup={signup} setUN={setUserName}/>} />
+            <Route path="signup" element={<Signup token={token} signup={signup} setUN={setUserName}/>} />
             <Route path="login" element={<Login token={token} login={login} setUN={setUserName}/>} />
             <Route path="logout" element={<Logout logout={logout}/>} />
-            {/* <Route path="favorites" element={<UserFavorites favorites={this.state.favorites}/>} /> */}
+            <Route path="favorites" element={<Favorites token={token} username={userName} />} />
           </Route>
         </Routes>
         <Footer />

@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from './Auth';
 
 
-function SignupForm(props) {
+function Signup(props) {
+    let navigate = useNavigate();
     const { token } = useAuthContext();
-    const [username, setUsername] = useState('');
-    const [first_name, setFirstName] = useState('');
-    const [last_name, setLastName] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState("");
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const { signup } = props;
     console.log('token', token)
-  
+    
   if (token) {
+    console.log('yes', token)
     return <Navigate to='/' />;
   }
   var handleUserName = function (e) {
@@ -21,12 +23,13 @@ function SignupForm(props) {
     setUsername(value)
     props.setUN(value)
   }
+
   return (
     <div className="row">
             <div className="offset-3 col-6">
               <div className="shadow p-4 mt-4">
                 <h1>Sign Up</h1>
-                  <form>
+                  <form >
                     <div className="form-floating mb-3">
                       <input onChange={handleUserName} 
                       placeholder="Username" 
@@ -85,10 +88,13 @@ function SignupForm(props) {
                       <button className="btn btn-primary" onClick={() => 
                         signup(username, password, email, first_name, last_name)} type="button">Sign Up</button>
                   </form>
+                  <NavLink to="/">
+                    Go to home
+                  </NavLink>
                 </div>
             </div>
         </div>
   );
 }
 
-export default SignupForm;
+export default Signup;

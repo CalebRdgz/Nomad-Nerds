@@ -75,15 +75,15 @@ export function useToken() {
 
   async function logout() {
     if (login) {
-      console.log('hello')
+      console.log('logging out')
       const url = `${process.env.REACT_APP_USER}/api/token/refresh/logout/`;
       await fetch(url, { method: "delete", credentials: "include" });
-      console.log('token', token)
       internalToken = null;
+      console.log('token', token)
       setToken(null);
       navigate("/");
     } else {
-      console.log('nope')
+      console.log('not logged out')
     }
   }
 
@@ -122,7 +122,8 @@ export function useToken() {
       },
     });
     if (response.ok) {
-      await login(username, password, email, firstName, lastName);
+      await login(username, password);
+      navigate("/");
     }
     return false;
   }

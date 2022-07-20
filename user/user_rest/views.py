@@ -23,6 +23,7 @@ class UserEncoder(ModelEncoder):
     ]
 
 
+@auth.jwt_login_required
 @require_http_methods(["GET", "POST"])
 def user_favorites(request, pk):
     user = request.user
@@ -49,6 +50,7 @@ def user_favorites(request, pk):
             response = JsonResponse({"message": "Could not create this favorite"})
             response.status_code = 404
             return response
+
 
 @auth.jwt_login_required
 @require_http_methods(["DELETE"])
