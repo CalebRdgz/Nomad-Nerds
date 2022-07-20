@@ -6,3 +6,12 @@
 
 ## July 13th, 2022
 * I had some underlying issues with docker on my end that took most of my day to figure out, but eventually got everything to work for now. 
+
+## July 14th, 2022
+
+
+## July 18th, 2022
+
+
+## July 19th, 2022
+* With Mary showing her screen, we went through the authentication cookbook to finally fix some user errors we have been dealing with for the past couple of days
