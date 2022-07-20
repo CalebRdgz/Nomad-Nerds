@@ -1,22 +1,26 @@
 import { NavLink } from 'react-router-dom';
+import { useToken } from './users/Auth';
 import './index.css';
 
-export const loggedinLinks = [
+export const loggedIn = [
   { name: "Logout", path:"user/logout/"},
   { name: "Favorites", path:"user/favorites/"}
 ]
 
-export const loggedoutLinks = [
+export const loggedOut = [
   { name: "Login", path:"user/login/" },
   { name: "Signup", path:"user/signup/"}
 ]
 
-// const classIfLoggedIn = "navbar-nav";
-// const classIfNotLoggedIn = "navbar-nav";
+const ifLoggedIn = "navbar-nav";
+const ifLoggedOut = "navbar-nav";
 
 
 function Nav(props) {
-  const links = props.token ? loggedinLinks : loggedoutLinks;
+  const [token] = useToken();
+  const links = token ? loggedIn : loggedOut;
+  console.log('props.token', props.token)
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -25,20 +29,18 @@ function Nav(props) {
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0"></ul>
-            <ul className="nav-item">
-              <NavLink aria-current="page" to="user/signup/">Signup</NavLink>
-            </ul>
-            <ul className="nav-item">
-              <NavLink aria-current="page" to="user/login/">Login</NavLink>
-            </ul>
-            <ul className="nav-item">
-              <NavLink aria-current="page" to="user/logout/">Logout</NavLink>
-            </ul>
-            <ul className="nav-item">
-              <NavLink aria-current="page" to="user/favorites/">Favorites</NavLink>
-            </ul>
+        <div className='collapse navbar-collapse' id='navbarCollapse'>
+          <ul
+            className={props.token ? ifLoggedIn : ifLoggedOut}
+          >
+            {links.map((link, index) => (
+              <NavLink key={index} to={link.path}>
+                <button className='btn button-39 mx-5'>
+                  {link.name}
+                </button>
+              </NavLink>
+            ))}
+          </ul>
         </div>
     </div>
     </nav>

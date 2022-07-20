@@ -21,7 +21,7 @@ function App () {
     setUserName(user.username)
   }
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
     return (
       <AuthProvider>
