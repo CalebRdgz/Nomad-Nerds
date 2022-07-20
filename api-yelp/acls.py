@@ -1,5 +1,4 @@
 import requests
-
 import os
 
 cities = ['Denver']
@@ -17,6 +16,7 @@ def businesses_request(categories=[], location="NYC", quantity=1):
             "categories": ",".join(categories),
         }
         res = requests.get(url, headers=headers, params=params)
+        print(res, "hello")
         data += res.json()["businesses"]
     return data
 
@@ -35,6 +35,7 @@ def category_request(categories=[], quantity=2):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
+            print(res, "hello")
             data += res.json()["businesses"]
     return data
 

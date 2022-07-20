@@ -3,6 +3,7 @@ import background from './images/SF.png';
 
 function MainPage() {
     return (
+    <>
     <div className="wrapper" style={{ backgroundImage: `url(${background})`}}>
       <div className="px-5 py-5 my-5 text-center">
         <h1 className="display-5 fw-bold">Nomad-Nerds</h1>
@@ -11,11 +12,28 @@ function MainPage() {
             Connecting you to your favorite activities and locations!
           </p>
         </div>
-        <CitySearch/>
-      </div>
-      <div className="footer-container">
       </div>
     </div>
+
+
+        <div className = "container">
+          <div className = "row">
+            <div className = "col">
+            <h6>City Search</h6>
+            <CitySearch/>
+            </div>
+            <div className = "col">
+            <h6>Category Search</h6>
+            <p></p>
+            </div>
+          </div>
+        </div>
+
+    
+      {/* <div className="footer-container">
+      </div> */}
+    </>
+
   );
 }
   

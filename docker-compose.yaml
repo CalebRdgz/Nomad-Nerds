@@ -50,7 +50,7 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
-      REACT_APP_API-YELP: http://localhost:8000
+      REACT_APP_API_YELP: http://localhost:8000
       REACT_APP_USER: http://localhost:8001
       REACT_APP_THIRD_PARTY_SERVICE: https://api.yelp.com/v3
   pgadmin:
