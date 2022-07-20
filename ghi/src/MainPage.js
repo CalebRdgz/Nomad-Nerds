@@ -1,11 +1,17 @@
+import CitySearch from './citySearch';
 import CategorySearch from './CategorySearch'
 import CitySearch from './citySearch'
 import background from './images/SF.png';
+import CarouselFade from './Carousel.js';
 
 
 function MainPage() {
     return (
-    <>
+      <>
+      <CarouselFade />
+          <CitySearch/>
+          <div className="footer-container">
+        </div>
       <div className="wrapper" style={{ backgroundImage: `url(${background})`}}>
         <div className="px-5 py-5 my-5 text-center">
           <h1 className="display-5 fw-bold">Nomad-Nerds</h1>

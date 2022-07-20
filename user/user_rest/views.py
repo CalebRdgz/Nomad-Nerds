@@ -1,8 +1,7 @@
 from common.json import ModelEncoder
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required
-from .models import Favorite, USER_MODEL
+from .models import Favorite
 import json
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -18,17 +17,13 @@ class FavoriteEncoder(ModelEncoder):
     ]
 
 class UserEncoder(ModelEncoder):
-    model = USER_MODEL
+    model = User
     properties = [
-        "id",
         "username",
-        "email",
-        "first_name",
-        "last_name"
     ]
 
 
-@login_required
+@auth.jwt_login_required
 @require_http_methods(["GET", "POST"])
 def user_favorites(request, pk):
     user = request.user
@@ -57,6 +52,7 @@ def user_favorites(request, pk):
             return response
 
 
+@auth.jwt_login_required
 @require_http_methods(["DELETE"])
 def user_delete_favorite(request, pk):
     user = request.user
@@ -69,7 +65,7 @@ def user_delete_favorite(request, pk):
 
 
 @require_http_methods(["GET", "POST"])
-def user_list(request):
+def users(request):
     if request.method == "POST":
         try:
             content = json.loads(request.body)
@@ -80,8 +76,10 @@ def user_list(request):
                 first_name=content["first_name"],
                 last_name=content["last_name"],
             )
+            print('user',type(user.username))
             return JsonResponse(
-                {"user": user},
+                {"username": user},
+                safe = False,
                 encoder=UserEncoder,
             )
         except IntegrityError:
@@ -111,20 +109,18 @@ def get_specific_user(request, pk):
             }
         )
 
-
 @require_http_methods(["GET"])
 def user_token(request):
     if "jwt_access_token" in request.COOKIES:
         token = request.COOKIES["jwt_access_token"]
         if token:
             return JsonResponse({"token": token})
-    response = JsonResponse({"detail": "no session"})
-    response.status_code = 404
+    response = JsonResponse({"token": None})
     return response
 
 
 @require_http_methods(["GET"])
-# @auth.jwt_login_required
+@auth.jwt_login_required
 def get_current_user(request):
 
     return JsonResponse(

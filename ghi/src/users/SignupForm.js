@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { useAuthContext } from './Auth';
 
 
-function SignupForm(props) {
-    const { token, signup } = props;
-    const [username, setUsername] = useState('');
-    const [first_name, setFirstName] = useState('');
-    const [last_name, setLastName] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-
-  
+function Signup(props) {
+    let navigate = useNavigate();
+    const { token } = useAuthContext();
+    const [username, setUsername] = useState("");
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const { signup } = props;
+    console.log('token', token)
+    
   if (token) {
+    console.log('yes', token)
     return <Navigate to='/' />;
   }
   var handleUserName = function (e) {
@@ -19,12 +23,13 @@ function SignupForm(props) {
     setUsername(value)
     props.setUN(value)
   }
+
   return (
     <div className="row">
             <div className="offset-3 col-6">
               <div className="shadow p-4 mt-4">
-                <h1>Signup</h1>
-                  <form>
+                <h1>Sign Up</h1>
+                  <form >
                     <div className="form-floating mb-3">
                       <input onChange={handleUserName} 
                       placeholder="Username" 
@@ -48,9 +53,9 @@ function SignupForm(props) {
                       <label htmlFor="password">Password</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input onChange={e => setPassword(e.target.value)} 
+                      <input onChange={e => setFirstName(e.target.value)} 
                       placeholder="First Name" 
-                      required type="text" 
+                      type="text" 
                       name="first_name" 
                       id="first_name" 
                       className="form-control" 
@@ -61,7 +66,7 @@ function SignupForm(props) {
                     <div className="form-floating mb-3">
                       <input onChange={e => setLastName(e.target.value)} 
                       placeholder="Last Name" 
-                      required type="text" 
+                      type="text" 
                       name="last_name" 
                       id="last_name" 
                       className="form-control" 
@@ -72,16 +77,16 @@ function SignupForm(props) {
                     <div className="form-floating mb-3">
                       <input onChange={e => setEmail(e.target.value)} 
                       placeholder="Email" 
-                      required type="email" 
+                      type="email" 
                       name="email" 
                       id="email" 
                       className="form-control" 
-                      value={password}
+                      value={email}
                       />
                       <label htmlFor="Email">Email</label>
                     </div>
                       <button className="btn btn-primary" onClick={() => 
-                        signup(username, password, first_name, last_name, email)} type="button">Login</button>
+                        signup(username, password, email, first_name, last_name)} type="button">Sign Up</button>
                   </form>
                 </div>
             </div>
@@ -89,122 +94,4 @@ function SignupForm(props) {
   );
 }
 
-export default SignupForm;
-
-
-
-
-// export default function SignUpForm() {
-
-//     const [username, setUsername] = useState('');
-//     const [password, setPassword] = useState('');
-//     const [submitted, setSubmitted] = useState(false);
-//     const [error, setError] = useState(false);
-    
-//     useEffect
-
-//     const handleUsername = (e) => {
-//         setUsername(e.target.value);
-//         setSubmitted(false);
-//     };
-
-
-//     const handlePassword = (e) => {
-//         setPassword(e.target.value);
-//         setSubmitted(false);
-//     };
-
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         if (username === '' || password === '' ) {
-//             setError(true);
-//         } else {
-//             setSubmitted(true);
-//             setError(false);
-//             setUsername("");
-//             setPassword("");
-//         }
-//     };
-
-//     const successMessage = () => {
-//         return (
-//             <div className="success" style={{ display: submitted ? '' : 'none', }}>
-//                 <h1>User {username} successfully registered!</h1>
-//             </div>
-//         );
-//     };
-
-
-//     const errorMessage = () => {
-//         return (
-//             <div className="error" style={{ display: error ? '' : 'none', }}>
-//                 <h1>Please enter all the fields</h1>
-//             </div>
-//         );
-//     };
-
-// return (
-//     <div className="row">
-//     <div className="offset-3 col-6">
-//       <div className="shadow p-4 mt-4">
-//         <h1>Sign up</h1>
-//         <div className="messages">
-//             {errorMessage()}
-//             {successMessage()}
-//         </div>
-//         <form id="signup">
-//           <div className="form-floating mb-3">
-//             <input 
-//                 onChange={handleUsername} 
-//                 className="form-control" 
-//                 id="username" 
-//                 name="username" 
-//                 value={username} 
-//                 required type="text" 
-//             />
-//             <label className="label">Username</label>
-//           </div>
-//           <div className="form-floating mb-3">
-//             <input 
-//                 onChange={handleEmail} 
-//                 className="form-control"
-//                 id="email"
-//                 name="email" 
-//                 value={email} 
-//                 required type="email" 
-//             />
-//             <label className="label">Email</label>
-//           </div>
-//           <div className="form-floating mb-3">
-//             <input 
-//                 onChange={handlePassword} 
-//                 className="form-control"
-//                 id="password"
-//                 name="password" 
-//                 value={password} 
-//                 required type="password" 
-//             />
-//             <label className="password">Password</label>
-//           </div>
-//           <div className="form-floating mb-3">
-//             <input 
-//                 onChange={handlePassword2} 
-//                 className="form-control" 
-//                 name="password2" 
-//                 value={password2} 
-//                 required type="password2" 
-//             />
-//             <label className="label">Password</label>
-//           </div>
-//             <button 
-//                 onClick={handleSubmit} 
-//                 className="btn btn-primary" 
-//                 type="submit">Submit
-//             </button>
-//         </form>
-//     </div>
-//     </div>
-//     </div>
-//     );
-// }
+export default Signup;

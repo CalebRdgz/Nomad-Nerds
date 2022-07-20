@@ -1,40 +1,25 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 let internalToken = null;
 
 export function getToken() {
   return internalToken;
 }
 
-async function getTokenInternal() {
-  const url = `${process.env.REACT_APP_ACCOUNT_API}/api/users/me/token/`;
+export async function getTokenInternal() {
+  const url = `${process.env.REACT_APP_USER}/user/me/token/`;
   try {
     const response = await fetch(url, {
-      credentials: 'include',
+      credentials: "include",
     });
     if (response.ok) {
       const data = await response.json();
       internalToken = data.token;
       return internalToken;
     }
-  } catch (e) { }
+  } catch (e) {}
   return false;
 }
-
-
-async function getCurrentUser() {
-  const url = `${process.env.REACT_APP_ACCOUNT_API}/api/users/me/`;
-  try {
-    const response = await fetch(url, {
-      credentials: 'include',
-    });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-  } catch (e) { }
-  return false;
-}
-
 
 function handleErrorMessage(error) {
   if ("error" in error) {
@@ -42,50 +27,74 @@ function handleErrorMessage(error) {
     try {
       error = JSON.parse(error);
       if ("__all__" in error) {
-        error = error.__all__
+        error = error.__all__;
       }
-    } catch { }
+    } catch {}
   }
   if (Array.isArray(error)) {
     error = error.join("<br>");
-  } else if (typeof (error) === "object") {
-    error = Object.entries(error).reduce((acc, x) => `${acc}<br>${x[0]}: ${x[1]}`, '');
+  } else if (typeof error === "object") {
+    error = Object.entries(error).reduce(
+      (acc, x) => `${acc}<br>${x[0]}: ${x[1]}`,
+      ""
+    );
   }
   return error;
 }
 
-export function useToken() {
+export const AuthContext = createContext({
+  token: null,
+  setToken: () => null,
+});
+
+export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
+
+  return (
+    <AuthContext.Provider value={{ token, setToken }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuthContext = () => useContext(AuthContext);
+
+export function useToken() {
+  const { token, setToken } = useAuthContext();
+  const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchToken() {
       const token = await getTokenInternal();
       setToken(token);
-      const userData = await getCurrentUser();
-      setUser(userData);
     }
     if (!token) {
       fetchToken();
     }
-  }, [token]);
+  }, [setToken, token]);
 
   async function logout() {
-    if (token) {
-      const url = `${process.env.REACT_APP_ACCOUNT_API}/api/token/refresh/logout/`;
-      await fetch(url, { method: 'delete', credentials: 'include' });
+    if (login) {
+      console.log('logging out')
+      const url = `${process.env.REACT_APP_USER}/api/token/refresh/logout/`;
+      await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
+      console.log('token', token)
       setToken(null);
+      window.location.reload();
+    } else {
+      console.log('not logged out')
     }
   }
 
   async function login(username, password) {
-    const url = `${process.env.REACT_APP_ACCOUNT_API}/login/`;
+    const url = `${process.env.REACT_APP_USER}/login/`;
     const form = new FormData();
-    form.append('username', username);
-    form.append('password', password);
+    form.append("username", username);
+    form.append("password", password);
     const response = await fetch(url, {
-      method: 'post',
-      credentials: 'include',
+      method: "post",
+      credentials: "include",
       body: form,
     });
     if (response.ok) {
@@ -97,20 +106,48 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
-  async function signup(username, password, email, phone, first_name, last_name, is_owner, is_foodie) {
-    const url = `${process.env.REACT_APP_ACCOUNT_API}/api/users/`;
+  async function signup(username, password, email, firstName, lastName) {
+    const url = `${process.env.REACT_APP_USER}/user/signup/`;
     const response = await fetch(url, {
-      method: 'post',
-      body: JSON.stringify({ username, password, email, first_name, last_name, phone, is_owner, is_foodie }),
+      method: "post",
+      body: JSON.stringify({
+        username,
+        password,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+      }),
       headers: {
-        'Content-Type': 'application/json',
-      }
+        "Content-Type": "application/json",
+      },
     });
     if (response.ok) {
-      return await login(username, password);
+      await login(username, password);
+      navigate("/");
     }
-    return handleErrorMessage(await response.json());
+    return false;
   }
 
-  return [token, login, logout, signup, user];
+  // async function update(username, password, email, firstName, lastName) {
+  //   const url = `${process.env.REACT_APP_USER}/user/accounts/`;
+  //   const response = await fetch(url, {
+  //     method: "post",
+  //     body: JSON.stringify({
+  //       username,
+  //       password,
+  //       email,
+  //       first_name: firstName,
+  //       last_name: lastName,
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     await login(username, password);
+  //   }
+  //   return false;
+  // }
+
+  return [token, login, logout, signup];
 }
