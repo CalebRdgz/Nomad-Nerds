@@ -44,12 +44,14 @@ def get_categories(location: str, quantity: int = 2):
 
 
 @yelp_router.get("/api-yelp/businesses/categories/search/")
-def get_locations(categories: str, quantity: int = 2):
+def get_locations(categories: str, quantity: int = 2, cities: str = 'NYC'):
+    cities = cities.split(';')
+    print(cities)
     raw_data = category_request(
         categories=[
             categories,
         ],
-        quantity=quantity,
+        quantity=quantity, cities = cities
     )
     locations = {}
     local_list = []
