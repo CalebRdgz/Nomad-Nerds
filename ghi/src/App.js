@@ -31,7 +31,7 @@ function App () {
             {/* <Route path="favorites" element={<UserFavorites favorites={this.state.favorites}/>} /> */}
           </Route>
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     );
 }

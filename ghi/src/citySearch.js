@@ -1,12 +1,36 @@
-import { useState} from "react"
+import { useState, useEffect } from "react"
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import cities from "./worldcities.json"
 
 
 
-function CitySearch(props) {
+function CitySearchResult(props) {
 
   const [selectedCities, setSelectedCities] = useState([{city:'Denver', admin_name: 'Colorado', country: 'United States', id: 0}])
+  const [categories, setCategories] = useState([]);  
+
+  useEffect(() => {
+    async function getCategories() {
+        const fetchConfig = {
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${selectedCities[0].city}&quantity=2`;
+        console.log(url, 'this is url')
+        const response = await fetch(url, fetchConfig);
+        console.log(response, 'this is response')
+        if (response.ok) {
+            console.log('got response')
+            const data = await response.json();
+            setCategories(data);
+        }
+    }
+    getCategories();
+  }, [setCategories],
+  console.log(categories, "this is categories")
+  );
 
   const handleOnSearch = (string, results) => {
       // onSearch will have as the first callback parameter
@@ -54,7 +78,8 @@ function CitySearch(props) {
       )})}
     </ul>
   )
-  console.log(selectedCities)
+  
+
   return (
     <div className="Test">
       <header className="Test-header">
@@ -76,13 +101,22 @@ function CitySearch(props) {
         <div>
           {listSelectedCities(selectedCities)}
         </div>
+        {/* <div>
+            <ul>
+                {categories.map(category => (
+                    <li key = {activity.categories}>
+                        {activity.categories}
+                    </li>
+                ))}
+            </ul>
+        </div> */}
       </header>
     </div>
   )
   }
-      
+// }
 
 
-export default CitySearch
+export default CitySearchResult
 
 

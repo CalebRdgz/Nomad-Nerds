@@ -1,3 +1,16 @@
+## July 19, 2022
+Today we worked on:
+* Authentication using DJWTO.  We had difficulty with 403 forbidden error.  Later, we found out that we didn't need to create url for login page in the backend, because DJWTO does it for us when we include in the project URL.  We saw that when it authenticated the user, it created a token.  Then we were able to nullify token when user logs out.  
+
+## July 18, 2022
+Today I worked on:
+* Fetching to fastAPI using useEffect.  I was able to fetch and get data of list and count of categories.  I had difficulty with figuring out URL to fetch using ${process.env.REACT_APP_API_YELP}.  It worked after rebuilding the docker. 
+
+
+## July 15, 2022
+Today we worked on:
+* Frontend portion of sign up, login, and logout. We successfully made login page that creates a session when user logs in.  But we were not sure of how to create sign up that uses a session (cookie).  We decided to use JWT for authentication and rebuilt the frontend portion. 
+
 ## July 14, 2022
 Today we worked on:
 * Setting up signup in the backend.  We tried to set up a custom user model using AbstractUser in Django.  However, we had a hard time making migrations.  We reverted back to the Django generic user model after realizing that it has all the functionalities that we need.  We created a signup.html template that can be accessed on localhost:8001 (Django port).  Mary created signup.js using React yesterday.  I'm still searching for ways to integrate Django and React authentication while keeping it secure.
