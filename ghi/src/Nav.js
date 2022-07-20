@@ -19,7 +19,7 @@ const ifLoggedOut = "navbar-nav";
 function Nav(props) {
   const [token] = useToken();
   const links = token ? loggedIn : loggedOut;
-  console.log('props.token', props.token)
+  console.log('token', token)
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +31,7 @@ function Nav(props) {
         </button>
         <div className='collapse navbar-collapse' id='navbarCollapse'>
           <ul
-            className={props.token ? ifLoggedIn : ifLoggedOut}
+            className={token ? ifLoggedIn : ifLoggedOut}
           >
             {links.map((link, index) => (
               <NavLink key={index} to={link.path}>
