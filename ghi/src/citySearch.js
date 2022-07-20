@@ -4,7 +4,7 @@ import cities from "./worldcities.json"
 
 
 
-function CitySearchResult(props) {
+function CitySearch(props) {
 
   const [selectedCities, setSelectedCities] = useState([{city:'Denver', admin_name: 'Colorado', country: 'United States', id: 0}])
   const [categories, setCategories] = useState([]);  
@@ -117,6 +117,6 @@ function CitySearchResult(props) {
 // }
 
 
-export default CitySearchResult
+export default CitySearch
 
 

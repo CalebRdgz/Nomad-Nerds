@@ -1,4 +1,5 @@
 import CategorySearch from './CategorySearch'
+import CitySearch from './citySearch'
 import background from './images/SF.png';
 
 
@@ -26,6 +27,9 @@ function MainPage() {
           <div className='col'>
             <div className="d-flex justify-content-center">
               City Search
+            </div>
+            <div className="d-flex justify-content-center">
+              <CitySearch/>
             </div>
           </div>
         </div>
