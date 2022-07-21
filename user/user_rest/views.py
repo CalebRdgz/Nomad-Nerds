@@ -76,7 +76,6 @@ def users(request):
                 first_name=content["first_name"],
                 last_name=content["last_name"],
             )
-            print('user',type(user.username))
             return JsonResponse(
                 {"username": user},
                 safe = False,

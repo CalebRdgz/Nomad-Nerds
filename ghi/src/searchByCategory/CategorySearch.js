@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-import cities from "./worldcities.json"
-import categories from "./categories.json"
+import cities from "../worldcities.json"
+import categories from "./categories_id.json"
 import categories_id from './categories_id.json'
+import { useNavigate } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 
 
 
@@ -13,6 +15,7 @@ function CategorySearch(props) {
   const [selectedCategory, setSelectedCategory] = useState()
   const [rankedCities, setRankedCities] = useState()
 
+  const navigate = useNavigate()
 
   const handleOnCitySearch = (string, results) => {
     // onSearch will have as the first callback parameter
@@ -52,26 +55,29 @@ function CategorySearch(props) {
     console.log(result)
   }
 
+
   const handleOnCategorySelect = function (item) {
     setSelectedCategory(item['alias'])
     console.log(item.alias)
+    navigate('category', {state:{category: item, cities: selectedCities}})
 
-    
-  useEffect(() => {
-    async function getRankedCities() {
-      const cities_formatted = selectedCities.join('%3B').replaceAll(',', '%2C').replaceAll(' ','%20')
-      const url = `${process.env.REACT_APP_API-YELP}/api-yelp/businesses/categories/${selectedCategory}&quantity=2cities=${cities_formatted}`
-      const response = await fetch(url)
-      if (response.ok) {
-        const data = await response.json()
-        setRankedCities(data)
-      }
-    }
-    getRankedCities()
-  }, [setRankedCities])
-      
-    // Call api using the category
   }
+  
+  // useEffect(() => {
+  //   async function getRankedCities() {
+  //     const cities_formatted = selectedCities.join('%3B').replaceAll(',', '%2C').replaceAll(' ','%20')
+  //     console.log(url)
+  //     const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/${selectedCategory}&quantity=2cities=${cities_formatted}`
+  //     const response = await fetch(url)
+  //     if (response.ok) {
+  //       const data = await response.json()
+  //       setRankedCities(data)
+  //     }
+  //   }
+  //   getRankedCities()
+  // }, [setRankedCities])
+      
+  
 
   const handleOnCategoryFocus = () => {
     console.log('Focused')
@@ -84,23 +90,6 @@ function CategorySearch(props) {
       </>
     )
   }
-
-  // function listRankedCities(city_list) {
-  //   return (
-  //     <div className="container vertical-scrollable" style={{maxHeight:150, overflow: 'scroll'}}>
-  //       {city_list.map(item => {
-  //         return (
-  //           <div key={item.id} className="row">
-  //             <div className="col-10">
-  //               {item.city}, {item.admin_name}, {item.country}
-  //             </div>
-  //             <div className="col-2">
-  //               <button onClick={() => setSelectedCities(selectedCities.filter(city => city.id !== item.id))} className="btn btn-xs btn-danger">X</button>
-  //             </div>
-  //           </div>
-  //       )})}
-  //     </div>
-  //   )}
 
 
   function listSelectedCities(city_list) {

@@ -27,7 +27,6 @@ class BusinessListEncoder(ModelEncoder):
 )
 def api_businesses(request):
     raw_data = businesses_request()
-    print(raw_data)
     # Data manipulation for desired info
     # Create instances of Business
     # Return list of businesses

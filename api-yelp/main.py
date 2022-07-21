@@ -1,10 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from businesses import yelp_router
-<<<<<<< HEAD
-=======
 from fastapi.middleware.cors import CORSMiddleware
->>>>>>> main
 import os
 
 app = FastAPI()
@@ -17,24 +14,14 @@ def read_root():
     return {"Testing": "123"}
 
 origins = [
-<<<<<<< HEAD
-    'http://localhost/8000',
-]
-
-=======
     "http://localhost:3000",
     "http://localhost",
     os.environ.get("CORS_HOST", None),
 ]
->>>>>>> main
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-<<<<<<< HEAD
 )
-=======
-)
->>>>>>> main

@@ -10,6 +10,7 @@ import Signup from './users/SignupForm';
 import Favorites from './users/Favorites';
 import Logout from './users/Logout';
 import { AuthProvider } from './users/Auth';
+import CityList from './searchByCategory/CityList';
 
 
 
@@ -34,6 +35,7 @@ function App () {
             <Route path="logout" element={<Logout logout={logout}/>} />
             <Route path="favorites" element={<Favorites token={token} username={userName} />} />
           </Route>
+          <Route path="category" element={<CityList />} />
         </Routes>
         <Footer />
       </AuthProvider>
