@@ -1,11 +1,13 @@
 import requests
 import os
 
+## Given multiple categories and a single location, return list of businesses 
 cities = ['Denver']
 def businesses_request(categories=[], location="NYC", quantity=1):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
     data = []
+    categories.extend(['shopping', 'nightlife', 'hotelstravel', 'arts', 'active'])
     print(quantity)
     for offset in range(0, quantity * 50, 50):
         params = {
@@ -16,15 +18,11 @@ def businesses_request(categories=[], location="NYC", quantity=1):
             "categories": ",".join(categories),
         }
         res = requests.get(url, headers=headers, params=params)
-<<<<<<< HEAD
-        print("res", res)
-=======
         print(res, "hello")
->>>>>>> main
         data += res.json()["businesses"]
     return data
 
-
+## Given multiple categories and multiple locations, return list of businesses
 def category_request(categories=[], quantity=2, cities=cities):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
@@ -39,20 +37,16 @@ def category_request(categories=[], quantity=2, cities=cities):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
-<<<<<<< HEAD
-            print("res", res)
-=======
             print(res, "hello")
->>>>>>> main
             data += res.json()["businesses"]
     return data
 
-def category_suggestions(text=''):
-    url = 'https://api.yelp.com/v3/autocomplete'
-    headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
-    params = {
-        "text": text,
-    }
-    res =  requests.get(url, headers=headers, params=params)
-    data = res.json()
-    return data
+# def category_suggestions(text=''):
+#     url = 'https://api.yelp.com/v3/autocomplete'
+#     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
+#     params = {
+#         "text": text,
+#     }
+#     res =  requests.get(url, headers=headers, params=params)
+#     data = res.json()
+#     return data
