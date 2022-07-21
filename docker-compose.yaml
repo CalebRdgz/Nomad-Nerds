@@ -54,9 +54,6 @@ services:
       REACT_APP_API_YELP: http://localhost:8000
       REACT_APP_USER: http://localhost:8001
       REACT_APP_THIRD_PARTY_SERVICE: https://api.yelp.com/v3
-      API_FLICKR_URL: https://api.flickr.com/services
-      API_FLICKR_KEY: ${API_FLICKR_KEY}
-      API_FLICKR_SECRET: ${API_FLICKR_SECRET}
   pgadmin:
     image: dpage/pgadmin4
     volumes:

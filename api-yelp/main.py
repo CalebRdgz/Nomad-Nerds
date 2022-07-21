@@ -1,6 +1,6 @@
 from fastapi import fastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from buesinesses
+from businesses import yelp_router
 import os
 
 app = FastAPI()

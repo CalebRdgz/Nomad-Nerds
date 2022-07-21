@@ -1,4 +1,4 @@
-import CitySearch from './citySearch';
+import CitySearch from './searchByCity/citySearch';
 import CategorySearch from './CategorySearch'
 import CarouselFade from './Carousel.js';
 import Container from 'react-bootstrap/Container';
