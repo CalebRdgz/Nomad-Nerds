@@ -1,15 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import { useToken } from './users/Auth';
+import Button from 'react-bootstrap/Button';
 import './index.css';
 
 export const loggedIn = [
-  { name: "Logout", path:"user/logout/"},
-  { name: "Favorites", path:"user/favorites/"}
+  { name: "Favorites", path:"user/mine/favorites/"},
+  { name: "Logout", path:"user/logout/"}
 ]
 
 export const loggedOut = [
-  { name: "Login", path:"user/login/" },
-  { name: "Signup", path:"user/signup/"}
+  { name: "Signup", path:"user/signup/"},
+  { name: "Login", path:"user/login/" }
 ]
 
 const ifLoggedIn = "navbar-nav";
@@ -35,9 +36,9 @@ function Nav(props) {
           >
             {links.map((link, index) => (
               <NavLink key={index} to={link.path}>
-                <button className='btn button-39 mx-5'>
+                <Button variant="outline-secondary">
                   {link.name}
-                </button>
+                </Button>
               </NavLink>
             ))}
           </ul>

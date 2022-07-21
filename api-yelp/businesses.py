@@ -65,6 +65,7 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'NYC'):
     sorted_local_list = sorted(local_list, key=lambda x: x[1], reverse=True)
     return {"count": len(locations), "categories": sorted_local_list}
 
+
 @yelp_router.get("/api-yelp/businesses/categories/match/")
 def get_category_suggestions(text: str):
     categories = []
@@ -73,3 +74,5 @@ def get_category_suggestions(text: str):
         categories.append([cat['title']])
     return categories
 
+@yelp_router.get("/api/yelp/businesses/detail")
+def get_business_detail 

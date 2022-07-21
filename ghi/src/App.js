@@ -7,14 +7,14 @@ import { useToken } from './users/Auth';
 import Footer from './Footer';
 import Login from './users/Login';
 import Signup from './users/SignupForm';
-import Favorites from './users/Favorites';
+import Favorites from './Favorites';
 import Logout from './users/Logout';
 import { AuthProvider } from './users/Auth';
 
 
 
 function App () {
-  const [token, login, logout, signup, user, favorites] = useToken();
+  const [token, login, logout, signup, user] = useToken();
   const [userName, setUserName] = useState('');
 
   if (user && !userName) {
@@ -32,7 +32,7 @@ function App () {
             <Route path="signup" element={<Signup token={token} signup={signup} setUN={setUserName}/>} />
             <Route path="login" element={<Login token={token} login={login} setUN={setUserName}/>} />
             <Route path="logout" element={<Logout logout={logout}/>} />
-            <Route path="favorites" element={<Favorites token={token} username={userName} />} />
+            <Route path="mine/favorites" element={<Favorites token={token} username={userName}/>} />
           </Route>
         </Routes>
         <Footer />
