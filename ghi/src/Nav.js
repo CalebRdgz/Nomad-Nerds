@@ -26,11 +26,14 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/"><img
+        <NavLink className="navbar-brand" to="/">
+          <img
           className="d-block w-100"
-          src={ logo } height={40} />
+          src={ logo } height={40} 
+          />
         </NavLink>
-        <div className='collapse navbar-collapse' id='navbarCollapse'>
+        <div className="fw-bold" to="/">Nomad Nerds</div>
+        <div className='collapse navbar-collapse justify-content-end' id='navbarCollapse'>
           <ul
             className={token ? ifLoggedIn : ifLoggedOut}
           >
