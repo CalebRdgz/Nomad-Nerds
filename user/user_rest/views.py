@@ -25,9 +25,10 @@ class UserEncoder(ModelEncoder):
 
 @auth.jwt_login_required
 @require_http_methods(["GET", "POST"])
-def user_favorites(request, pk):
-    user = request.user
-    if request.method == "GET" and request.user.is_authenticated:
+def user_favorites(request):
+    user = request.user.username
+    if request.method == "GET":
+        print('user', user)
         favorites = Favorite.objects.filter(pk=user)
         return JsonResponse(
             {"favorites": favorites},
@@ -129,6 +130,16 @@ def get_current_user(request):
         }
     )
 
+# @require_http_methods(["GET"])
+# @auth.jwt_login_required
+# def get_current_user_favorites(request):
+
+#     return JsonResponse(
+#         {
+#             "id": request.payload["user"]["id"],
+#             "username": request.payload["user"]["username"],
+#         }
+#     )
 
 
 

@@ -37,9 +37,9 @@ html {
 /* --------- FOOTER --------- */
 
 .main-footer {
-  color: white;
-  background-color: #c7c7c4;
-  margin-top: 10em;
+  color: rgb(44, 44, 44);
+  background-color: rgb(230, 229, 229);
+  margin-top: 20em;
   position: relative;
   bottom: 0;
   width: 100%;
@@ -54,7 +54,7 @@ html {
 /* --------- NAVBAR --------- */
 
 .navbar {
-  background-color: rgb(98, 97, 97);
+  background-color: rgb(230, 229, 229);
 }
 
 

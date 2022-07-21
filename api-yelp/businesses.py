@@ -4,9 +4,7 @@ import psycopg
 import os
 from acls import businesses_request, category_request, get_business
 
-
 yelp_router = APIRouter()
-
 
 class BusinessOut(BaseModel):
     business_id: int
@@ -15,11 +13,14 @@ class BusinessOut(BaseModel):
     country: str
     categories: list
     rating: float
-
-
 class BusinessesOut(BaseModel):
     businesses: list[BusinessOut]
 
+## May not Need
+# @yelp_router.get("/api-yelp/businesses/")
+# def get_businesses(categories: str, quantity: int = 2):
+#     raw_data = businesses_request(categories, quantity=quantity)
+#     return {"count": len(raw_data), "businesses": raw_data}
 
 ## Input a location: Return List of ranked Categories (Right side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/")
@@ -36,7 +37,7 @@ def get_categories(location: str, quantity: int = 2):
         cat_list.append((key, value))
     sorted_cat_list = sorted(cat_list, key=lambda x: x[1], reverse=True)
     return {"count": len(categories), "categories": sorted_cat_list}
-
+## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/search/")
@@ -60,6 +61,7 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
     sorted_local_list = sorted(local_list, key=lambda x: x[1], reverse=True)
     return {"categories": sorted_local_list}
 
+
 ## Input a category and Location: Return a list of ranked Businesses
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
@@ -79,5 +81,3 @@ def get_business_info(id: str):
     data['rating'] = raw_data['rating']
     print(data)
     return data
-
-

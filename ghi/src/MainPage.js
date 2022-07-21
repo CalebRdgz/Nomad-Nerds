@@ -1,31 +1,21 @@
-import CitySearch from './citySearch';
-import CategorySearch from './searchByCategory/CategorySearch'
-import background from './images/SF.png';
+import CitySearch from './searchByCity/citySearch';
+import CategorySearch from './CategorySearch'
 import CarouselFade from './Carousel.js';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 function MainPage() {
     return (
       <>
       <CarouselFade />
-      <div className='container'>
-        <div className='row'>
-          <div className='col'>
-            <div className="d-flex justify-content-center">
-              Category Search
-            </div>
-            <CategorySearch/>
-          </div>
-          <div className='col'>
-            <div className="d-flex justify-content-center">
-              <div className="d-flex justify-content-center">
-                City Search
-              </div>
-              <CitySearch/>
-            </div>
-          </div>
-        </div>
-      </div>  
+      <Container>
+        <Row>
+          <Col>Category Search<CategorySearch/></Col>
+          <Col>City Search<CitySearch/></Col>
+        </Row>
+      </Container>
     </>
   );
 }
