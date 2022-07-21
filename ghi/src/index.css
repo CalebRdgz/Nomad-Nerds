@@ -21,19 +21,25 @@ html {
   background-repeat: no-repeat;
 }
 
+
+
+/* --------- FORMS --------- */
 .form-control {
   width: 60%;
 }
-
 
 .btn {
   max-height: 40px;
 }
 
+
+
+/* --------- FOOTER --------- */
+
 .main-footer {
   color: white;
   background-color: #c7c7c4;
-  padding-top: 3em;
+  margin-top: 10em;
   position: relative;
   bottom: 0;
   width: 100%;
@@ -43,6 +49,29 @@ html {
   color: black;
 }
 
-.navbar navbar-expand-lg {
-  background-color: gray;
+
+
+/* --------- NAVBAR --------- */
+
+.navbar {
+  background-color: rgb(98, 97, 97);
+}
+
+
+
+/* --------- CAROUSEL --------- */
+
+/* img {
+  opacity: 0.8;
+} */
+
+.head-text {
+  position: relative;
+}
+
+.text-on-image {
+ position: absolute;
+ right: 50%;
+ left: 50%;
+ bottom: 15%;
 }
