@@ -88,6 +88,7 @@ function CitySearch(props) {
             autoFocus
             formatResult={formatResult}
             maxResults={5}
+            placeholder="Enter a City"
           />
         </div>
       </header>

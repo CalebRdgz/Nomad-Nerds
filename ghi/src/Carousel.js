@@ -1,6 +1,6 @@
 import { Carousel } from 'react-bootstrap';
-import image from './images/kayak.png';
-import image2 from './images/grandcanyon.png';
+import image from './images/chicago.png';
+import image2 from './images/barcelona.png';
 import image3 from './images/SF.png';
 
 function CarouselFade() {
@@ -29,8 +29,8 @@ function CarouselFade() {
         <Carousel.Caption>
         <div className="px-4 py-2 my-5 text-center">
             <h1 className="display-5 fw-bold">Nomad Nerds</h1>
-              <div className="col-lg-6 mx-auto">
-                <p className="lead mb-30 pb-5">
+            <div className="col-lg-6 mx-auto">
+                <p className="lead mb-30 pb-6">
                   Connecting you to your favorite activities and locations!
                 </p>
               </div>
@@ -48,8 +48,8 @@ function CarouselFade() {
         <Carousel.Caption>
           <div className="px-5 py-2 my-5 text-center">
             <h1 className="display-5 fw-bold">Nomad Nerds</h1>
-              <div className="col-lg-6 mx-auto">
-                <p className="lead mb-30 pb-5">
+            <div className="col-lg-6 mx-auto">
+                <p className="lead mb-30 pb-6">
                   Connecting you to your favorite activities and locations!
                 </p>
               </div>

@@ -25,7 +25,7 @@ function App () {
 
     return (
       <AuthProvider>
-      <Nav token={token}/>
+      <Nav token={token} username={userName}/>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="user">

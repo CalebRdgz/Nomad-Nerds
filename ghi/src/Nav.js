@@ -1,45 +1,47 @@
 import { NavLink } from 'react-router-dom';
 import { useToken } from './users/Auth';
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import logo from './images/logo.png';
 import './index.css';
 
 export const loggedIn = [
   { name: "Favorites", path:"user/mine/favorites/"},
-  { name: "Logout", path:"user/logout/"}
+  { name: "Log Out", path:"user/logout/"}
 ]
 
 export const loggedOut = [
-  { name: "Signup", path:"user/signup/"},
-  { name: "Login", path:"user/login/" }
+  { name: "Log In", path:"user/login/" },
+  { name: "Sign Up", path:"user/signup/"}
 ]
 
 const ifLoggedIn = "navbar-nav";
 const ifLoggedOut = "navbar-nav";
 
 
-function Nav(props) {
+function Nav() {
   const [token] = useToken();
   const links = token ? loggedIn : loggedOut;
-  console.log('token', token)
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">Nomad Nerds</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        <NavLink className="navbar-brand" to="/"><img
+          className="d-block w-100"
+          src={ logo } height={40} />
+        </NavLink>
         <div className='collapse navbar-collapse' id='navbarCollapse'>
           <ul
             className={token ? ifLoggedIn : ifLoggedOut}
           >
             {links.map((link, index) => (
-              <NavLink key={index} to={link.path}>
-                <Button variant="outline-secondary">
+              <li className="px-2" key={index}>
+                <NavLink to={link.path}>
+                <Button variant="outline-secondary" >
                   {link.name}
                 </Button>
               </NavLink>
+              </li>
             ))}
           </ul>
         </div>
