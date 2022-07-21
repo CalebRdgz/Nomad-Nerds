@@ -57,18 +57,18 @@ function CategorySearch(props) {
     console.log(item.alias)
 
     
-  useEffect(() => {
-    async function getRankedCities() {
-      const cities_formatted = selectedCities.join('%3B').replaceAll(',', '%2C').replaceAll(' ','%20')
-      const url = `${process.env.REACT_APP_API-YELP}/api-yelp/businesses/categories/${selectedCategory}&quantity=2cities=${cities_formatted}`
-      const response = await fetch(url)
-      if (response.ok) {
-        const data = await response.json()
-        setRankedCities(data)
-      }
-    }
-    getRankedCities()
-  }, [setRankedCities])
+  // useEffect(() => {
+  //   async function getRankedCities() {
+  //     const cities_formatted = selectedCities.join('%3B').replaceAll(',', '%2C').replaceAll(' ','%20')
+  //     const url = `${process.env.REACT_APP_API-YELP}/api-yelp/businesses/categories/${selectedCategory}&quantity=2cities=${cities_formatted}`
+  //     const response = await fetch(url)
+  //     if (response.ok) {
+  //       const data = await response.json()
+  //       setRankedCities(data)
+  //     }
+  //   }
+  //   getRankedCities()
+  // }, [setRankedCities])
       
     // Call api using the category
   }
@@ -126,7 +126,6 @@ function CategorySearch(props) {
       <div className='row gy-5'>
         <div className='col' style={{paddingBottom: 150}}>
           <div className='d-flex justify-content-center'>
-            Input your category
           </div>
           <div style={{ width: 400 }}>
            <ReactSearchAutocomplete
@@ -139,7 +138,7 @@ function CategorySearch(props) {
               formatResult={formatCategoryResult}
               maxResults={5}
               handleOnSearch={handleOnCategorySearch}
-              placeholder="Enter a Category"
+              placeholder="Seach for a category"
               handleOnHover={handleOnCategoryHover}
               handleOnFocus={handleOnCategoryFocus}
               />
@@ -148,7 +147,6 @@ function CategorySearch(props) {
       <div className='row'>
         <div className='col' style={{paddingBottom: 150}}>
           <div className='d-flex justify-content-center'>
-            Input a location
           </div>
           <div style={{ width: 400 }}>
            <ReactSearchAutocomplete
@@ -160,7 +158,7 @@ function CategorySearch(props) {
               formatResult={formatCityResult}
               maxResults={5}
               handleOnSearch={handleOnCitySearch}
-              placeholder="Enter location"
+              placeholder="Search for a location"
               handleOnHover={handleOnCityHover}
               handleOnFocus={handleOnCityFocus}
               />
