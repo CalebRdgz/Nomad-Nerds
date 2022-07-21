@@ -57,18 +57,18 @@ function CategorySearch(props) {
     console.log(item.alias)
 
     
-  useEffect(() => {
-    async function getRankedCities() {
-      const cities_formatted = selectedCities.join('%3B').replaceAll(',', '%2C').replaceAll(' ','%20')
-      const url = `${process.env.REACT_APP_API-YELP}/api-yelp/businesses/categories/${selectedCategory}&quantity=2cities=${cities_formatted}`
-      const response = await fetch(url)
-      if (response.ok) {
-        const data = await response.json()
-        setRankedCities(data)
-      }
-    }
-    getRankedCities()
-  }, [setRankedCities])
+  // useEffect(() => {
+  //   async function getRankedCities() {
+  //     const cities_formatted = selectedCities.join('%3B').replaceAll(',', '%2C').replaceAll(' ','%20')
+  //     const url = `${process.env.REACT_APP_API-YELP}/api-yelp/businesses/categories/${selectedCategory}&quantity=2cities=${cities_formatted}`
+  //     const response = await fetch(url)
+  //     if (response.ok) {
+  //       const data = await response.json()
+  //       setRankedCities(data)
+  //     }
+  //   }
+  //   getRankedCities()
+  // }, [setRankedCities])
       
     // Call api using the category
   }

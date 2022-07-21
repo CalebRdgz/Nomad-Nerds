@@ -42,7 +42,6 @@ def get_categories(location: str, quantity: int = 2):
     sorted_cat_list = sorted(cat_list, key=lambda x: x[1], reverse=True)
     return {"count": len(categories), "categories": sorted_cat_list}
 
-
 @yelp_router.get("/api-yelp/businesses/categories/search/")
 def get_locations(categories: str, quantity: int = 2, cities: str = 'NYC'):
     cities = cities.split(';')
@@ -73,3 +72,17 @@ def get_category_suggestions(text: str):
         categories.append([cat['title']])
     return categories
 
+# @yelp_router.get("/api-yelp/businesses/categories/detail")
+# def get_categories_detail(location: str, quantity: int = 2):
+#     raw_data = businesses_request(location=location, quantity=quantity)
+#     categories = {}
+#     cat_list = []
+#     for business in raw_data:
+#         for cat in business["categories"]:
+#             if cat["alias"] not in categories:
+#                 categories[cat["alias"]] = 0
+#             categories[cat["alias"]] += 1
+#     for key, value in categories.items():
+#         cat_list.append((key, value))
+#     sorted_cat_list = sorted(cat_list, key=lambda x: x[1], reverse=True)
+#     return {"count": len(categories), "categories": sorted_cat_list}
