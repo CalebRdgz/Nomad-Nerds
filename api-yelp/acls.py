@@ -1,28 +1,22 @@
 import requests
 import os
 
-## Given multiple categories and a single location, return list of businesses 
 cities = ['Denver']
-def businesses_request(categories=[], location="NYC", quantity=1):
+def businesses_request(categories='', location="NYC", quantity=1):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
     data = []
-    categories.extend(['shopping', 'nightlife', 'hotelstravel', 'arts', 'active'])
-    print(quantity)
     for offset in range(0, quantity * 50, 50):
         params = {
             "location": location,
             "limit": 50,
             "offset": offset,
             "sort_by": "rating",
-            "categories": ",".join(categories),
+            "categories": categories,
         }
         res = requests.get(url, headers=headers, params=params)
-        print(res, "hello")
         data += res.json()["businesses"]
     return data
-
-## Given multiple categories and multiple locations, return list of businesses
 def category_request(categories=[], quantity=2, cities=cities):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
@@ -37,16 +31,11 @@ def category_request(categories=[], quantity=2, cities=cities):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
-            print(res, "hello")
             data += res.json()["businesses"]
     return data
-
-# def category_suggestions(text=''):
-#     url = 'https://api.yelp.com/v3/autocomplete'
-#     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
-#     params = {
-#         "text": text,
-#     }
-#     res =  requests.get(url, headers=headers, params=params)
-#     data = res.json()
-#     return data
+def get_business(id = ''):
+    url = "https://api.yelp.com/v3/businesses/{}".format(id)
+    headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
+    res = requests.get(url, headers=headers)
+    data = res.json()
+    return data
