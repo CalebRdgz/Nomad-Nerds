@@ -32,7 +32,7 @@ function Nav() {
           src={ logo } height={40} 
           />
         </NavLink>
-        <div className="fw-bold" to="/">Nomad Nerds</div>
+        <div className="fw-bold" to="/"></div>
         <div className='collapse navbar-collapse justify-content-end' id='navbarCollapse'>
           <ul
             className={token ? ifLoggedIn : ifLoggedOut}
