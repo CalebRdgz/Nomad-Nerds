@@ -12,10 +12,10 @@ function CategoryList() {
     const category = location.state.category
     let formatted_businesses = businesses.map(business => 
         [business.id, business.name, business.image_url, business.rating, 
-            business.location.display_address, business.price])
+            business.location.display_address[0], business.location.display_address[1],
+            business.price])
     console.log('businesses', businesses)
     console.log('formatted_businesses', formatted_businesses)
-    // console.log('businesses', businesses)
     let formatted_categories = categories.map(category => [category.id, category.name])
     console.log('formatted_categories', formatted_categories)
     const id = location.state
@@ -63,7 +63,7 @@ function CategoryList() {
             }
         }
         getBusinesses();
-    }, []);
+    }, [category]);
   
     return (
         <div class="container-fluid py-2">
@@ -72,12 +72,13 @@ function CategoryList() {
             {formatted_businesses.map((business, index) =>
             <div key={index}>
                 <Card style={{ width: '18rem' }}>
-                <Card.Title>{ business[1] }</Card.Title>
                 <Card.Img variant="top" src={ business[2] } height={200} />
+                <Card.Title>{ business[1] }</Card.Title>
                     <Card.Body>
                         <Card.Text>
-                        Address: { business[4] } <br />
-                        Price: { business[5] } <br />
+                        { business[4] } <br />
+                        {business[5]} <br />
+                        Price: { business[6] } <br />
                         Rating: { business[3] }
                         </Card.Text>
                         <Button variant="light">❤️️</Button>
@@ -90,6 +91,9 @@ function CategoryList() {
             
     )
 }
+
+export default CategoryList
+
 //   const listBusinesses = (categories) => {
 //         businesses.map(business=>)
 
@@ -111,4 +115,3 @@ function CategoryList() {
 //   )
 //   }
 
-export default CategoryList

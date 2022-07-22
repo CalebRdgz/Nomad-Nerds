@@ -83,3 +83,8 @@ html {
   min-width: 300px;
   margin-right: 5px;
 }
+
+.scroll__container {
+  display: flex;
+  overflow-x: auto;
+}
