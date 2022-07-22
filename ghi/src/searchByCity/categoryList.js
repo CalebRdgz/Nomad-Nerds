@@ -1,4 +1,4 @@
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -16,9 +16,7 @@ function CategoryList() {
             business.price])
     console.log('businesses', businesses)
     console.log('formatted_businesses', formatted_businesses)
-    let formatted_categories = categories.map(category => [category.id, category.name])
-    console.log('formatted_categories', formatted_categories)
-    const id = location.state
+
 
     useEffect(() => {
     async function getCategories() {
@@ -53,7 +51,7 @@ function CategoryList() {
                 },
             };
 
-            const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${city}&quantity=2`;
+            const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${city}&quantity=1`;
             const response = await fetch(url, fetchConfig);
             console.log(response, 'this is business response')
             if (response.ok) {
@@ -63,13 +61,20 @@ function CategoryList() {
             }
         }
         getBusinesses();
-    }, [category]);
+    }, []);
   
     return (
-        <div class="container-fluid py-2">
-        <h2 class="font-weight-light">Category</h2>
-            <div class="d-flex flex-row flex-nowrap">
-            {formatted_businesses.map((business, index) =>
+        // <ul className="user-profiles-list-basic">
+        //     {categories.slice(0, 9).map((category, index) =>
+        //     <div key={index}>
+        //         <h1>{ category }</h1>
+        //     </div>
+        //     )}
+        // </ul>
+        <div className="container-fluid py-2">
+        <h2 className="font-weight-light">Category</h2>
+            <div className="d-flex flex-row flex-nowrap">
+            {formatted_businesses.slice(0,19).map((business, index) =>
             <div key={index}>
                 <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={ business[2] } height={200} />
@@ -93,25 +98,3 @@ function CategoryList() {
 }
 
 export default CategoryList
-
-//   const listBusinesses = (categories) => {
-//         businesses.map(business=>)
-
-
-//     </div>
-
-
-
-//   const listCategories = (categories) => 
-//         {categories.map(category=>
-//             listBusinesses(category)
-//         )}
-
-
-//   return(
-//     <div>
-//         {listCategories(categories)}
-//     </div>
-//   )
-//   }
-
