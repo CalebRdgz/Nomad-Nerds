@@ -9,8 +9,8 @@ function CityList() {
 
     const category = location.state.category.alias
     const cities = location.state.cities
+    
     let formatted_cities = cities.map(city => [city.city, city.admin_name, city.country].join(',')).join(';')
-
     // useEffect(() => {
     //     async function getPhotos() {
     //         const fetchConfig = {
@@ -62,9 +62,9 @@ function CityList() {
             }
             const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/search/?categories=${category}&quantity=2&cities=${formatted_cities}`
             const response = await fetch(url, fetchConfig)
+            
             if (response.ok) {
                 const data = await response.json()
-
                 setRankedCities(data)
                 
             }

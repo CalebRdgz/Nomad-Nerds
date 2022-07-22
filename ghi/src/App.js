@@ -12,6 +12,7 @@ import Logout from './users/Logout';
 import { AuthProvider } from './users/Auth';
 import CityList from './searchByCategory/CityList';
 import CategoryList from './searchByCity/categoryList';
+import CategorySearch from './searchByCategory/CategorySearch';
 
 
 

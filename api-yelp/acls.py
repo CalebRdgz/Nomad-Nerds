@@ -1,8 +1,8 @@
 import requests
 import os
 
-
-def businesses_request(categories='', location="", quantity=1):
+## Input a categories and location
+def businesses_request(categories='', location='', quantity=1):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
     data = []
