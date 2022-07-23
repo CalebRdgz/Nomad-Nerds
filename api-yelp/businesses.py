@@ -66,7 +66,7 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
     raw_data = businesses_request(categories=category, location=location, quantity=quantity)
-    return raw_data
+    return {"businesses": raw_data}
 
 
 ## Input a business ID: Return business Info + Pic
