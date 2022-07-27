@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 import psycopg
 import os
-from acls import businesses_request, category_request, get_business
+from acls import businesses_request, category_request, get_business, categories_request
 
 yelp_router = APIRouter()
 
@@ -25,7 +25,7 @@ class BusinessesOut(BaseModel):
 ## Input a location: Return List of ranked Categories (Right side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/")
 def get_categories(location: str, quantity: int = 2):
-    raw_data = businesses_request(location=location, quantity=quantity)
+    raw_data = categories_request(location=location, quantity=quantity)
     categories = {}
     cat_list = []
     for business in raw_data:
@@ -66,7 +66,8 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
     raw_data = businesses_request(categories=category, location=location, quantity=quantity)
-    return {"businesses": raw_data}
+    return raw_data
+    # return {"count": len(raw_data), "businesses": raw_data}
 
 
 ## Input a business ID: Return business Info + Pic
