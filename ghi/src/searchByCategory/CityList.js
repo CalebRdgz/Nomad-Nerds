@@ -78,6 +78,27 @@ function CityList() {
         return ( <div>LOADING</div>)
     }
 
+    useEffect(() => {
+        async function getCities() {
+            const fetchConfig = {
+                method: 'get',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Accept': 'application/json'
+                }
+            }
+            const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/search/?categories=${category}&quantity=2&cities=${formatted_cities}`
+            const response = await fetch(url, fetchConfig)
+            
+            if (response.ok) {
+                const data = await response.json()
+                setRankedCities(data)
+                
+            }
+        }
+        getCities()
+    }, [category])
+            
 
     return (
         <ul className="user-profiles-list-basic">
