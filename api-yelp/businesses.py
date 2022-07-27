@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 import psycopg
 import os
-from acls import businesses_request, category_request, get_business
+from acls import businesses_request, category_request, get_business, categories_request
 
 yelp_router = APIRouter()
 
@@ -25,18 +25,22 @@ class BusinessesOut(BaseModel):
 ## Input a location: Return List of ranked Categories (Right side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/")
 def get_categories(location: str, quantity: int = 2):
-    raw_data = businesses_request(location=location, quantity=quantity)
+    raw_data = categories_request(location=location, quantity=quantity)
     categories = {}
+    titles = {}
     cat_list = []
     for business in raw_data:
         for cat in business["categories"]:
             if cat["alias"] not in categories:
                 categories[cat["alias"]] = 0
             categories[cat["alias"]] += 1
+            if cat["alias"] not in titles:
+                titles[cat["alias"]] = cat["title"]
+    print("titles", titles)
     for key, value in categories.items():
-        cat_list.append((key, value))
-    sorted_cat_list = sorted(cat_list, key=lambda x: x[1], reverse=True)
-    return {"count": len(categories), "categories": sorted_cat_list}
+        cat_list.append((key, titles[key], value))
+    sorted_cat_list = sorted(cat_list, key=lambda x: x[2], reverse=True)
+    return {"categories": sorted_cat_list}
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
@@ -66,7 +70,8 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
     raw_data = businesses_request(categories=category, location=location, quantity=quantity)
-    return {"businesses": raw_data}
+    return raw_data
+    # return {"count": len(raw_data), "businesses": raw_data}
 
 
 ## Input a business ID: Return business Info + Pic
