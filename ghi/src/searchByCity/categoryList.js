@@ -2,26 +2,29 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import ScrollMenu from 'react-horizontal-scrolling-menu';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function CategoryList() {
     const location = useLocation();
     const [categories, setCategories] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const city = (location.state.city.city).replace(/ /g, '%20');
+    
     async function getCategories() {
         const fetchConfig = {
             method: "get",
             headers: {
+                "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
             },
         };
         const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${city}&quantity=1`;
         const response = await fetch(categories_url, fetchConfig);
         if (response.ok) {
-            //   console.log('got category response')
             const data = await response.json();
-            setCategories(data["categories"].map((category) => category[0]));
+            setCategories(data["categories"]);
         }
     }
     
@@ -39,10 +42,9 @@ function CategoryList() {
     function getBusinesses() {
         if (categories && categories.length > 0) {
             Promise.all(categories.slice(0, 5)
-                .map(category => fetchBusinesses(category, city)
+                .map(category => fetchBusinesses(category[0], city)
                     .then(res => res.json())
-                    .then(data => ({[category]: data}))))
-                // .then(data => data.reduce((acc, category)=>({...acc, ...category}),{}))
+                    .then(data => ({[category[1]]: data}))))
                 .then(data => setBusinesses(data))
         }
     }
@@ -55,13 +57,15 @@ function CategoryList() {
     console.log('businesses', businesses)
 
     return (
-        <ul className="user-profiles-list-basic">
+        <ul>
             {businesses.map((business, index) => (
             <div key={index}>
               <h1>{Object.keys(business)}</h1>
+                <Container className="container-fluid">
+                <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
-                    <div key={idx}>
-                        <Card style={{ width: '18rem' }}>
+                        <Col key={idx} className="col-3">
+                        <Card>
                         <Card.Img variant="top" src={store.image_url} height={200} />
                             <Card.Title>{store.name}</Card.Title>
                             <Card.Body>
@@ -74,8 +78,10 @@ function CategoryList() {
                             <Button variant="light">❤️️</Button>
                             </Card.Body>
                         </Card>
-                    </div>
+                        </Col>
                 ))}
+                </Row>
+                </Container> 
                 </div>
                             
             ))}

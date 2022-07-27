@@ -84,30 +84,3 @@ html {
   margin-right: 5px;
 }
 
-.scroll-images {
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-.scroll-images::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
-  background-color: #aaa;
-}
-
-.scroll-images::-webkit-scrollbar-thumb {
-  background-color: black;
-}
-
-.child {
-  width: 120px;
-  height: 100px;
-  margin: 1px 10px;
-  overflow: hidden;
-}

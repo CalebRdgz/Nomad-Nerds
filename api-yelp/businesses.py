@@ -27,16 +27,20 @@ class BusinessesOut(BaseModel):
 def get_categories(location: str, quantity: int = 2):
     raw_data = categories_request(location=location, quantity=quantity)
     categories = {}
+    titles = {}
     cat_list = []
     for business in raw_data:
         for cat in business["categories"]:
             if cat["alias"] not in categories:
                 categories[cat["alias"]] = 0
             categories[cat["alias"]] += 1
+            if cat["alias"] not in titles:
+                titles[cat["alias"]] = cat["title"]
+    print("titles", titles)
     for key, value in categories.items():
-        cat_list.append((key, value))
-    sorted_cat_list = sorted(cat_list, key=lambda x: x[1], reverse=True)
-    return {"count": len(categories), "categories": sorted_cat_list}
+        cat_list.append((key, titles[key], value))
+    sorted_cat_list = sorted(cat_list, key=lambda x: x[2], reverse=True)
+    return {"categories": sorted_cat_list}
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
