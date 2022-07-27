@@ -1,5 +1,5 @@
 import CitySearch from './searchByCity/citySearch';
-import CategorySearch from './searchByCategory/CategorySearch'
+import CategorySearch from './searchByCategory/CategorySearch';
 import CarouselFade from './Carousel.js';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';

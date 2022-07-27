@@ -1,9 +1,26 @@
+## July 26, 2022
+* Today, the group worked together on trying to complete the category list page. We decided that both search result pages should have the same format. We struggled to get the businesses listed for category list, as it requires one map function nested inside another map function but is also an object with a key of categories and values of another object with the key being "businesses" and the value being an array of business objects. It felt like a lot to wrap our minds around at the time, but Emma was able to get the nested map function to work soon after class was over today.
+
+
+## July 25, 2022
+* Today, I missed out on the group project time.
+
+
+## July 22, 2022
+* Today, we had very limited time to work on the project because of mandatory fun. Emma and I worked on getting the category list functions to work. We got some help from Zynh to apply 2 use effects within the same component, but this seems to be causing errors because of both categories and businesses loading asynchronously.
+
+
+## July 21, 2022
+* Today, before lunch we had very limited time so we decided on a logo. After lunch, the team worked together on adding fastapi functions (get_business_list and get_business_info) and determining what each function that was previously written was doing. We then tried to determine how we would map through filtered categories and list relevant businesses, but are still struggling with figuring out how to do this. Later this evening, I worked on created business cards by just mapping through unfiltered business data provided by searching for a specific city, state just to get an idea of what that would look like. I decided to add more information than our group initially decided on because sometimes having more information about a business (like address and price range) can be nice. We'll have to re-address the listing of top categories and businesses based on those categories in the upcoming days.
+
+
 ## July 20, 2022
 * This morning, I worked on getting the navbar to show only relevant links based on whether a user is logged in or not. I spent the rest of the morning and early afternoon initially trying to figure out how our user favorites page would work but realized I cannot do that until after we've created the activity categories and locations pages. When I realized this, I started to pair-program with Emma to work on functionality of the "city" search and list pages.
 
 
 ## July 19, 2022
 * Our whole team worked together today on getting the user authorization to function. We went step-by-step through the cookbook and even then, spent the entire day debugging. We finally got the login and logout functionality to work and our sign up page is partially working (not getting errors at least). We realized a few things along the way. One main realization was that when using djwto, the login and logout pages are somewhat predefined, so it isn't necessary to create specific URL paths within the user app for login and logout. We also realized that we weren't consistent with what we were using as "User" model, which led to errors with user sign up. Hopefully now that we have authentication mostly debugged, we can solely focus on the functionality and appearance of the application.
+
 
 ## July 18, 2022
 * This morning, I was at a doctor's appointment throughout our entire project time, so I unfortunately did not get to contribute to any work. 
@@ -22,6 +39,7 @@
 * Our group worked together in the morning on finding an API to autocomplete when
 we type in our main page's search bar - with Arthur sharing his screen
 * In the afternoon, I worked on creating some front-end files (App.js, Nav.js, MainPage.js, and SignupForm.js). I ran into a little hiccup when I installed react-router to the root directory and realized (with the SEIR's help) that node_modules needed to be in ghi directory but also that our group needed to add node_modules to our .gitignore file in order to avoid pushing mass amounts of information to git after any changes are made to node_modules. After that, I was having trouble pulling information from our users' favorites, which resulted in a 500 error and I still need to figure that out. I ended the day by creating a basic sign-up form for us to work off of in the upcoming days.
+
 
 ## July 12, 2022 
 * Our group worked together with Arthur screen sharing
