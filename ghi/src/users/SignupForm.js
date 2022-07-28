@@ -20,9 +20,11 @@ function Signup(props) {
   }
   var handleUserName = function (e) {
     const value = e.target.value;
+    console.log('value', value)
     setUsername(value)
     props.setUN(value)
   }
+
 
   return (
     <div className="row">

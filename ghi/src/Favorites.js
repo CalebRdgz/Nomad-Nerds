@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from './users/Auth';
+import userSWR from 'swr';
 
 function Favorites() {
 
     const { token } = useAuthContext();
-    const [favorites, setFavorites] = useState([]);
+    // const [favorites, setFavorites] = useState([]);
+    console.log('token',token)
 
-    useEffect(() => {
-        async function getFavorites() {
-            const fetchConfig = {
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json",
-
-                },
-            };
-            const url = `${process.env.REACT_APP_USER}/user/mine/favorites/`
-            console.log('url', url)
-            const response = await fetch(url, fetchConfig);
-            console.log('response', response)
-            if (response.ok) {
-                console.log('got response')
-                const data = await response.json();
+    
+    async function getFavorites() {
+        const fetchConfig = {
+            method: "get",
+            headers: {
+                "Authorization": "Bearer " + {token},
             }
-        } 
-        getFavorites();
-        }, [setFavorites],
-        );
+        };
+        const url = `${process.env.REACT_APP_USER}/user/favorites/`
+        console.log('url', url)
+        const response = await fetch(url, fetchConfig);
+        console.log('response', response)
+        if (response.ok) {
+            console.log('got response')
+            const data = await response.json();
+        }
+    } 
+    getFavorites();
+        // }, [setFavorites],
+        // );
 
         return (
             <ul>
-            {console.log('favorites', favorites)}
+            {/* {console.log('favorites', favorites)}
             {favorites?.map(item => {
             return (
             <li className="list-group list-group-horizontal" key = {item.id}>
@@ -38,7 +39,7 @@ function Favorites() {
                 {item.id}
                 </p>
             </li>
-            )})}
+            )})} */}
         </ul>
 )}
 

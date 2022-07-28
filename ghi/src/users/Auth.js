@@ -124,6 +124,8 @@ export function useToken() {
     if (response.ok) {
       await login(username, password);
       navigate("/");
+    } else {
+      window.alert("That username already exists. Please choose a different username")
     }
     return false;
   }
