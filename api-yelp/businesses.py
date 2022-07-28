@@ -36,7 +36,6 @@ def get_categories(location: str, quantity: int = 2):
             categories[cat["alias"]] += 1
             if cat["alias"] not in titles:
                 titles[cat["alias"]] = cat["title"]
-    print("titles", titles)
     for key, value in categories.items():
         cat_list.append((key, titles[key], value))
     sorted_cat_list = sorted(cat_list, key=lambda x: x[2], reverse=True)
@@ -46,6 +45,7 @@ def get_categories(location: str, quantity: int = 2):
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/search/")
 def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
+    cities.replace('%20', ' ')
     cities = cities.split(';')
     raw_data = category_request(
         categories=[
@@ -56,21 +56,23 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
     locations = {}
     local_list = []
     for business in raw_data:
-        location = business["location"]["city"]
+        location = business['city_info']  
         if location not in locations:
             locations[location] = 0
         locations[location] += 1
     for key, value in locations.items():
         local_list.append((key, value))
     sorted_local_list = sorted(local_list, key=lambda x: x[1], reverse=True)
-    return {"categories": sorted_local_list}
+    return {"cities": sorted_local_list}
 
 
 ## Input a category and Location: Return a list of ranked Businesses
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
     raw_data = businesses_request(categories=category, location=location, quantity=quantity)
+    print(raw_data)
     return raw_data
+
     # return {"count": len(raw_data), "businesses": raw_data}
 
 
@@ -79,10 +81,8 @@ def get_business_list(category: str, location: str, quantity: int = 2):
 def get_business_info(id: str):
     raw_data = get_business(id)
     data = {}
-    print('raw data', raw_data)
     data['name'] = raw_data['name']
     data['id'] = raw_data['id']
     data['image_url'] = raw_data['image_url']
     data['rating'] = raw_data['rating']
-    print(data)
     return data

@@ -51,7 +51,10 @@ def category_request(categories=[], quantity=2, cities=[]):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
-            data += res.json()["businesses"]
+            raw_data = res.json()["businesses"]
+            for business in raw_data:
+                business['city_info'] = city
+            data += raw_data
     return data
 
 
