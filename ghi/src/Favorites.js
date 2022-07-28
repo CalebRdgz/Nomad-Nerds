@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from './users/Auth';
-import userSWR from 'swr';
 
-function Favorites() {
+function Favorites(props) {
 
     const { token } = useAuthContext();
-    // const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     console.log('token',token)
 
     
@@ -13,7 +12,7 @@ function Favorites() {
         const fetchConfig = {
             method: "get",
             headers: {
-                "Authorization": "Bearer " + {token},
+                "Authorization": `Bearer ${token}`,
             }
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
@@ -23,14 +22,16 @@ function Favorites() {
         if (response.ok) {
             console.log('got response')
             const data = await response.json();
+            setFavorites(data)
         }
-    } 
-    getFavorites();
-        // }, [setFavorites],
-        // );
+    }
+    useEffect(() => {
+        getFavorites();
+    }, []);
 
-        return (
-            <ul>
+
+    return (
+        <ul>
             {/* {console.log('favorites', favorites)}
             {favorites?.map(item => {
             return (
