@@ -5,6 +5,8 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { AiOutlineHeart } from "react-icons/ai";
+
 
 
 function CategoryList() {
@@ -68,6 +70,7 @@ function CategoryList() {
                         <Col key={idx} className="col-3">
                         <Card>
                         <Card.Img variant="top" src={store.image_url} height={200} />
+                        
                             <Card.Title>{store.name}</Card.Title>
                             <Card.Body>
                                 <Card.Text>
@@ -76,7 +79,9 @@ function CategoryList() {
                                     Price: {store.price} <br />
                                     Rating: {store.rating}
                                 </Card.Text>
-                            <Button variant="light">❤️️</Button>
+                                <Button variant="light">< AiOutlineHeart size="1.8em" />️
+                                    
+                                </Button>
                             </Card.Body>
                         </Card>
                         </Col>
