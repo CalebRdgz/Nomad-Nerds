@@ -15,26 +15,13 @@ class UserEncoder(ModelEncoder):
     ]
 
 
-@auth.jwt_login_required
-@require_http_methods(["GET", "POST"])
-def user_favorites(request):
-    payload_dict = json.dumps(request.payload)
-    user_information = json.loads(payload_dict)
-    user_id = user_information["user"]["id"]
-
-    if request.method == "GET":
-        print('user', user_id)
-        favorites = Favorite.objects.filter(user=user_id)
-        return JsonResponse(
-            {"favorites": favorites},
-            encoder=FavoriteEncoder,
-            safe=False,
-        )
-    elif request.method == "POST":
-        try:
-            content = json.loads(request.body)
-            favorite = Favorite.objects.create(**content)
-            content["user"] = content["username"]
+class FavoriteEncoder(ModelEncoder):
+    model = Favorite
+    properties = [
+        "id",
+        "username",
+        "business_id",
+    ]
 
 
 @auth.jwt_login_required
