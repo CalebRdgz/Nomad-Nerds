@@ -9,7 +9,6 @@ function Favorites() {
     const [businesses, setBusinesses] = useState([]);
     console.log('token',token)
 
-    
     async function getFavorites() {
         const fetchConfig = {
             credentials: "include",
@@ -58,6 +57,26 @@ function Favorites() {
         getBusinesses();
     }, [favorites]);
     console.log('businesses', businesses)
+    console.log('favorites', favorites)
+
+    async function deleteFavorite() {
+        const fetchConfig = {
+            credentials: "include",
+            method: "delete",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        };
+        const id = favorites
+        const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
+        const response = await fetch(url, fetchConfig);
+        console.log('response', response)
+        if (response.ok) {
+            const data = await response.json();
+            setFavorites(data);
+        }
+
+    }
 
     return (
         
@@ -78,6 +97,7 @@ function Favorites() {
                                         Price: {store.price} <br />
                                         Rating: {store.rating}
                                     </Card.Text>
+                                    <button className="btn btn-danger" onClick={deleteFavorite}>X</button>
                                     </Card.Body>
                                     </Card>
                                 </div>
