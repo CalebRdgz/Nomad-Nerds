@@ -13,8 +13,8 @@ function Favorites() {
         const fetchConfig = {
             method: "get",
             headers: {
-                "Authorization": "Bearer " + {token},
-            }
+                "Authorization": `Bearer ${token}`
+            },
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
         console.log('url', url)
