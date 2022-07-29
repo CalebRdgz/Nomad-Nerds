@@ -33,8 +33,8 @@ function Favorites() {
         const fetchConfig = {
             method: "get",
             headers: {
+                "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin":"*",
             }
         };
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
@@ -43,7 +43,7 @@ function Favorites() {
 
     function getBusinesses() {
         if (favorites && favorites.length > 0) {
-            Promise.all(favorites.slice(0,15)
+            Promise.all(favorites
                 .map(favorite => fetchBusinesses(favorite)
                     .then(res => res.json())
                     .then(data => ({[favorite]: data}))))
@@ -73,6 +73,9 @@ function Favorites() {
                                     <Card.Title>{store.name}</Card.Title>
                                     <Card.Body>
                                     <Card.Text>
+                                        {store.display_address[0]} <br />
+                                        {store.display_address[1]} <br />
+                                        Price: {store.price} <br />
                                         Rating: {store.rating}
                                     </Card.Text>
                                     </Card.Body>
