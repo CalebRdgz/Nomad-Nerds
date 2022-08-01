@@ -14,7 +14,6 @@ function Favorites() {
     // const decoded = jwt_decode(token)
     // const user = decoded.user.username
 
-    
     async function getFavorites() {
         const fetchConfig = {
             credentials: "include",
@@ -38,8 +37,13 @@ function Favorites() {
         const fetchConfig = {
             method: "get",
             headers: {
+<<<<<<< HEAD
                 "Access-Control-Allow-Origin":"*",
                 "Content-Type": "application/json",               
+=======
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+>>>>>>> main
             }
         };
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
@@ -48,7 +52,7 @@ function Favorites() {
 
     function getBusinesses() {
         if (favorites && favorites.length > 0) {
-            Promise.all(favorites.slice(0,15)
+            Promise.all(favorites
                 .map(favorite => fetchBusinesses(favorite)
                     .then(res => res.json())
                     .then(data => ({[favorite]: data}))))
@@ -63,6 +67,27 @@ function Favorites() {
         getBusinesses();
     }, [favorites]);
     console.log('businesses', businesses)
+    console.log('favorites', favorites)
+
+
+    async function deleteFavorite(favorite) {
+        const fetchConfig = {
+            credentials: "include",
+            method: "delete",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        };
+        const url = `${process.env.REACT_APP_USER}/user/favorites/${favorite}`
+        const response = await fetch(url, fetchConfig);
+        console.log('response', response)
+        if (response.ok) {
+            const data = await response.json();
+            console.log('favorite',favorite)
+            setFavorites(data);
+        }
+
+    }
 
     return (
         
@@ -78,15 +103,12 @@ function Favorites() {
                                     <Card.Title>{store.name}</Card.Title>
                                     <Card.Body>
                                     <Card.Text>
-                                        <ul>
-                                        <li>Rating: {store.rating}</li>
-                                        <li>Price: {store.price}</li>
-                                        <li>Address: {store.display_address}</li>
-                                        <li>Phone: {store.display_phone}</li>
-                                        </ul>
+                                        {store.display_address[0]} <br />
+                                        {store.display_address[1]} <br />
+                                        Price: {store.price} <br />
+                                        Rating: {store.rating}
                                     </Card.Text>
-                                    <Button variant="light">< AiOutlineHeart size="1.8em" />️
-                                    </Button>
+                                    <button className="btn btn-danger" onClick={deleteFavorite}>X</button>
                                     </Card.Body>
                                     </Card>
                                 </div>

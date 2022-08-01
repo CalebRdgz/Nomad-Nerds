@@ -1,3 +1,11 @@
+## July 28, 2022
+* Today, we worked on the favorites back-end to ensure that it was set up correctly. We tested whether it was functioning with our localhost admin as well as localhost:8001/user/favorites, which created a list of business id's. We struggled with CORS errors on the front end, getting a 403 Forbidden Error stating “Cookie \“jwt_access_token\” cannot be empty.” I realized in the evening that we needed to add "credentials": "include" to our header and that fixed the issue. In the evening, I created the Favorites page, which currently just consists of the user's favorited businesses in card format with business details. The next step will be to add a delete button to each card so the user can delete favorites that they change their mind about. We also still need to get the "add to favorites" button functioning on the category list page.
+
+
+## July 27, 2022
+* Today, we worked as a group to get the category list page completed with most of the effort going towards figuring out how to get the category titles with capitalization and spaces to show in addition to how to get each category and its businesses within a container with a horizontal scrollbar. These efforts took up much of the project time and we worked together to accomplish them. We then moved on to trying to figure out our user's favorites page with not much success.
+
+
 ## July 26, 2022
 * Today, the group worked together on trying to complete the category list page. We decided that both search result pages should have the same format. We struggled to get the businesses listed for category list, as it requires one map function nested inside another map function but is also an object with a key of categories and values of another object with the key being "businesses" and the value being an array of business objects. It felt like a lot to wrap our minds around at the time, but Emma was able to get the nested map function to work soon after class was over today.
 

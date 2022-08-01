@@ -11,7 +11,7 @@ import { Redirect } from "react-router-dom"
 
 function CategorySearch(props) {
 
-  const [selectedCities, setSelectedCities] = useState([{city:'Denver', admin_name: 'Colorado', country: 'United States', id: 0}])
+  const [selectedCities, setSelectedCities] = useState([{city:'Tampa', admin_name: 'Florida', country: 'United States', id: 1840015982},{city:'San Francisco', admin_name: 'California', country: 'United States', id: 1840021543}, {city: 'New York', admin_name: 'New York', country: 'United States', id: 1840034016}])
   const [selectedCategory, setSelectedCategory] = useState()
   const [rankedCities, setRankedCities] = useState()
 
@@ -58,25 +58,11 @@ function CategorySearch(props) {
 
   const handleOnCategorySelect = function (item) {
     setSelectedCategory(item['alias'])
-    console.log(item.alias)
+    console.log('alias', item.alias)
+    console.log('item', item)
     navigate('category', {state:{category: item, cities: selectedCities}})
 
   }
-  
-  // useEffect(() => {
-  //   async function getRankedCities() {
-  //     const cities_formatted = selectedCities.join('%3B').replaceAll(',', '%2C').replaceAll(' ','%20')
-  //     console.log(url)
-  //     const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/${selectedCategory}&quantity=2cities=${cities_formatted}`
-  //     const response = await fetch(url)
-  //     if (response.ok) {
-  //       const data = await response.json()
-  //       setRankedCities(data)
-  //     }
-  //   }
-  //   getRankedCities()
-  // }, [setRankedCities])
-      
   
 
   const handleOnCategoryFocus = () => {

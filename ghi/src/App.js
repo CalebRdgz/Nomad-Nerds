@@ -39,7 +39,7 @@ function App () {
             <Route path="favorites" element={<Favorites token={token} />} />
           </Route>
           <Route path="category" element={<CityList />} />
-          <Route path="city" element={<CategoryList />} />
+          <Route path="city" element={<CategoryList token={token}/>} />
   
         </Routes>
         <Footer />
