@@ -17,8 +17,9 @@ import CategorySearch from './searchByCategory/CategorySearch';
 
 
 function App () {
-  const [token, login, logout, signup, user] = useToken();
+  const [token, login, logout, signup, user, favorites] = useToken();
   const [userName, setUserName] = useState('');
+
 
   if (user && !userName) {
     setUserName(user.username)
@@ -35,10 +36,10 @@ function App () {
             <Route path="signup" element={<Signup token={token} signup={signup} setUN={setUserName}/>} />
             <Route path="login" element={<Login token={token} login={login} setUN={setUserName}/>} />
             <Route path="logout" element={<Logout logout={logout}/>} />
-            <Route path="mine/favorites" element={<Favorites token={token} username={userName}/>} />
+            <Route path="favorites" element={<Favorites token={token} />} />
           </Route>
           <Route path="category" element={<CityList />} />
-          <Route path="city" element={<CategoryList />} />
+          <Route path="city" element={<CategoryList token={token}/>} />
   
         </Routes>
         <Footer />

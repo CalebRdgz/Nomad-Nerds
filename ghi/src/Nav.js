@@ -1,12 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { useToken } from './users/Auth';
 import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar';
 import logo from './images/logo.png';
 import './index.css';
 
 export const loggedIn = [
-  { name: "Favorites", path:"user/mine/favorites/"},
+  { name: "Favorites", path:"user/favorites/"},
   { name: "Log Out", path:"user/logout/"}
 ]
 

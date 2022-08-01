@@ -21,8 +21,6 @@ Our expected intended market are people who are interested in a specific activit
 * If they enter a destination, they can get a ranking of activities to choose from
 * If they enter an activity, they would get a list of locations/destinations to choose from
 * Filtering function specific to location (i.e. specific continent)
-* Users can have an account where they can save travel plans/activities
-* Users can rate locations and activities
 * Users can make preferences based on various parameters
 * Capability to poll from API to determine ranking system for certain locations
 
