@@ -59,7 +59,8 @@ function Favorites() {
     console.log('businesses', businesses)
     console.log('favorites', favorites)
 
-    async function deleteFavorite() {
+
+    async function deleteFavorite(favorite) {
         const fetchConfig = {
             credentials: "include",
             method: "delete",
@@ -67,12 +68,12 @@ function Favorites() {
                 "Authorization": `Bearer ${token}`,
             }
         };
-        const id = favorites
-        const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
+        const url = `${process.env.REACT_APP_USER}/user/favorites/${favorite}`
         const response = await fetch(url, fetchConfig);
         console.log('response', response)
         if (response.ok) {
             const data = await response.json();
+            console.log('favorite',favorite)
             setFavorites(data);
         }
 
