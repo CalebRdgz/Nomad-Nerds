@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from './users/Auth';
+// import jwt_decode from 'jwt_decode';
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { AiOutlineHeart } from "react-icons/ai";
 
 function Favorites() {
 
@@ -8,6 +11,8 @@ function Favorites() {
     const [favorites, setFavorites] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     console.log('token',token)
+    // const decoded = jwt_decode(token)
+    // const user = decoded.user.username
 
     
     async function getFavorites() {
@@ -33,8 +38,8 @@ function Favorites() {
         const fetchConfig = {
             method: "get",
             headers: {
-                "Content-Type": "application/json",
                 "Access-Control-Allow-Origin":"*",
+                "Content-Type": "application/json",               
             }
         };
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
@@ -62,7 +67,7 @@ function Favorites() {
     return (
         
         <div>
-            <h1 className="text-center"> My Favorites </h1>
+            <h1 className="text-center"> My Favorite </h1>
                 <ul>
                     {businesses.map((business, index) => (
                         <div key={index}>
@@ -73,8 +78,15 @@ function Favorites() {
                                     <Card.Title>{store.name}</Card.Title>
                                     <Card.Body>
                                     <Card.Text>
-                                        Rating: {store.rating}
+                                        <ul>
+                                        <li>Rating: {store.rating}</li>
+                                        <li>Price: {store.price}</li>
+                                        <li>Address: {store.display_address}</li>
+                                        <li>Phone: {store.display_phone}</li>
+                                        </ul>
                                     </Card.Text>
+                                    <Button variant="light">< AiOutlineHeart size="1.8em" />️
+                                    </Button>
                                     </Card.Body>
                                     </Card>
                                 </div>
