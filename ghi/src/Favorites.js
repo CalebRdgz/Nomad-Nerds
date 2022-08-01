@@ -37,13 +37,8 @@ function Favorites() {
         const fetchConfig = {
             method: "get",
             headers: {
-<<<<<<< HEAD
-                "Access-Control-Allow-Origin":"*",
-                "Content-Type": "application/json",               
-=======
                 "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
->>>>>>> main
             }
         };
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
