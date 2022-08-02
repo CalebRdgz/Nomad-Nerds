@@ -114,7 +114,7 @@ function CategoryList() {
                                     {store.location.display_address[0]} <br />
                                     {store.location.display_address[1]}<br />
                                     {store.location.display_address[2]}<br />
-                                    Price: {store.price} <br />
+                                    {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
                                 </Card.Text>
                                 <Button variant="light" onClick={() => addFavorite(store.id)}>

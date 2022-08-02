@@ -37,7 +37,7 @@ def businesses_request(categories='', location="", quantity=1):
     return data
 
 
-def category_request(categories=[], quantity=2, cities=[]):
+def category_request(categories=[], quantity=1, cities=[]):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
     data = []
