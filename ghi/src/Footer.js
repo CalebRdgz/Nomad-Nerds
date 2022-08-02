@@ -1,34 +1,35 @@
 import React from "react";
-
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import { SocialIcon } from 'react-social-icons';
 
 function Footer() {
   return (
     <div className="main-footer">
-      <div className="container">
-        <div className="row">
-          {/* Column1 */}
-          <div className="col">
-            <h4>Nomad-Nerds Inc.</h4>
-            <h1 className="list-unstyled">
-            </h1>
-          </div>
-          {/* Column2 */}
-          <div className="col">
+      <Container>
+        <Row>
+          <Col>
             <h4>About our company</h4>
-              <li>Nomad-Nerds</li>
-          </div>
-          {/* Column3 */}
-          <div className="col">
-          </div>
-        </div>
+              <li>Nomad Nerds</li>
+          </Col>
+          <Col>
+            <SocialIcon url="https://linkedin.com/in/jaketrent" style={{ height: 35, width: 35 }}/>
+            <SocialIcon url="https://twitter.com" style={{ height: 35, width: 35 }}/>
+            <SocialIcon url="https://facebook.com" style={{ height: 35, width: 35 }}/>
+            <SocialIcon url="https://instagram.com" style={{ height: 35, width: 35 }}/>
+            <SocialIcon url="https://user@gmail.com" style={{ height: 35, width: 35 }}/>
+          </Col>
+        </Row>
         <hr />
-        <div className="row">
+        <Row>
           <p className="col-sm">
-            &copy;{new Date().getFullYear()} Nomad-Nerds | All rights reserved |
+            &copy;{new Date().getFullYear()} Nomad Nerds | All rights reserved |
             Terms Of Service | Privacy
           </p>
-        </div>
-      </div>
+        </Row>
+      </Container>
     </div>
   );
 }

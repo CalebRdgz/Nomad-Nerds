@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -7,6 +7,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
+import { AiFillStar} from "react-icons/ai";
+
 
 
 function CategoryList() {
@@ -16,7 +19,9 @@ function CategoryList() {
     const [business_id, setBusiness_id] = useState('');
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
-    
+    const navigate = useNavigate();
+
+
     async function getCategories() {
         const fetchConfig = {
             method: "get",
@@ -55,10 +60,9 @@ function CategoryList() {
         }
     }
 
-    async function addFavorite() {
-        getBusinesses()
-        let business_id = businesses.map((business) => (Object.values(business)[0].slice(0,15).map((store) => (store.id))))
+    async function addFavorite(id) {
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
+        let content = {business_id: id}
         const fetchConfig = {
             credentials: "include",
             method: "post",
@@ -66,7 +70,7 @@ function CategoryList() {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(business_id[0][0])
+            body: JSON.stringify(content)
         };
         
         const response = await fetch(url, fetchConfig);
@@ -74,12 +78,16 @@ function CategoryList() {
         if (response.ok) {
             const data = await response.json();
             setBusiness_id(data);
+        } if (response.status === 403) {
+            if (window.confirm("You cannot save favorites because you are not currently logged in. Would you like to log in?")) {
+                navigate('/user/login/');
+            } else {
+            }
+            
         }
-
     }
 
-
-
+    
     useEffect(() => {
         getCategories();
     }, []);
@@ -105,11 +113,12 @@ function CategoryList() {
                                 <Card.Text>
                                     {store.location.display_address[0]} <br />
                                     {store.location.display_address[1]}<br />
-                                    Price: {store.price} <br />
+                                    {store.location.display_address[2]}<br />
+                                    {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
                                 </Card.Text>
-                                <Button variant="light" onClick={addFavorite}>< AiOutlineHeart size="1.8em" />️
-                                    {/* Need to figure out how to get store.id into addFavorite on click */}
+                                <Button variant="light" onClick={() => addFavorite(store.id)}>
+                                    <AiOutlineHeart size="1.8em" />
                                 </Button>
                             </Card.Body>
                         </Card>
@@ -117,7 +126,7 @@ function CategoryList() {
                 ))}
                 </Row>
                 </Container> 
-                </div>
+            </div>
                             
             ))}
         </ul>

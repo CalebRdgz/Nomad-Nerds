@@ -123,7 +123,7 @@ export function useToken() {
     });
     if (response.ok) {
       await login(username, password);
-      navigate("/");
+      window.location.reload(navigate("/"));
     } else {
       window.alert("That username already exists. Please choose a different username")
     }

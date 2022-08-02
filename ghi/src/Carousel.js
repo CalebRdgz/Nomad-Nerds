@@ -20,7 +20,7 @@ function CarouselFade() {
         </Carousel.Caption>
         <img
           className="d-block w-100"
-          src={ image } height={450}
+          src={ image } height={500}
           alt="First slide"
         />
       </Carousel.Item>
@@ -38,7 +38,7 @@ function CarouselFade() {
         </Carousel.Caption>
         <img
           className="d-block w-100"
-          src={ image2 } height={450}
+          src={ image2 } height={500}
           alt="Second slide"
         />
         
@@ -57,7 +57,7 @@ function CarouselFade() {
         </Carousel.Caption>
         <img
           className="d-block w-100"
-          src={ image3 } height={450}
+          src={ image3 } height={500}
           alt="Third slide"
         />
 
