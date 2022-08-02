@@ -55,10 +55,9 @@ function CategoryList() {
         }
     }
 
-    async function addFavorite() {
-        getBusinesses()
-        let business_id = businesses.map((business) => (Object.values(business)[0].slice(0,15).map((store) => (store.id))))
+    async function addFavorite(id) {
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
+        let content = {business_id: id}
         const fetchConfig = {
             credentials: "include",
             method: "post",
@@ -66,7 +65,7 @@ function CategoryList() {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(business_id[0][0])
+            body: JSON.stringify(content)
         };
         
         const response = await fetch(url, fetchConfig);
@@ -108,7 +107,7 @@ function CategoryList() {
                                     Price: {store.price} <br />
                                     Rating: {store.rating}
                                 </Card.Text>
-                                <Button variant="light" onClick={addFavorite}>< AiOutlineHeart size="1.8em" />️
+                                <Button variant="light" onClick={(e) => addFavorite(store.id)}>< AiOutlineHeart size="1.8em" />️
                                     {/* Need to figure out how to get store.id into addFavorite on click */}
                                 </Button>
                             </Card.Body>

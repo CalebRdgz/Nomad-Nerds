@@ -87,5 +87,8 @@ def get_business_info(id: str):
     data['rating'] = raw_data['rating']
     data['price'] = raw_data['price']
     data['display_address'] = raw_data['location']['display_address']
+    data['state'] = raw_data['location']['state']
+    data['city'] = raw_data['location']['city']
+    data['country'] = raw_data['location']['country']
     print(data)
     return data

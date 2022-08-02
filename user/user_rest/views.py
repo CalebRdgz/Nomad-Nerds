@@ -26,16 +26,18 @@ class FavoriteEncoder(ModelEncoder):
 
 @auth.jwt_login_required
 @require_http_methods(["GET", "POST", "DELETE"])
-def user_favorites(request):
+def user_favorites(request, business_id=None):
     payload_dict = json.dumps(request.payload)
+    print('request payload', request.payload)
     user_information = json.loads(payload_dict)
     user_id = user_information["user"]["id"]
+    print('user_info', user_information)
 
     if request.method == "POST":
         content = json.loads(request.body)
         try:
             favorite = Favorite.objects.create(
-                    business_id=content["business_id"], username=user_id
+                    business_id=content["business_id"], user=User.objects.get(id=user_id)
                 )
             return JsonResponse({"message": "Done"})
         except Exception as e:
@@ -58,8 +60,9 @@ def user_favorites(request):
             return response
 
     elif request.method == "DELETE":
-        content = json.loads(request.body)
-        Favorite.objects.filter(username=content["username"], business_id=content["business_id"]).delete()
+        favorite = Favorite.objects.get(user=User.objects.get(id=user_id), business_id=business_id)
+        print('favorite', favorite)
+        favorite.delete()
         return JsonResponse({"message": "Done"})
 
 
@@ -90,15 +93,15 @@ def user_favorites(request):
 
 
 
-@auth.jwt_login_required
-@require_http_methods(["DELETE"])
-def user_delete_favorite(request, pk):
-    user = request.user
-    try:
-        Favorite.objects.filter(user=user, id=pk).delete()
-        return JsonResponse({"message": "You have successfully deleted a favorite"})
-    except Favorite.DoesNotExist:
-        return JsonResponse({"message": "Could not delete this favorite"})
+# @auth.jwt_login_required
+# @require_http_methods(["DELETE"])
+# def user_delete_favorite(request, pk):
+#     user = request.user
+#     try:
+#         Favorite.objects.filter(user=user, id=pk).delete()
+#         return JsonResponse({"message": "You have successfully deleted a favorite"})
+#     except Favorite.DoesNotExist:
+#         return JsonResponse({"message": "Could not delete this favorite"})
 
 
 @require_http_methods(["GET", "POST"])
