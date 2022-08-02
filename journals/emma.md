@@ -1,3 +1,12 @@
+## July 28, 2022
+Today we worked on:
+* Favorite page.  We rebuilt the backend, so that favorite page is specific to the logged in user.  We used jwt.io to decode the token to visualize how the payload data looked like.  We still need to work on the favorite button to add and remove the business from the favorite page. 
+  
+## July 27, 2022
+Today we worked on:
+* Category list page.  We had the difficult time with displaying the card for each category with the horizontal scroll.  It was first making the whole page to scroll horizontally.  At the end, we figured out how to add horizontal scroll bar for each category. 
+  
+
 ## July 19, 2022
 Today we worked on:
 * Authentication using DJWTO.  We had difficulty with 403 forbidden error.  Later, we found out that we didn't need to create url for login page in the backend, because DJWTO does it for us when we include in the project URL.  We saw that when it authenticated the user, it created a token.  Then we were able to nullify token when user logs out.  
