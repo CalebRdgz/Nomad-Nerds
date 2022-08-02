@@ -13,3 +13,13 @@
 
 ## July 21st, 2022
 * With Emma showing her screen, we went through the yelp API and also went through some logo ideas. I edited the logo with some more ideas. We then continued with completing the yelp get requests.
+
+## July 22nd, 2022
+
+## July 26th, 2022
+
+## July 27th, 2022
+
+## July 28th, 2022
+
+## August 1st, 2022

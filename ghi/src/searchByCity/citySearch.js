@@ -51,7 +51,7 @@ function CitySearch(props) {
 
     <div className="Test">
       <header className="Test-header">
-        <div style={{ width: 400 }}>
+        <div style={{ width: 400, paddingTop: -100 }}>
           <ReactSearchAutocomplete
             items={cities}
             fuseOptions={{keys: ['city', 'country', 'admin_name']}}

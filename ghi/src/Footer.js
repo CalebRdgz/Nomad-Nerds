@@ -15,7 +15,7 @@ function Footer() {
               <li>Nomad Nerds</li>
           </Col>
           <Col>
-            <SocialIcon url="https://linkedin.com/in/jaketrent" style={{ height: 35, width: 35 }}/>
+            <SocialIcon url="https://linkedin.com/" style={{ height: 35, width: 35 }}/>
             <SocialIcon url="https://twitter.com" style={{ height: 35, width: 35 }}/>
             <SocialIcon url="https://facebook.com" style={{ height: 35, width: 35 }}/>
             <SocialIcon url="https://instagram.com" style={{ height: 35, width: 35 }}/>

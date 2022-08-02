@@ -1,7 +1,7 @@
 import { Carousel } from 'react-bootstrap';
 import image from './images/grandcanyon.png';
 import image2 from './images/chicago.png';
-import image3 from './images/SF.png';
+import image3 from './images/hiking.jpg';
 
 function CarouselFade() {
   return (
