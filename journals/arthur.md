@@ -1,8 +1,36 @@
+## July 27th, 2022
+
+* Today I worked on the cities
+
+## July 26th, 2022
+
+* Today as a group we worked on the category list page. We decided that instead of having three layers of pages, we would only have two, so that that category list page and city list page would include a list of lists. Because of this, I will no longer be needing the Flickr api images for city's (rip).
+
+## July 25th, 2022
+
+* Today I was trying to figure out how to use Flickr's API to pull an image for each city in the citylist.js file. The idea would be to pull a picture of buildings of the entered city, and use that as a card for the city. I finally figured out how to properly set up the fetch request to get the information for the picture. Once I have the info for the picture, I can construct the url for the image.
+
+## July 22nd, 2022
+
+* Today I worked on the citylist.js file, which will be a list of ranked cities, ranked by the occurrence of the chosen category. I am able to import the list of ranked cities and the count of buisnesses for each. In order to do this, when calling the function in citylist, I have to pass in the state as an argument and then retrieve it using location. 
+
+## July 21st, 2022
+
+* Today I fixed some issues from yesterday. Now, the list of cities is always below the list of suggested cities from the search bar. I had to add some padding to the search bar to implement this. Additionally, I added a cool feature that makes the list of selected cities a scrollable list. I had to set a max length for the list and set overflow to scrollable.
+
+## July 20th, 2022
+
+* Today I added the list of cities which shows the current list of selected cities. I had to add the list of cities to the state. Additionally, I added a button to remove any individual city from the list, which changes the state of the page. However, the list of cities is in the way of the suggestions from the auto complete, and the list goes on too long if too many cities are added. This is an issue I need to fix.
+
 ## July 19th, 2022
 
 * Today the group and I all walked through the authorization feature of the app. After following Curtis's cookbook and hours of troubleshooting with the instructors and seirs, we have finally made some notable progress.
 
-## July 14, 2022
+## July 15th, 2022
+
+* Today the group worked on authentication. We had an initial setup, but decided to switch to djwto, but still are having issues. I also have finished the first search bar which searches autocomplete with city names. 
+
+## July 14th, 2022
 
 * Today I worked on creating a search bar which auto completes with suggestions for city locations.
 
@@ -11,7 +39,7 @@
 * Now that I have the data, I found a program which implements the auto-complete/suggest functionality for a search bar. This program requires React to be 17.x, whereas wwe are using 18.2.0, so I had to add a line to our run.sh folder to install this program without its peer-dependencies so that no errors are raised.
 
 
-## July 13, 2022
+## July 13th, 2022
 
 * Today I worked on getting the required data from the Yelp API
 

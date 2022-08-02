@@ -1,44 +1,36 @@
 import { Carousel } from 'react-bootstrap';
-import image from './images/grandcanyon.png';
-import image2 from './images/chicago.png';
-import image3 from './images/hiking.jpg';
+import image from './images/skiing.jpg';
+import image2 from './images/valley.jpg';
+import image3 from './images/nature.jpg';
+import CitySearch from './searchByCity/citySearch';
+
 
 function CarouselFade() {
   return (
-    <Carousel fade className="carousel">
+    <Carousel fade className="carousel" style={{zIndex: -1}}>
         
         <Carousel.Item>
-        <Carousel.Caption>
-          <div className="px-4 py-5 my-5 text-center">
-            <h1 className="display-5 fw-bold">Nomad Nerds</h1>
-              <div className="col-lg-6 mx-auto">
-                <p className="lead mb-30 pb-6 fw-bold">
-                  Connecting you to your favorite activities and locations!
-                </p>
+          <Carousel.Caption>
+            <div className="px-5 py-5 my-5 text-center">
+              <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
               </div>
-            </div>
-        </Carousel.Caption>
-        <img
-          className="d-block w-100"
-          src={ image } height={500}
-          alt="First slide"
-        />
-      </Carousel.Item>
+          </Carousel.Caption>          
+          <img
+            className="d-block" style={{overflow: "hidden"}}
+            src={ image } 
+            alt="First slide"
+          />
+        </Carousel.Item>
 
       <Carousel.Item>
         <Carousel.Caption>
-        <div className="px-4 py-5 my-5 text-center">
-            <h1 className="display-5 fw-bold">Nomad Nerds</h1>
-            <div className="col-lg-6 mx-auto">
-                <p className="lead mb-30 pb-6 fw-bold">
-                  Connecting you to your favorite activities and locations!
-                </p>
-              </div>
+          <div className="px-5 py-5 my-5 text-center">
+            <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
             </div>
         </Carousel.Caption>
         <img
-          className="d-block w-100"
-          src={ image2 } height={500}
+          className="d-block" style={{overflow: "hidden"}}
+          src={ image2 } 
           alt="Second slide"
         />
         
@@ -47,17 +39,12 @@ function CarouselFade() {
       <Carousel.Item>
         <Carousel.Caption>
           <div className="px-5 py-5 my-5 text-center">
-            <h1 className="display-5 fw-bold">Nomad Nerds</h1>
-            <div className="col-lg-6 mx-auto">
-                <p className="lead mb-30 pb-6 fw-bold">
-                  Connecting you to your favorite activities and locations!
-                </p>
-              </div>
+            <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
             </div>
         </Carousel.Caption>
         <img
-          className="d-block w-100"
-          src={ image3 } height={500}
+          className="d-block" style={{overflow: "hidden"}}
+          src={ image3 }
           alt="Third slide"
         />
 
