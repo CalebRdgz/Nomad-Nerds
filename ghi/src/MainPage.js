@@ -10,12 +10,18 @@ function MainPage() {
     return (
       <>
       <CarouselFade />
-      <Container>
-        <Row>
-          <Col>Category Search<CategorySearch/></Col>
-          <Col>Search a city to get top activities & businesses<CitySearch/></Col>
-        </Row>
-      </Container>
+        <Col>
+          <Row>
+            Search a city to get top activities & businesses<CitySearch/>
+          </Row>
+        </Col>
+        <Col>
+          <Row>
+            Enter search info
+          </Row>
+        </Col>
+        <Col>Category Search<CategorySearch/></Col>
+
     </>
   );
 }

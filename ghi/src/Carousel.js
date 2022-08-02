@@ -1,7 +1,8 @@
 import { Carousel } from 'react-bootstrap';
 import image from './images/grandcanyon.png';
 import image2 from './images/chicago.png';
-import image3 from './images/SF.png';
+import image3 from './images/image.png';
+import image4 from './images/pano.jpg';
 
 function CarouselFade() {
   return (
@@ -19,7 +20,7 @@ function CarouselFade() {
             </div>
         </Carousel.Caption>
         <img
-          className="d-block w-100"
+          className="d-block" style={{overflow: "hidden"}}
           src={ image } height={500}
           alt="First slide"
         />
@@ -37,7 +38,7 @@ function CarouselFade() {
             </div>
         </Carousel.Caption>
         <img
-          className="d-block w-100"
+          className="d-block" style={{overflow: "hidden"}}
           src={ image2 } height={500}
           alt="Second slide"
         />
@@ -56,7 +57,7 @@ function CarouselFade() {
             </div>
         </Carousel.Caption>
         <img
-          className="d-block w-100"
+          className="d-block" style={{overflow: "hidden"}}
           src={ image3 } height={500}
           alt="Third slide"
         />
@@ -74,8 +75,8 @@ function CarouselFade() {
             </div>
         </Carousel.Caption>
         <img
-          className="d-block w-100"
-          src={ image3 } height={500}
+          className="d-block" style={{overflow: "hidden"}}
+          src={ image4 }
           alt="Third slide"
         />
 
