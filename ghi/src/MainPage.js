@@ -13,7 +13,7 @@ function MainPage() {
       <Container>
         <Row>
           <Col>Category Search<CategorySearch/></Col>
-          <Col>City Search<CitySearch/></Col>
+          <Col>Search a city to get top activities & businesses<CitySearch/></Col>
         </Row>
       </Container>
     </>
