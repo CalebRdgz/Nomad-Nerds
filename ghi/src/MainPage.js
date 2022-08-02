@@ -10,18 +10,19 @@ function MainPage() {
     return (
       <>
       <CarouselFade />
-        <Col>
-          <Row>
+      <Container>
+        <Row>
+          <Col style={{marginTop: -1700}}>
+            <Row>
             Search a city to get top activities & businesses<CitySearch/>
-          </Row>
-        </Col>
-        <Col>
-          <Row>
-            Enter search info
-          </Row>
-        </Col>
-        <Col>Category Search<CategorySearch/></Col>
-
+            </Row>
+            <Row>
+              Hello
+            </Row>
+          </Col>
+          <Col style={{marginTop: -1700}}>Category Search<CategorySearch/></Col>          
+        </Row>
+      </Container>
     </>
   );
 }

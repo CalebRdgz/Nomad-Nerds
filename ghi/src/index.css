@@ -13,7 +13,7 @@ code {
 }
 
 p {
-  margin-bottom: 10px;
+  margin-bottom: 300px;
 }
 
 html {
@@ -72,12 +72,18 @@ html {
 }
 
 .text-on-image {
- position: absolute;
+ font-family: "papyrus";
+ font-weight: 300;
  right: 50%;
  left: 50%;
- bottom: 15%;
+ bottom: 50%;
+ margin-bottom: 100px;
 }
 
+.carousel .carousel-item {
+  height: 2000px;
+  z-index: -1;
+}
 
 /* -------------------------------------------- CARDS -------------------------------------------- */
 .card-body {
