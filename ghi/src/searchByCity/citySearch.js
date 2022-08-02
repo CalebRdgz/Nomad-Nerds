@@ -11,13 +11,11 @@ function CitySearch(props) {
   
   const handleOnSearch = (string, results) => {
       // onSearch will have as the first callback parameter
-      // the string searched and for the second the results.
-      console.log('OnSearch')
+      // the string searched and for the second the results
     }
 
   const handleOnHover = (result) => {
     // the item hovered
-    console.log('OnHover')
   }
 
   const handleOnSelect = function (item)  {
@@ -26,7 +24,6 @@ function CitySearch(props) {
   }
 
   const handleOnFocus = () => {
-    console.log('Focused')
   }
 
   const formatResult = (item) => {
@@ -49,19 +46,6 @@ function CitySearch(props) {
     </ul>
   )
 
-  // const listSelectedCities = (city_list) => (
-  //   <ul>
-  //     {city_list.map(item => {
-  //       return (
-  //       <li className="list-group list-group-horizontal" key = {item.id}>
-  //         <p className="list-group-item">
-  //           {item.city}, {item.admin_name}, {item.country}
-  //         </p>
-  //         <button onClick={() => setSelectedCities(selectedCities.filter(city => city.id !== item.id))} className="btn btn-danger btn-sm list-group-item">X</button>
-  //       </li>
-  //     )})}
-  //   </ul>
-  // )
 
   return (
 

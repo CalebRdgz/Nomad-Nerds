@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -18,6 +18,7 @@ function CategoryList() {
     const [business_id, setBusiness_id] = useState('');
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
+    const navigate = useNavigate();
 
 
     async function getCategories() {
@@ -76,11 +77,16 @@ function CategoryList() {
         if (response.ok) {
             const data = await response.json();
             setBusiness_id(data);
+        } if (response.status === 403) {
+            if (window.confirm("You cannot save favorites because you are not currently logged in. Would you like to log in?")) {
+                navigate('/user/login/');
+            } else {
+            }
+            
         }
     }
 
-
-
+    
     useEffect(() => {
         getCategories();
     }, []);
@@ -110,7 +116,8 @@ function CategoryList() {
                                     Price: {store.price} <br />
                                     Rating: {store.rating}
                                 </Card.Text>
-                                <Button variant="light" onClick={(e) => addFavorite(store.id)}><AiOutlineHeart size="1.8em" />️
+                                <Button variant="light" onClick={() => addFavorite(store.id)}>
+                                    <AiOutlineHeart size="1.8em" />
                                 </Button>
                             </Card.Body>
                         </Card>
@@ -118,7 +125,7 @@ function CategoryList() {
                 ))}
                 </Row>
                 </Container> 
-                </div>
+            </div>
                             
             ))}
         </ul>

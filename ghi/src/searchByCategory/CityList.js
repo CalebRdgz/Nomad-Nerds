@@ -113,7 +113,7 @@ function CategoryList() {
                                     Price: {store.price} <br />
                                     Rating: {store.rating}
                                 </Card.Text>
-                            <Button variant="light" onClick={(e) => addFavorite(store.id)}><AiOutlineHeart size="1.8em" />
+                            <Button variant="light" onClick={() => addFavorite(store.id)}><AiOutlineHeart size="1.8em" />
                             </Button>
                             </Card.Body>
                         </Card>
