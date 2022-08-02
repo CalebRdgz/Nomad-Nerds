@@ -65,7 +65,6 @@ function Favorites() {
     }
 
     async function deleteFavorite(id) {
-        let content = {business_id: id}
         const fetchConfig = {
             credentials: "include",
             method: "delete",
@@ -105,8 +104,6 @@ function Favorites() {
         } setSortedBusinesses(data);
     } 
 
-
-    
     
     useEffect(() => {
         getFavorites();
@@ -118,7 +115,6 @@ function Favorites() {
     //     sortBusinesses();
     // }, [businesses]);
     console.log('businesses', businesses)
-
 
 
     return (

@@ -5,14 +5,20 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useAuthContext } from "../users/Auth";
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 
 function CategoryList() {
     const location = useLocation();
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
+    const [business_id, setBusiness_id] = useState('');
+    const { token } = useAuthContext();
     const category = location.state.category
     const cities = location.state.cities
     const formatted_cities = cities.map(city => [city.city, city.admin_name, city.country].join(',')).join(';')
+
 
     async function getCities() {
         const fetchConfig = {
@@ -43,6 +49,8 @@ function CategoryList() {
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${cat}&location=${city}&quantity=1`;
         return fetch(url, fetchConfig);
     }
+
+
     function getBusinesses() {
         if (rankedCities && rankedCities.length > 0) {
             Promise.all(rankedCities
@@ -52,6 +60,31 @@ function CategoryList() {
                 .then(data => setBusinesses(data))
         }
     }
+
+
+    async function addFavorite(id) {
+        const url = `${process.env.REACT_APP_USER}/user/favorites/`
+        let content = {business_id: id}
+        const fetchConfig = {
+            credentials: "include",
+            method: "post",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(content)
+        };
+        
+        const response = await fetch(url, fetchConfig);
+        console.log('response', response)
+        if (response.ok) {
+            const data = await response.json();
+            setBusiness_id(data);
+        }
+    }
+
+
+
     useEffect(() => {
         getCities();
     }, []);
@@ -69,17 +102,19 @@ function CategoryList() {
                 <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
                         <Col key={idx} className="col-3">
-                        <Card>
+                        <Card style={{backgroundColor: "light gray"}}>
                         <Card.Img variant="top" src={store.image_url} height={200} />
                             <Card.Title>{store.name}</Card.Title>
                             <Card.Body>
                                 <Card.Text>
                                     {store.location.display_address[0]} <br />
                                     {store.location.display_address[1]}<br />
+                                    {store.location.display_address[2]}<br />
                                     Price: {store.price} <br />
                                     Rating: {store.rating}
                                 </Card.Text>
-                            <Button variant="light">❤️️</Button>
+                            <Button variant="light" onClick={(e) => addFavorite(store.id)}><AiOutlineHeart size="1.8em" />
+                            </Button>
                             </Card.Body>
                         </Card>
                         </Col>

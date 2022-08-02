@@ -7,6 +7,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
+import { AiFillStar} from "react-icons/ai";
 
 
 function CategoryList() {
@@ -16,7 +18,8 @@ function CategoryList() {
     const [business_id, setBusiness_id] = useState('');
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
-    
+
+
     async function getCategories() {
         const fetchConfig = {
             method: "get",
@@ -74,7 +77,6 @@ function CategoryList() {
             const data = await response.json();
             setBusiness_id(data);
         }
-
     }
 
 
@@ -104,11 +106,11 @@ function CategoryList() {
                                 <Card.Text>
                                     {store.location.display_address[0]} <br />
                                     {store.location.display_address[1]}<br />
+                                    {store.location.display_address[2]}<br />
                                     Price: {store.price} <br />
                                     Rating: {store.rating}
                                 </Card.Text>
-                                <Button variant="light" onClick={(e) => addFavorite(store.id)}>< AiOutlineHeart size="1.8em" />️
-                                    {/* Need to figure out how to get store.id into addFavorite on click */}
+                                <Button variant="light" onClick={(e) => addFavorite(store.id)}><AiOutlineHeart size="1.8em" />️
                                 </Button>
                             </Card.Body>
                         </Card>
