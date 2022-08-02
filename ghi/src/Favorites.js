@@ -24,10 +24,10 @@ function Favorites() {
             credentials: "include",
             method: "get",
             headers: {
-                // "Access-Control-Request-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
+                "Access-Control-Request-Headers": "*",
                 // "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
                 "Authorization": `Bearer ${token}`,
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
             }
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
@@ -41,7 +41,7 @@ function Favorites() {
         }
     }
 
-    function fetchBusinesses(favorite) {
+    async function fetchBusinesses(favorite) {
         const fetchConfig = {
             method: "get",
             headers: {
@@ -68,8 +68,9 @@ function Favorites() {
             credentials: "include",
             method: "delete",
             headers: {
-                "Access-Control-Allow-Headers": "*",
+                // "Access-Control-Allow-Headers": "*",
                 "Access-Control-Allow-Origin": "*",
+                "Access-Control-Request-Headers": "*",
                 "Authorization": `Bearer ${token}`,
             }
         };
