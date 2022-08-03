@@ -70,7 +70,6 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
     raw_data = businesses_request(categories=category, location=location, quantity=quantity)
-    # print(raw_data)
     return raw_data
 
     # return {"count": len(raw_data), "businesses": raw_data}
@@ -90,6 +89,4 @@ def get_business_info(id: str):
     data['state'] = raw_data['location']['state']
     data['city'] = raw_data['location']['city']
     data['country'] = raw_data['location']['country']
-    print('data', data)
-    print('raw data', raw_data)
     return data

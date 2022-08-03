@@ -14,13 +14,12 @@ function MainPage() {
         <Row>
           <Col style={{marginTop: -1500}}>
             <Row>
-            Search a city to get top activities & businesses<CitySearch/>
-            </Row>
-            <Row>
-              Hello
+            <CitySearch/>
             </Row>
           </Col>
-          <Col style={{marginTop: -1500}}>Category Search<CategorySearch/></Col>          
+          <Col style={{marginTop: -1500}}>
+            <CategorySearch/>
+          </Col>          
         </Row>
       </Container>
     </>
