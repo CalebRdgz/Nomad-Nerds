@@ -153,7 +153,7 @@ function CategoryList() {
                                 </Card.Text>
                                 <Button variant="light"  style={{float: "right"}} onClick={() => addFavorite(store.id)}>
                                     {console.log('favorite inside button', favorites)}
-                                    {favorites.includes(store.id) ?  <AiFillHeart /> : <AiOutlineHeart />}
+                                    {favorites.includes(store.id) ?  <AiFillHeart style={{color: "red"}}/> : <AiOutlineHeart />}
                                 </Button>
                             </Card.Body>
                         </Card>
