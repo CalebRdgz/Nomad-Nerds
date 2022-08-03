@@ -23,7 +23,7 @@ function Nav() {
   const links = token ? loggedIn : loggedOut;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light">
+    <nav className="navbar navbar-expand-lg shadow rounded">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           <img

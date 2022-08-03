@@ -11,7 +11,7 @@ function CarouselFade() {
         
       <Carousel.Item>
         <Carousel.Caption>
-          <div className="px-5 py-5 mb-5 text-center">
+          <div className="text-center">
             <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
             </div>
         </Carousel.Caption>          
