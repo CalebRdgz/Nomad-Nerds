@@ -39,7 +39,7 @@ html {
 
 .main-footer {
   color: rgb(255, 255, 255);
-  background-color: #191919;
+  background-color: rgb(205, 197, 197);
   margin-top: 20em;
   position: relative;
   bottom: 0;
@@ -57,7 +57,7 @@ html {
 
 
 .navbar {
-  background-color: #d4f2ff;
+  background-color: rgb(205, 197, 197);
 }
 
 

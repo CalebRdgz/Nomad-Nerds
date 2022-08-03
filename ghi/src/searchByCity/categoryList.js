@@ -12,6 +12,7 @@ import { AiFillStar} from "react-icons/ai";
 
 
 
+
 function CategoryList() {
     const location = useLocation();
     const [categories, setCategories] = useState([]);
@@ -100,32 +101,32 @@ function CategoryList() {
         <ul>
             {businesses.map((business, index) => (
             <div key={index}>
-              <h1>{Object.keys(business)}</h1>
+                <br />
                 <Container className="container-fluid">
+                <h1>{Object.keys(business)}</h1>
                 <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
-                        <Col key={idx} className="col-3">
-                        <Card>
-                        <Card.Img variant="top" src={store.image_url} height={200} />
-                        
-                            <Card.Title>{store.name}</Card.Title>
+                        <Col key={idx} className="col-3col-lg-4 mb-4">
+                        <Card style={{height: "50rem"}}>
+                        <Card.Img variant="top" src={store.image_url} height={225} />                
                             <Card.Body>
+                            <Card.Title>{store.name}</Card.Title>
                                 <Card.Text>
-                                    {store.location.display_address[0]} <br />
+                                    {store.location.display_address[0]}<br />
                                     {store.location.display_address[1]}<br />
                                     {store.location.display_address[2]}<br />
                                     {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
+                                    <Button variant="light" style={{float: "right"}} onClick={() => {addFavorite(store.id)}}>
+                                        <AiOutlineHeart size="1.5em" />
+                                    </Button>
                                 </Card.Text>
-                                <Button variant="light" onClick={() => addFavorite(store.id)}>
-                                    <AiOutlineHeart size="1.8em" />
-                                </Button>
                             </Card.Body>
                         </Card>
                         </Col>
                 ))}
                 </Row>
-                </Container> 
+                </Container>
             </div>
                             
             ))}
