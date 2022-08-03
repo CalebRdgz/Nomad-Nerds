@@ -8,7 +8,6 @@ import Col from "react-bootstrap/Col";
 import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
-import { AiFillStar} from "react-icons/ai";
 
 
 
@@ -17,10 +16,34 @@ function CategoryList() {
     const [categories, setCategories] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
-    const [favorite, setFavorite] = useState(false);
+    const [favorites, setFavorites] = useState([]);
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
     const navigate = useNavigate();
+
+
+    async function getFavorites() {
+        const fetchConfig = {
+            credentials: "include",
+            method: "get",
+            headers: {
+                "Access-Control-Request-Headers": "*",
+                // "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
+                "Authorization": `Bearer ${token}`,
+                // "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Headers": "*",
+            }
+        };
+        const url = `${process.env.REACT_APP_USER}/user/favorites/`
+        console.log('url', url)
+        const response = await fetch(url, fetchConfig);
+        console.log('response', response)
+        if (response.ok) {
+            console.log('got response')
+            const data = await response.json();
+            setFavorites(data);
+        }
+    }
 
 
     async function getCategories() {
@@ -78,7 +101,9 @@ function CategoryList() {
         if (response.ok) {
             const data = await response.json();
             setBusiness_id(data);
-            setFavorite(!favorite);
+            if (favorites.includes(id) == false) {
+                setFavorites([...favorites, id])
+            }
         } if (response.status === 403) {
             if (window.confirm("You cannot save favorites because you are not currently logged in. Would you like to log in?")) {
                 navigate('/user/login/');
@@ -88,8 +113,9 @@ function CategoryList() {
         }
     }
 
-
-    
+    useEffect(() => {
+        getFavorites();
+    }, []);
     useEffect(() => {
         getCategories();
     }, []);
@@ -119,7 +145,9 @@ function CategoryList() {
                                     {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
                                 </Card.Text>
-                                <Button variant="light" style={{float: "right"}} icon={favorite ? { AiOutlineHeart } : { AiFillHeart }} onClick={() => addFavorite(store.id)}>
+                                <Button variant="light"  style={{float: "right"}} onClick={() => addFavorite(store.id)}>
+                                    {console.log('favorite inside button', favorites)}
+                                    {favorites.includes(store.id) ?  <AiFillHeart /> : <AiOutlineHeart />}
                                 </Button>
                             </Card.Body>
                         </Card>

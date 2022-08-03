@@ -52,20 +52,22 @@ function Favorites() {
         const fetchConfig = {
             method: "get",
             headers: {
-                // "Access-Control-Allow-Origin": "*",
-                // "Access-Control-Allow-Headers": "*"
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*"
             }
         };
+        
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
         return fetch(url, fetchConfig);
     }
+    console.log('favorites', favorites)
 
     function getBusinesses() {
         if (favorites && favorites.length > 0) {
             Promise.all(favorites
                 .map(favorite => fetchBusinesses(favorite)
-                    .then(res => res.json())
-                    .then(data => ({[favorite]: data}))))
+                    .then(res => (res.json()))
+                    .then(data => ({favorite: data}))))
                 .then(data => setBusinesses(data))
         }
     }

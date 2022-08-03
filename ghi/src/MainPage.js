@@ -22,6 +22,7 @@ function MainPage() {
           <Col style={{marginTop: -1500}}><CategorySearch/></Col>          
         </Row>
       </Container>
+      
     </>
   );
 }
