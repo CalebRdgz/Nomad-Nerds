@@ -61,9 +61,10 @@ function CitySearch(props) {
             onSelect={handleOnSelect}
             onFocus={handleOnFocus}
             autoFocus
-            placeholder = 'Enter a City'
+            placeholder = 'Search a city to find things to do'
             formatResult={formatResult}
             maxResults={5}
+            styling={{borderRadius: "10px"}}
           />
         </div>
       </header>
