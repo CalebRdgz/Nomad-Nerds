@@ -65,45 +65,6 @@ def user_favorites(request, business_id=None):
         favorite.delete()
         return JsonResponse({"message": "Done"})
 
-
-
-    # if request.method == "GET":
-    #     favorites = Favorite.objects.filter(username=username)
-    #     return JsonResponse(
-    #         {"favorites": favorites},
-    #         encoder=FavoriteEncoder,
-    #         safe=False,
-    #     )
-    # elif request.method == "POST":
-    #     try:
-            # content = json.loads(request.body)
-            # favorite = Favorite.objects.create(**content)
-            # content["user"] = content["username"]
-
-    #         # refer to scrumptious-recipes-views for user
-    #         return JsonResponse(
-    #             favorite,
-    #             encoder=FavoriteEncoder,
-    #             safe=False,
-    #         )
-    #     except:
-    #         response = JsonResponse({"message": "Could not create this favorite"})
-    #         response.status_code = 404
-    #         return response
-
-
-
-# @auth.jwt_login_required
-# @require_http_methods(["DELETE"])
-# def user_delete_favorite(request, pk):
-#     user = request.user
-#     try:
-#         Favorite.objects.filter(user=user, id=pk).delete()
-#         return JsonResponse({"message": "You have successfully deleted a favorite"})
-#     except Favorite.DoesNotExist:
-#         return JsonResponse({"message": "Could not delete this favorite"})
-
-
 @require_http_methods(["GET", "POST"])
 def users(request):
     if request.method == "POST":
