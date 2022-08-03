@@ -17,6 +17,7 @@ function CategoryList() {
     const [categories, setCategories] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
+    const [favorite, setFavorite] = useState(false);
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
     const navigate = useNavigate();
@@ -72,12 +73,12 @@ function CategoryList() {
             },
             body: JSON.stringify(content)
         };
-        
         const response = await fetch(url, fetchConfig);
         console.log('response', response)
         if (response.ok) {
             const data = await response.json();
             setBusiness_id(data);
+            setFavorite(!favorite);
         } if (response.status === 403) {
             if (window.confirm("You cannot save favorites because you are not currently logged in. Would you like to log in?")) {
                 navigate('/user/login/');
@@ -86,6 +87,7 @@ function CategoryList() {
             
         }
     }
+
 
     
     useEffect(() => {
@@ -100,15 +102,15 @@ function CategoryList() {
         <ul>
             {businesses.map((business, index) => (
             <div key={index}>
-              <h1>{Object.keys(business)}</h1>
+              <h1 className="card-title" style={{fontFamily: "papyrus", fontWeight:"bold", padding:20, paddingTop: 90}}>{Object.keys(business)}</h1>
                 <Container className="container-fluid">
                 <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
                         <Col key={idx} className="col-3">
                         <Card>
-                        <Card.Img variant="top" src={store.image_url} height={200} />
-                        
-                            <Card.Title>{store.name}</Card.Title>
+                           
+                            <Card.Img variant="top" src={store.image_url} height={250} />
+                            <Card.Title style={{fontWeight: "bold", textAlign: "center"}}>{store.name}</Card.Title>
                             <Card.Body>
                                 <Card.Text>
                                     {store.location.display_address[0]} <br />
@@ -117,8 +119,7 @@ function CategoryList() {
                                     {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
                                 </Card.Text>
-                                <Button variant="light" onClick={() => addFavorite(store.id)}>
-                                    <AiOutlineHeart size="1.8em" />
+                                <Button variant="light" style={{float: "right"}} icon={favorite ? { AiOutlineHeart } : { AiFillHeart }} onClick={() => addFavorite(store.id)}>
                                 </Button>
                             </Card.Body>
                         </Card>

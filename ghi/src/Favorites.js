@@ -132,7 +132,7 @@ function Favorites() {
                     {console.log('sorted businesses', sortedBusinesses)}
                     {Object.keys(sortedBusinesses).map((location, index) => 
                         <div key={index}>
-                            <h1>{location}</h1>
+                            <h1 className="card-title">{location}</h1>
                             <Container className="container-fluid">
                             <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                                 {sortedBusinesses[location].map((store, idx) => (

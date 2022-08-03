@@ -97,7 +97,7 @@ function CategoryList() {
         <ul>
             {businesses.map((business, index) => (
             <div key={index}>
-              <h1>{Object.keys(business)}</h1>
+              <h1 className="card-title">{Object.keys(business)}</h1>
                 <Container className="container-fluid">
                 <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
