@@ -19,7 +19,7 @@
 
 
 ## July 25, 2022
-* Today, I missed out on the group project time.
+* Today, I missed out on the group project time due to a family emergency.
 
 
 ## July 22, 2022
