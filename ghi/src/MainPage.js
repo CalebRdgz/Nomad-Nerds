@@ -12,7 +12,7 @@ function MainPage() {
       <CarouselFade />
       <Container>
         <Row>
-          <Col style={{marginTop: -1700}}>
+          <Col style={{marginTop: -1500}}>
             <Row>
             Search a city to get top activities & businesses<CitySearch/>
             </Row>
@@ -20,7 +20,7 @@ function MainPage() {
               Hello
             </Row>
           </Col>
-          <Col style={{marginTop: -1700}}>Category Search<CategorySearch/></Col>          
+          <Col style={{marginTop: -1500}}>Category Search<CategorySearch/></Col>          
         </Row>
       </Container>
     </>

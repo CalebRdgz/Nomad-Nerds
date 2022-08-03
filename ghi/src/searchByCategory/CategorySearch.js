@@ -81,7 +81,7 @@ function CategorySearch(props) {
   function listSelectedCities(city_list) {
 
     return (
-    <div className="container vertical-scrollable" style={{maxHeight:150, overflow: 'scroll'}}>
+    <div className="container vertical-scrollable" style={{maxHeight:150, overflowY: 'scroll', backgroundColor: 'white'}}>
       {city_list.map(item => {
         return (
           <div key={item.id} className="row">
@@ -98,8 +98,8 @@ function CategorySearch(props) {
 
   return (
     <div className='container'>
-      <div className='row gy-5'>
-        <div className='col' style={{paddingBottom: 150}}>
+      <div className='row gx-5'>
+        <div className='col-6 gx-5' style={{paddingBottom: 400, paddingRight: 100}}>
           <div className='d-flex justify-content-center'>
           </div>
           <div style={{ width: 400 }}>
@@ -116,11 +116,11 @@ function CategorySearch(props) {
               placeholder="Seach for a category"
               handleOnHover={handleOnCategoryHover}
               handleOnFocus={handleOnCategoryFocus}
+              styling={{borderRadius: "10px"}}
               />
           </div>
         </div>
-      <div className='row'>
-        <div className='col' style={{paddingBottom: 150}}>
+        <div className='col-6' style={{paddingBottom: 400}}>
           <div className='d-flex justify-content-center'>
           </div>
           <div style={{ width: 400 }}>
@@ -136,16 +136,18 @@ function CategorySearch(props) {
               placeholder="Search for a location"
               handleOnHover={handleOnCityHover}
               handleOnFocus={handleOnCityFocus}
+              styling={{borderRadius: "10px"}}
               />
           </div>
         </div>
       </div>
-      <div className='text-center'>
+      <div className='text-center' style={{backgroundColor: "white", fontSize: 20, fontWeight: "bold", opacity: .9, borderRadius: 30, overflowX:"hidden"}}>
         Current Pool of Cities
+        <div className='text-center' style={{fontSize:17}}> 
+          {listSelectedCities(selectedCities)}
+        </div>
       </div>
-      {listSelectedCities(selectedCities)}
       </div>
-    </div>
   )
   }
 

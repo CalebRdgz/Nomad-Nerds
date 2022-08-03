@@ -1,5 +1,5 @@
 import { Carousel } from 'react-bootstrap';
-import image from './images/skiing.jpg';
+import image from './images/Hiking.jpeg';
 import image2 from './images/valley.jpg';
 import image3 from './images/nature.jpg';
 import CitySearch from './searchByCity/citySearch';
@@ -7,66 +7,48 @@ import CitySearch from './searchByCity/citySearch';
 
 function CarouselFade() {
   return (
-    <Carousel fade className="carousel" style={{zIndex: -1}}>
+    <Carousel fade className="carousel" interval={null} style={{zIndex: -1}}>
         
-        <Carousel.Item>
-          <Carousel.Caption>
-            <div className="px-5 py-5 my-5 text-center">
-              <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
-              </div>
-          </Carousel.Caption>          
-          <img
-            className="d-block" style={{overflow: "hidden"}}
-            src={ image } 
-            alt="First slide"
-          />
-        </Carousel.Item>
-
       <Carousel.Item>
         <Carousel.Caption>
-          <div className="px-5 py-5 my-5 text-center">
+          <div className="px-5 py-5 mb-5 text-center">
             <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
             </div>
-        </Carousel.Caption>
+        </Carousel.Caption>          
         <img
           className="d-block" style={{overflow: "hidden"}}
-          src={ image2 } 
-          alt="Second slide"
+          src={ image } 
+          alt="First slide"
         />
+      </Carousel.Item>
+
+      {/* // <Carousel.Item>
+      //   <Carousel.Caption>
+      //     <div className="px-5 py-5 my-5 text-center">
+      //       <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
+      //       </div>
+      //   </Carousel.Caption>
+      //   <img
+      //     className="d-block" style={{overflow: "hidden"}}
+      //     src={ image2 } 
+      //     alt="Second slide"
+      //   />
         
-      </Carousel.Item>
+      // </Carousel.Item>
 
-      <Carousel.Item>
-        <Carousel.Caption>
-          <div className="px-5 py-5 my-5 text-center">
-            <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
-            </div>
-        </Carousel.Caption>
-        <img
-          className="d-block" style={{overflow: "hidden"}}
-          src={ image3 }
-          alt="Third slide"
-        />
+      // <Carousel.Item>
+      //   <Carousel.Caption>
+      //     <div className="px-5 py-5 my-5 text-center">
+      //       <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
+      //       </div>
+      //   </Carousel.Caption>
+      //   <img
+      //     className="d-block" style={{overflow: "hidden"}}
+      //     src={ image3 }
+      //     alt="Third slide"
+      //   />
 
-      </Carousel.Item>
-      <Carousel.Item>
-        <Carousel.Caption>
-          <div className="px-5 py-5 my-5 text-center">
-            <h1 className="display-5 fw-bold">Nomad Nerds</h1>
-            <div className="col-lg-6 mx-auto">
-                <p className="lead mb-30 pb-6 fw-bold">
-                  Connecting you to your favorite activities and locations!
-                </p>
-              </div>
-            </div>
-        </Carousel.Caption>
-        <img
-          className="d-block" style={{overflow: "hidden"}}
-          src={ image4 }
-          alt="Third slide"
-        />
-
-      </Carousel.Item>
+      // </Carousel.Item> */}
     </Carousel>
   );
 }
