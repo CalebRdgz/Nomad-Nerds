@@ -63,7 +63,6 @@ def user_favorites(request, business_id=None):
         favorite.delete()
         return JsonResponse({"message": "Done"})
 
-
 @require_http_methods(["GET", "POST"])
 def users(request):
     if request.method == "POST":
