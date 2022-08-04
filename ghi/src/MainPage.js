@@ -12,14 +12,21 @@ function MainPage() {
       <CarouselFade />
       <Container>
         <Row>
+<<<<<<< HEAD
           <Col style={{marginTop: -1500}}>
             <Row>
             <CitySearch/>
             </Row>
-            <Row>
-            </Row>
           </Col>
-          <Col style={{marginTop: -1500}}><CategorySearch/></Col>          
+          <Col style={{marginTop: -1500}}>
+            <CategorySearch/>
+          </Col>          
+=======
+          <Col style={{marginTop: -1650}}>
+            <CitySearch/>
+          </Col>
+          <Col style={{marginTop: -1650}}><CategorySearch/></Col>          
+>>>>>>> main
         </Row>
       </Container>
       

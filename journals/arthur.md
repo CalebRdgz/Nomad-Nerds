@@ -1,6 +1,24 @@
+## August 3rd, 2022
+
+* Today I have been working on some edge case errors with the city list page. There are two extra utilities I wanted to add. First, I decided to add a notice that appears from when the page has loaded but the data is still being retrieved, so instead of showing nothing, a loading message appears. Second, there are some combinations of categories and cities which end up showing no data. Either the cities the user selected do not have any data on yelp, and therefore give no info, or the selected cities have no businesses that match the given category. In either of these cases, I have the page show a message alerting the user that their search has no matches. Additionally, today while testing, our group was eating API calls. In order to fix this, we decided to each create our own yelp account so we can have 4 api keys, so when we are troubleshooting, we can use our own api keys and are much more likely to not run out.
+
+## August 2nd, 2022
+
+* Today we mostly worked on visual aspects on the front end. We decided to make the carousel, which was just the top portion of the page, to stretch down and cover most of the page. This also requires us to move our search bars up into the carousel, which requires giving them a negative margin. Additionally, the category search has two search bars, so we decided to have the search bars next to each other. Currently the bars are slightly overlapping, which is something I plan to fix tomorrow. We also gave a background to the list of selected cities, and making is slightly opaque. Additionally, we wanted to make the carousel not compress or stretch the images, so we are now using large images and hiding the images overflow, this way the image doesn't get morphed. 
+
+
+## August 1st, 2022
+
+* Today we worked on the add and delete buttons for the favorites. The add button is on the city list and category list pages, and we need to create an instance of a favorite when pressed, storing just the business ID in the backend. The delete favorite button will be shown in the favorites page. The favorites page gets all the instances of favorites for the current user and makes api calls to yelp's api using the business IDs, and then listed the business info. On each business card is a delete button that removes that instance of favorite. Towards the end of the day, we were running into tons of cors errors, and couldn't figure out what the issue was. Eventually and went and checked out our Yelp api account and realized that we had run out of api calls for the day. 
+
+## July 28th, 2022
+
+* Today as a group we worked on the favorites section of our back-end. We tested to make sure we could add a favorite in both the back end on the admin site, as well as the front-end on our localhost webpage. Most of our troubleshooting revolved around cors errors, and we tried various combinations of headers to include in our fetch to remove this error. As it turns out, we needed to include credentials to fix the issue. 
+
+
 ## July 27th, 2022
 
-* Today I worked on the cities
+* Today I worked on the cities list page, and implemented a configuration similar to the one we are implementing on the categories list page. Mostly worked on little details and looks.
 
 ## July 26th, 2022
 

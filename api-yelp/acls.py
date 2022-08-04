@@ -6,7 +6,6 @@ def categories_request(location='', quantity=1):
     url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization": "Bearer {}".format(os.environ['API_YELP_KEY'])}
     data = []
-    # categories.extend(['shopping', 'nightlife', 'hotelstravel', 'arts', 'active'])
     for offset in range(0, quantity * 50, 50):
         params = {
             "location": location,
@@ -16,7 +15,7 @@ def categories_request(location='', quantity=1):
             "categories": "shopping,nightlife,hotelstravel,arts,active"
         }
         res = requests.get(url, headers=headers, params=params)
-        data += res.json()["businesses"]
+        data += res.json().get("businesses")
     return data
 
 
@@ -33,7 +32,7 @@ def businesses_request(categories='', location="", quantity=1):
             "categories": categories
         }
         res = requests.get(url, headers=headers, params=params)
-        data += res.json()["businesses"]
+        data += res.json().get("businesses")
     return data
 
 
@@ -51,10 +50,12 @@ def category_request(categories=[], quantity=1, cities=[]):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
-            raw_data = res.json()["businesses"]
-            for business in raw_data:
-                business['city_info'] = city
-            data += raw_data
+            print('res in category_request', city, res)
+            if res.status_code == 200:
+                raw_data = res.json()["businesses"]
+                for business in raw_data:
+                    business['city_info'] = city
+                data += raw_data
     return data
 
 

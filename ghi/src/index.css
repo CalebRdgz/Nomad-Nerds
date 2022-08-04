@@ -39,7 +39,7 @@ html {
 
 .main-footer {
   color: rgb(255, 255, 255);
-  background-color: #c9d3d8;
+  background-color: rgb(205, 197, 197);
   margin-top: 20em;
   position: relative;
   bottom: 0;
@@ -57,7 +57,7 @@ html {
 
 
 .navbar {
-  background-color: #bcc4c8;
+  background-color: white;
 }
 
 
@@ -65,13 +65,14 @@ html {
 
 
 .text-on-image {
- font-family: "papyrus";
- font-weight: 300;
+ font-family: "verdana";
+ font-weight: 400;
  right: 50%;
  left: 50%;
+ top:50%;
  bottom: 50%;
  margin-top: 100px;
- color: rgb(91, 89, 89);
+ color: white;
 }
 
 .carousel .carousel-item {

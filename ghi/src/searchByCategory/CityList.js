@@ -14,7 +14,12 @@ function CategoryList() {
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
+<<<<<<< HEAD
+    const [businessesLoading, setBusinessesLoading] = useState(true)
+    const [citiesLoading, setCitiesLoading]  = useState(true)
+=======
     const [favorites, setFavorites] = useState([]);
+>>>>>>> main
     const { token } = useAuthContext();
     const category = location.state.category
     const cities = location.state.cities
@@ -45,7 +50,6 @@ function CategoryList() {
         }
     }
 
-
     async function getCities() {
         const fetchConfig = {
             method: 'get',
@@ -59,8 +63,8 @@ function CategoryList() {
         
         if (response.ok) {
             const data = await response.json()
-            setRankedCities(data['cities'])
-        }
+            setRankedCities(data['cities'])}
+            setCitiesLoading(false)
     }
     
     
@@ -83,7 +87,7 @@ function CategoryList() {
                 .map(city => fetchBusinesses(category.alias, city)
                     .then(res => res.json())
                     .then(data => ({[city[0].replaceAll(',', ', ')]: data}))))
-                .then(data => setBusinesses(data))
+                .then(data => (setBusinessesLoading(false), setBusinesses(data)))
         }
     }
 
@@ -102,7 +106,6 @@ function CategoryList() {
         };
         
         const response = await fetch(url, fetchConfig);
-        console.log('response', response)
         if (response.ok) {
             const data = await response.json();
             setBusiness_id(data);
@@ -118,6 +121,28 @@ function CategoryList() {
         }
     }
 
+    async function deleteFavorite(id) {
+        const fetchConfig = {
+            credentials: "include",
+            method: "delete",
+            headers: {
+                // "Access-Control-Allow-Headers": "*",
+                // "Access-Control-Allow-Origin": "*",
+                "Access-Control-Request-Headers": "*",
+                "Authorization": `Bearer ${token}`,
+            }
+        };
+        const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
+        const response = await fetch(url, fetchConfig);
+        console.log('response', response)
+        if (response.ok) {
+            const data = await response.json();
+            console.log('favorites before', favorites)
+            console.log('id', id)
+            setFavorites(favorites.filter(favorite => favorite != id))
+        }
+    }
+
 
     useEffect(() => {
         getFavorites();
@@ -130,7 +155,24 @@ function CategoryList() {
     useEffect(() => {
         getBusinesses();
     }, [rankedCities]);
-    console.log(rankedCities)
+    
+
+    if (citiesLoading === false && rankedCities.length === 0 || businessesLoading === false && businesses.length === 0) {
+        return (
+            <div className="text-center">
+                <h1>Don't have the info</h1>
+            </div>
+        )
+    } 
+    else if (businessesLoading === true) {
+        return (
+            <div className="text-center">
+                <h1>LOADING</h1>
+                <h2>Compiling your businesses</h2>
+            </div>
+        )
+    }
+
     return (
         <ul>
             {businesses.map((business, index) => (
@@ -140,7 +182,7 @@ function CategoryList() {
                 <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
                         <Col key={idx} className="col-3">
-                        <Card style={{backgroundColor: "light gray"}}>
+                        <Card style={{backgroundColor: "light gray", width: "18rem"}} >
                         <Card.Img variant="top" src={store.image_url} height={200} />
                             <Card.Title>{store.name}</Card.Title>
                             <Card.Body>
@@ -148,12 +190,11 @@ function CategoryList() {
                                     {store.location.display_address[0]} <br />
                                     {store.location.display_address[1]}<br />
                                     {store.location.display_address[2]}<br />
-                                    Price: {store.price} <br />
+                                    {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
                                 </Card.Text>
-                                <Button variant="light"  style={{float: "right"}} onClick={() => addFavorite(store.id)}>
-                                    {console.log('favorite inside button', favorites)}
-                                    {favorites.includes(store.id) ?  <AiFillHeart /> : <AiOutlineHeart />}
+                                <Button variant="light"  style={{float: "right"}}>
+                                    {favorites.includes(store.id) ?  <AiFillHeart style={{color: "red", size:'2em'}} onClick={() => deleteFavorite(store.id)}/> : <AiOutlineHeart onClick={() => addFavorite(store.id)}/>}
                                 </Button>
                             </Card.Body>
                         </Card>
