@@ -14,12 +14,9 @@ function CategoryList() {
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
-<<<<<<< HEAD
     const [businessesLoading, setBusinessesLoading] = useState(true)
     const [citiesLoading, setCitiesLoading]  = useState(true)
-=======
     const [favorites, setFavorites] = useState([]);
->>>>>>> main
     const { token } = useAuthContext();
     const category = location.state.category
     const cities = location.state.cities
