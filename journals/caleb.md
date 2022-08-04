@@ -23,3 +23,12 @@
 ## July 28th, 2022
 
 ## August 1st, 2022
+
+## August 2nd, 2022
+* Today, I did a lot of front end, playing around with different background pictures and title fonts that would look good with the rest of the website. I changed some of the color scheme of the navbar and footer. I found that adding too much color can make things worse.
+
+## August 3rd, 2022
+* Today, we went through troubleshooting some CORS errors that we kept getting when going to our favorites page.
+
+## August 4th, 2022
+* 
