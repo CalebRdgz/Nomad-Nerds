@@ -10,6 +10,7 @@ export const loggedIn = [
 ]
 
 export const loggedOut = [
+  { name: "New Here?", path:"instructions"},
   { name: "Log In", path:"user/login/" },
   { name: "Sign Up", path:"user/signup/"}
 ]
