@@ -9,17 +9,14 @@ import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 
-function CategoryList() {
+function CityList() {
     const location = useLocation();
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
-<<<<<<< HEAD
     const [businessesLoading, setBusinessesLoading] = useState(true)
     const [citiesLoading, setCitiesLoading]  = useState(true)
-=======
     const [favorites, setFavorites] = useState([]);
->>>>>>> main
     const { token } = useAuthContext();
     const category = location.state.category
     const cities = location.state.cities
@@ -208,4 +205,4 @@ function CategoryList() {
         </ul>
     )
 }
-export default CategoryList;
+export default CityList;
