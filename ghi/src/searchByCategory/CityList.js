@@ -14,6 +14,8 @@ function CategoryList() {
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
+    const [businessesLoading, setBusinessesLoading] = useState(true)
+    const [citiesLoading, setCitiesLoading]  = useState(true)
     const [favorites, setFavorites] = useState([]);
     const { token } = useAuthContext();
     const category = location.state.category
@@ -45,7 +47,6 @@ function CategoryList() {
         }
     }
 
-
     async function getCities() {
         const fetchConfig = {
             method: 'get',
@@ -59,8 +60,8 @@ function CategoryList() {
         
         if (response.ok) {
             const data = await response.json()
-            setRankedCities(data['cities'])
-        }
+            setRankedCities(data['cities'])}
+            setCitiesLoading(false)
     }
     
     
@@ -83,7 +84,7 @@ function CategoryList() {
                 .map(city => fetchBusinesses(category.alias, city)
                     .then(res => res.json())
                     .then(data => ({[city[0].replaceAll(',', ', ')]: data}))))
-                .then(data => setBusinesses(data))
+                .then(data => (setBusinessesLoading(false), setBusinesses(data)))
         }
     }
 
@@ -102,7 +103,6 @@ function CategoryList() {
         };
         
         const response = await fetch(url, fetchConfig);
-        console.log('response', response)
         if (response.ok) {
             const data = await response.json();
             setBusiness_id(data);
@@ -152,7 +152,24 @@ function CategoryList() {
     useEffect(() => {
         getBusinesses();
     }, [rankedCities]);
-    console.log(rankedCities)
+    
+
+    if (citiesLoading === false && rankedCities.length === 0 || businessesLoading === false && businesses.length === 0) {
+        return (
+            <div className="text-center">
+                <h1>Don't have the info</h1>
+            </div>
+        )
+    } 
+    else if (businessesLoading === true) {
+        return (
+            <div className="text-center">
+                <h1>LOADING</h1>
+                <h2>Compiling your businesses</h2>
+            </div>
+        )
+    }
+
     return (
         <ul>
             {businesses.map((business, index) => (

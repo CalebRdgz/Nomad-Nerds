@@ -12,7 +12,7 @@ def categories_request(location='', quantity=1):
             "limit": 50,
             "offset": offset,
             "sort_by": "rating",
-            "categories": ['shopping', 'nightlife', 'hotelstravel', 'arts', 'active']
+            "categories": "shopping,nightlife,hotelstravel,arts,active"
         }
         res = requests.get(url, headers=headers, params=params)
         data += res.json().get("businesses")
@@ -50,10 +50,12 @@ def category_request(categories=[], quantity=1, cities=[]):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
-            raw_data = res.json().get("businesses")
-            for business in raw_data:
-                business['city_info'] = city
-            data += raw_data
+            print('res in category_request', city, res)
+            if res.status_code == 200:
+                raw_data = res.json()["businesses"]
+                for business in raw_data:
+                    business['city_info'] = city
+                data += raw_data
     return data
 
 
