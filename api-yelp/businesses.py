@@ -70,7 +70,6 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
     raw_data = businesses_request(categories=category, location=location, quantity=quantity)
-    # print(raw_data)
     return raw_data
 
     # return {"count": len(raw_data), "businesses": raw_data}
@@ -80,16 +79,21 @@ def get_business_list(category: str, location: str, quantity: int = 2):
 @yelp_router.get("/api-yelp/businesses/details")
 def get_business_info(id: str):
     raw_data = get_business(id)
+    print('raw_data', raw_data)
     data = {}
-    data['name'] = raw_data['name']
-    data['id'] = raw_data['id']
-    data['image_url'] = raw_data['image_url']
-    data['rating'] = raw_data['rating']
-    data['price'] = raw_data.get('price')
-    data['display_address'] = raw_data['location']['display_address']
-    data['state'] = raw_data['location']['state']
-    data['city'] = raw_data['location']['city']
-    data['country'] = raw_data['location']['country']
-    print('data', data)
-    print('raw data', raw_data)
+    data['name'] = raw_data.get('name', '')
+    data['id'] = raw_data.get('id', '')
+    data['image_url'] = raw_data.get('image_url', '')
+    data['rating'] = raw_data.get('rating', '')
+    data['price'] = raw_data.get('price', '')
+    try:
+        data['display_address'] = raw_data.get('location').get('display_address', ['', '', ''])
+        data['state'] = raw_data.get('location').get('state', '')
+        data['city'] = raw_data.get('location').get('city', '')
+        data['country'] = raw_data.get('location').get('country', '')
+    except:
+        data['display_address'] = ['', '', '']
+        data['state'] = ''
+        data['city'] = ''
+        data['country'] = ''
     return data
