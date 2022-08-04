@@ -15,7 +15,7 @@ import CategoryList from './searchByCity/categoryList';
 
 
 
-function App () {
+function App() {
   const [token, login, logout, signup, user, favorites] = useToken();
   const [userName, setUserName] = useState('');
 
@@ -26,24 +26,24 @@ function App () {
 
   // const navigate = useNavigate();
 
-    return (
-      <AuthProvider>
-      <Nav token={token} username={userName}/>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="user">
-            <Route path="signup" element={<Signup token={token} signup={signup} setUN={setUserName}/>} />
-            <Route path="login" element={<Login token={token} login={login} setUN={setUserName}/>} />
-            <Route path="logout" element={<Logout logout={logout}/>} />
-            <Route path="favorites" element={<Favorites token={token} />} />
-          </Route>
-          <Route path="category" element={<CityList />} />
-          <Route path="city" element={<CategoryList token={token}/>} />
-  
-        </Routes>
-        <Footer />
-      </AuthProvider>
-      
-    );
+  return (
+    <AuthProvider>
+      <Nav token={token} username={userName} />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="user">
+          <Route path="signup" element={<Signup token={token} signup={signup} setUN={setUserName} />} />
+          <Route path="login" element={<Login token={token} login={login} setUN={setUserName} />} />
+          <Route path="logout" element={<Logout logout={logout} />} />
+          <Route path="favorites" element={<Favorites token={token} />} />
+        </Route>
+        <Route path="category" element={<CityList />} />
+        <Route path="city" element={<CategoryList token={token} />} />
+
+      </Routes>
+      <Footer />
+    </AuthProvider>
+
+  );
 }
 export default App;

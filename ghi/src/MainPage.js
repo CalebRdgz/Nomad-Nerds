@@ -9,20 +9,20 @@ import Col from 'react-bootstrap/Col';
 
 
 function MainPage() {
-    return (
-      <>
+  return (
+    <>
       <CarouselFade />
       <Container>
         <Row>
-          <Col style={{marginTop: -600}}>
-            <CitySearch/>
+          <Col style={{ marginTop: -600 }}>
+            <CitySearch />
           </Col>
-          <Col style={{marginTop: -600}}><CategorySearch/></Col>          
+          <Col style={{ marginTop: -600 }}><CategorySearch /></Col>
         </Row>
       </Container>
-      <SuggestionList/>      
+      <SuggestionList />
     </>
   );
 }
-  
+
 export default MainPage;
