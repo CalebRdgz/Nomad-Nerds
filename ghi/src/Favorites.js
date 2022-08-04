@@ -13,7 +13,7 @@ function Favorites() {
     const [businesses, setBusinesses] = useState([]);
     const [sortedBusinesses, setSortedBusinesses] = useState([])
 
-    console.log('token',token)
+    console.log('token', token)
     // const decoded = jwt_decode(token)
     // const user = decoded.user.username
     function parseJwt(token) {
@@ -56,7 +56,7 @@ function Favorites() {
                 "Access-Control-Allow-Headers": "*"
             }
         };
-        
+
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
         return fetch(url, fetchConfig);
     }
@@ -64,7 +64,7 @@ function Favorites() {
     // function sleep(ms) {
     //     return new Promise(resolve => setTimeout(resolve, ms));
     // }
-      
+
 
     console.log('favorites', favorites)
     function getBusinesses() {
@@ -72,7 +72,7 @@ function Favorites() {
             Promise.all(favorites
                 .map(favorite => fetchBusinesses(favorite)
                     .then(res => (res.json()))
-                    .then(data => ({[favorite]: data}))))
+                    .then(data => ({ [favorite]: data }))))
                 .then((data => setBusinesses(data)))
         }
     }
@@ -114,8 +114,8 @@ function Favorites() {
                 data[location] = [business]
             }
         } setSortedBusinesses(data);
-    } 
-    
+    }
+
     useEffect(() => {
         getFavorites();
     }, []);
@@ -127,43 +127,44 @@ function Favorites() {
     }, [businesses]);
     console.log('businesses', businesses)
     return (
-        
+
         <div>
             <h1 className="text-center"> {parseJwt(token)}'s Favorites </h1>
-                <ul>
-                    {console.log('sorted businesses', sortedBusinesses)}
-                    {Object.keys(sortedBusinesses).map((location, index) => 
-                        <div key={index}>                            
-                            <Container className="container-fluid">
+            <ul>
+                {console.log('sorted businesses', sortedBusinesses)}
+                {Object.keys(sortedBusinesses).map((location, index) =>
+                    <div key={index}>
+                        <Container className="container-fluid">
                             <h1 className="card-title">{location}</h1>
-                            <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
+                            <Row className="flex-nowrap flex-row" style={{ overflowX: "scroll" }}>
                                 {sortedBusinesses[location].map((store, idx) => (
                                     <Col key={idx} className="col-3">
-                                    <Card style={{width: "18rem"}}>
-                                        {console.log('store', store)}
-                                    <Card.Img variant="top" src={Object.values(store)[0].image_url} height={200} />
-                                    
-                                        <Card.Title>{Object.values(store)[0].name}</Card.Title>
-                                        <Card.Body>
-                                            <Card.Text>
-                                                {Object.values(store)[0].display_address[0]}<br />
-                                                {Object.values(store)[0].display_address[1]}<br />
-                                                {Object.values(store)[0].display_address[2]}<br />
-                                                {Object.values(store)[0].price? `Price: ${Object.values(store)[0].price}`: ''}<br />    
-                                                Rating: {Object.values(store)[0].rating}
-                                            <Button variant="light"  style={{float: "right"}} onClick={(e) => deleteFavorite(Object.values(store)[0].id)}>
-                                                <AiFillHeart style={{color: "red", size:'2em'}} />
-                                            </Button>
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
+                                        <Card style={{ width: "18rem" }}>
+                                            {console.log('store', store)}
+                                            <Card.Img variant="top" src={Object.values(store)[0].image_url} height={200} />
+
+                                            <Card.Title>{Object.values(store)[0].name}</Card.Title>
+                                            <Card.Body>
+                                                <Card.Text>
+                                                    {Object.values(store)[0].display_address[0]}<br />
+                                                    {Object.values(store)[0].display_address[1]}<br />
+                                                    {Object.values(store)[0].display_address[2]}<br />
+                                                    {Object.values(store)[0].price ? `Price: ${Object.values(store)[0].price}` : ''}<br />
+                                                    Rating: {Object.values(store)[0].rating}
+                                                    <Button variant="light" style={{ float: "right" }} onClick={(e) => deleteFavorite(Object.values(store)[0].id)}>
+                                                        <AiFillHeart style={{ color: "red", size: '2em' }} />
+                                                    </Button>
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
                                     </Col>
-                            ))}
+                                ))}
                             </Row>
-                            </Container> 
-                            
-                        </div>)}
-                </ul>
+                        </Container>
+
+                    </div>)}
+            </ul>
         </div>
-)}
+    )
+}
 export default Favorites;

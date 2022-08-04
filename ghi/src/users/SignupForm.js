@@ -5,16 +5,16 @@ import traveler from '../images/traveler.png'
 
 
 function Signup(props) {
-    let navigate = useNavigate();
-    const { token } = useAuthContext();
-    const [username, setUsername] = useState("");
-    const [first_name, setFirstName] = useState("");
-    const [last_name, setLastName] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const { signup } = props;
-    console.log('token', token)
-    
+  let navigate = useNavigate();
+  const { token } = useAuthContext();
+  const [username, setUsername] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const { signup } = props;
+  console.log('token', token)
+
   if (token) {
     console.log('yes', token)
     return <Navigate to='/' />;
@@ -31,14 +31,14 @@ function Signup(props) {
       <div className="container-fluid h-custom">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-md-9 col-lg-6 col-xl-5">
-            <img src= {traveler}
+            <img src={traveler}
               className="img-fluid" alt="Sample image" />
           </div>
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <br />
-              <form>
-              <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">                
-                <h4 style={{color: "royalblue", fontWeight: 'bold'}}>SIGN UP FOR NOMAD NERDS</h4>
+            <br />
+            <form>
+              <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                <h4 style={{ color: "royalblue", fontWeight: 'bold' }}>SIGN UP FOR NOMAD NERDS</h4>
               </div>
               <div className="form-outline mb-2">
                 <input onChange={handleUserName} required type="text" id="username" className="form-control form-control-lg"
@@ -62,9 +62,9 @@ function Signup(props) {
               </div>
               <div className="text-center text-lg-start pt-2">
                 <button type="button" className="btn btn-primary btn-lg"
-                  style={{paddingLeft: "2.5rem", paddingRight: "2.5rem", paddingBottom:"2.5rem"}} onClick={() => signup(username, password, email, first_name, last_name)}>Sign Up</button>
+                  style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", paddingBottom: "2.5rem" }} onClick={() => signup(username, password, email, first_name, last_name)}>Sign Up</button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">Already on Nomad Nerds? <a href="/user/login/"
-                    className="link-danger">Log in</a></p>
+                  className="link-danger">Log in</a></p>
               </div>
             </form>
           </div>

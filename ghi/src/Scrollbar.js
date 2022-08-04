@@ -15,15 +15,15 @@ function Scroll() {
 
   const handleClick =
     (id) =>
-    ({ getItemById, scrollToItem }) => {
-      const itemSelected = isItemSelected(id);
+      ({ getItemById, scrollToItem }) => {
+        const itemSelected = isItemSelected(id);
 
-      setSelected((currentSelected) =>
-        itemSelected
-          ? currentSelected.filter((el) => el !== id)
-          : currentSelected.concat(id)
-      );
-    };
+        setSelected((currentSelected) =>
+          itemSelected
+            ? currentSelected.filter((el) => el !== id)
+            : currentSelected.concat(id)
+        );
+      };
 
   return (
     <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
