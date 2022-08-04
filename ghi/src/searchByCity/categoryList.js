@@ -17,6 +17,9 @@ function CategoryList() {
     const [favorites, setFavorites] = useState([]);
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
+    const state = (location.state.city.admin_name).replace(/ /g, '%20');
+    const cityAndState = city + '%2C%20' + state
+    console.log('location.state', location.state)
     const navigate = useNavigate();
 
 
@@ -52,7 +55,7 @@ function CategoryList() {
                 "Content-Type": "application/json",
             },
         };
-        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${city}&quantity=1`;
+        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${cityAndState}&quantity=1`;
         const response = await fetch(categories_url, fetchConfig);
         if (response.ok) {
             const data = await response.json();
@@ -68,7 +71,7 @@ function CategoryList() {
                 "Access-Control-Allow-Origin":"*",
             },
         };
-        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${city}&quantity=1`;
+        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${cityAndState}&quantity=1`;
         return fetch(url, fetchConfig);
     }
 
@@ -124,11 +127,8 @@ function CategoryList() {
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
         const response = await fetch(url, fetchConfig);
-        console.log('response', response)
         if (response.ok) {
             const data = await response.json();
-            console.log('favorites before', favorites)
-            console.log('id', id)
             setFavorites(favorites.filter(favorite => favorite != id))
         }
     }
@@ -156,7 +156,7 @@ function CategoryList() {
                         <Col key={idx} className="col-3">
                         <Card style={{width: "18rem"}}>                           
                             <Card.Img variant="top" src={store.image_url} height={250} />
-                            <Card.Title style={{fontWeight: "bold", textAlign: "center"}}>{store.name}</Card.Title>
+                            <Card.Title style={{fontWeight: "bold"}}>{store.name}</Card.Title>
                             <Card.Body>
                             <Card.Title>{store.name}</Card.Title>
                                 <Card.Text>
