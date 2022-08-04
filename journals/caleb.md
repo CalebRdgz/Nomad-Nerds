@@ -31,4 +31,4 @@
 * Today, we went through troubleshooting some CORS errors that we kept getting when going to our favorites page.
 
 ## August 4th, 2022
-* 
+* Today, I worked on my unit tests to test part of the project and make sure it is working.
