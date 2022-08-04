@@ -17,7 +17,11 @@ function CategoryList() {
     const [favorites, setFavorites] = useState([]);
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
+    const state = (location.state.city.admin_name).replace(/ /g, '%20');
+    const cityAndState = city + '%2C%20' + state
     const navigate = useNavigate();
+
+
     async function getFavorites() {
         const fetchConfig = {
             credentials: "include",
@@ -40,6 +44,7 @@ function CategoryList() {
             setFavorites(data);
         }
     }
+
     async function getCategories() {
         const fetchConfig = {
             method: "get",
@@ -48,7 +53,7 @@ function CategoryList() {
                 "Content-Type": "application/json",
             },
         };
-        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${city}&quantity=1`;
+        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${cityAndState}&quantity=1`;
         const response = await fetch(categories_url, fetchConfig);
         if (response.ok) {
             const data = await response.json();
@@ -64,9 +69,10 @@ function CategoryList() {
                 "Access-Control-Allow-Origin":"*",
             },
         };
-        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${city}&quantity=1`;
+        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${cityAndState}&quantity=1`;
         return fetch(url, fetchConfig);
     }
+
     function getBusinesses() {
         if (categories && categories.length > 0) {
             Promise.all(categories.slice(0, 5)
@@ -76,6 +82,7 @@ function CategoryList() {
                 .then(data => setBusinesses(data))
         }
     }
+
     async function addFavorite(id) {
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
         let content = {business_id: id}
@@ -104,6 +111,7 @@ function CategoryList() {
             
         }
     }
+
     async function deleteFavorite(id) {
         const fetchConfig = {
             credentials: "include",
@@ -125,6 +133,7 @@ function CategoryList() {
             setFavorites(favorites.filter(favorite => favorite != id))
         }
     }
+
     useEffect(() => {
         getFavorites();
     }, []);
@@ -135,6 +144,7 @@ function CategoryList() {
         getBusinesses();
     }, [categories]);
     console.log('businesses', businesses)
+    
     return (
         <ul>
             {businesses.map((business, index) => (

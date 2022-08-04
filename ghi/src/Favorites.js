@@ -21,7 +21,6 @@ function Favorites() {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace('-', '+').replace('_', '/');
         const token_info = JSON.parse(window.atob(base64));
-        console.log('token_info', token_info)
         return token_info.user.username
     }
 
@@ -38,9 +37,7 @@ function Favorites() {
             }
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
-        console.log('url', url)
         const response = await fetch(url, fetchConfig);
-        console.log('response', response)
         if (response.ok) {
             console.log('got response')
             const data = await response.json();
@@ -91,18 +88,13 @@ function Favorites() {
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
         const response = await fetch(url, fetchConfig);
-        console.log('response', response)
         if (response.ok) {
             const data = await response.json();
-            console.log('favorites before', favorites)
-            console.log('id', id)
             setFavorites(favorites.filter(favorite => favorite != id))
         }
     }
 
     function sortBusinesses() {
-        console.log('started the sortbusiness function')
-        console.log('businesses', businesses)
         const data = {}
         for (let business of businesses) {
             const city = Object.values(business)[0]["city"]
@@ -125,13 +117,12 @@ function Favorites() {
     useEffect(() => {
         sortBusinesses();
     }, [businesses]);
-    console.log('businesses', businesses)
+
     return (
         
         <div>
             <h1 className="text-center"> {parseJwt(token)}'s Favorites </h1>
                 <ul>
-                    {console.log('sorted businesses', sortedBusinesses)}
                     {Object.keys(sortedBusinesses).map((location, index) => 
                         <div key={index}>                            
                             <Container className="container-fluid">
@@ -140,7 +131,6 @@ function Favorites() {
                                 {sortedBusinesses[location].map((store, idx) => (
                                     <Col key={idx} className="col-3">
                                     <Card style={{width: "18rem"}}>
-                                        {console.log('store', store)}
                                     <Card.Img variant="top" src={Object.values(store)[0].image_url} height={200} />
                                     
                                         <Card.Title>{Object.values(store)[0].name}</Card.Title>

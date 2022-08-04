@@ -9,7 +9,7 @@ import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 
-function CategoryList() {
+function CityList() {
     const location = useLocation();
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
@@ -205,4 +205,4 @@ function CategoryList() {
         </ul>
     )
 }
-export default CategoryList;
+export default CityList;
