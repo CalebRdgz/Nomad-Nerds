@@ -19,6 +19,9 @@ function CategoryList() {
     const [favorites, setFavorites] = useState([]);
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
+    const state = (location.state.city.admin_name).replace(/ /g, '%20');
+    const cityAndState = city + '%2C%20' + state
+    console.log('location.state', location.state)
     const navigate = useNavigate();
 
 
@@ -54,7 +57,7 @@ function CategoryList() {
                 "Content-Type": "application/json",
             },
         };
-        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${city}&quantity=1`;
+        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${cityAndState}&quantity=1`;
         const response = await fetch(categories_url, fetchConfig);
         if (response.ok) {
             const data = await response.json();
@@ -70,7 +73,7 @@ function CategoryList() {
                 "Access-Control-Allow-Origin":"*",
             },
         };
-        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${city}&quantity=1`;
+        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${cityAndState}&quantity=1`;
         return fetch(url, fetchConfig);
     }
 
@@ -113,6 +116,26 @@ function CategoryList() {
         }
     }
 
+    async function deleteFavorite(id) {
+        const fetchConfig = {
+            credentials: "include",
+            method: "delete",
+            headers: {
+                // "Access-Control-Allow-Headers": "*",
+                // "Access-Control-Allow-Origin": "*",
+                "Access-Control-Request-Headers": "*",
+                "Authorization": `Bearer ${token}`,
+            }
+        };
+        const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
+        const response = await fetch(url, fetchConfig);
+        if (response.ok) {
+            const data = await response.json();
+            setFavorites(favorites.filter(favorite => favorite != id))
+        }
+    }
+
+
     useEffect(() => {
         getFavorites();
     }, []);
@@ -128,15 +151,14 @@ function CategoryList() {
         <ul>
             {businesses.map((business, index) => (
             <div key={index}>
-              <h1 className="card-title" style={{fontFamily: "papyrus", fontWeight:"bold", padding:20, paddingTop: 90}}>{Object.keys(business)}</h1>
+              <h1 className="category-title" style={{fontFamily: "papyrus", fontWeight:"bold", padding:20, paddingTop: 90}}>{Object.keys(business)}</h1>
                 <Container className="container-fluid">
                 <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
                         <Col key={idx} className="col-3">
-                        <Card>
-                           
+                        <Card style={{background: "light-gray"}}>
                             <Card.Img variant="top" src={store.image_url} height={250} />
-                            <Card.Title style={{fontWeight: "bold", textAlign: "center"}}>{store.name}</Card.Title>
+                            <Card.Title style={{fontWeight: "bold"}}>{store.name}</Card.Title>
                             <Card.Body>
                                 <Card.Text>
                                     {store.location.display_address[0]} <br />
@@ -144,11 +166,11 @@ function CategoryList() {
                                     {store.location.display_address[2]}<br />
                                     {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
+                                    <Button variant="light"  style={{float: "right"}} onClick={() => addFavorite(store.id)}>
+                                        {favorites.includes(store.id) ? <AiFillHeart fill="red" size="2em"/> : <AiOutlineHeart size="2em"/>}
+                                    </Button>
                                 </Card.Text>
-                                <Button variant="light"  style={{float: "right"}} onClick={() => addFavorite(store.id)}>
-                                    {console.log('favorite inside button', favorites)}
-                                    {favorites.includes(store.id) ?  <AiFillHeart /> : <AiOutlineHeart />}
-                                </Button>
+                                
                             </Card.Body>
                         </Card>
                         </Col>

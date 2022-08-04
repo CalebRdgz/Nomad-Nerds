@@ -5,17 +5,18 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { AiFillHeart } from "react-icons/ai";
+
 
 function Favorites() {
-
     const { token } = useAuthContext();
     const [favorites, setFavorites] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [sortedBusinesses, setSortedBusinesses] = useState([])
+
     console.log('token',token)
     // const decoded = jwt_decode(token)
     // const user = decoded.user.username
-
     function parseJwt(token) {
         if (!token) { return; }
         const base64Url = token.split('.')[1];
@@ -48,7 +49,7 @@ function Favorites() {
         }
     }
 
-    async function fetchBusinesses(favorite) {
+    function fetchBusinesses(favorite) {
         const fetchConfig = {
             method: "get",
             headers: {
@@ -60,17 +61,23 @@ function Favorites() {
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
         return fetch(url, fetchConfig);
     }
-    console.log('favorites', favorites)
 
+    // function sleep(ms) {
+    //     return new Promise(resolve => setTimeout(resolve, ms));
+    // }
+      
+
+    console.log('favorites', favorites)
     function getBusinesses() {
         if (favorites && favorites.length > 0) {
             Promise.all(favorites
                 .map(favorite => fetchBusinesses(favorite)
                     .then(res => (res.json()))
-                    .then(data => ({favorite: data}))))
-                .then(data => setBusinesses(data))
+                    .then(data => ({[favorite]: data}))))
+                .then((data => setBusinesses(data)))
         }
     }
+
 
     async function deleteFavorite(id) {
         const fetchConfig = {
@@ -112,7 +119,6 @@ function Favorites() {
             console.log('data', data)
         } setSortedBusinesses(data);
     } 
-
     
     useEffect(() => {
         getFavorites();
@@ -124,8 +130,6 @@ function Favorites() {
         sortBusinesses();
     }, [businesses]);
     console.log('businesses', businesses)
-
-
     return (
         
         <div>
@@ -152,20 +156,18 @@ function Favorites() {
                                                 {Object.values(store)[0].price? `Price: ${Object.values(store)[0].price}`: ''}<br />    
                                                 Rating: {Object.values(store)[0].rating}
                                             </Card.Text>
-                                            <button className="btn btn-danger" onClick={(e) => deleteFavorite(Object.values(store)[0].id)}>X</button>
+                                            <Button variant="light"  style={{float: "right"}} onClick={(e) => deleteFavorite(Object.values(store)[0].id)}>
+                                                <AiFillHeart style={{color: "red", size:'3em'}} />
+                                            </Button>
                                         </Card.Body>
                                     </Card>
                                     </Col>
                             ))}
                             </Row>
                             </Container> 
-
-
                             
                         </div>)}
-
                 </ul>
         </div>
 )}
-
 export default Favorites;

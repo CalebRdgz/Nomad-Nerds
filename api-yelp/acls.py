@@ -13,7 +13,7 @@ def categories_request(location='', quantity=1):
             "limit": 50,
             "offset": offset,
             "sort_by": "rating",
-            "categories": ['shopping', 'nightlife', 'hotelstravel', 'arts', 'active']
+            "categories": "shopping,nightlife,hotelstravel,arts,active"
         }
         res = requests.get(url, headers=headers, params=params)
         data += res.json()["businesses"]
