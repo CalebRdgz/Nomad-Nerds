@@ -97,3 +97,13 @@ def get_business_info(id: str):
         data['city'] = ''
         data['country'] = ''
     return data
+
+@yelp_router.get("/api-yelp/city/businesses")
+def get_businesses_city(location: str, quantity: int = 1):
+    raw_data = categories_request(location=location, quantity=quantity)
+    data = {}
+    location = raw_data[0].get('location').get('city') + ', ' + raw_data[0].get('location').get('state')
+    print(location)
+    data[location] = raw_data
+    return data
+

@@ -1,8 +1,9 @@
 import { Carousel } from 'react-bootstrap';
 import Button from "react-bootstrap/Button";
-import placeroyale from './images/placeroyale.jpg'
-import ski from './images/ski.jpg';
-import mountain from './images/mountain.webp';
+import lake from './images/lake.jpg'
+import nyc from './images/nyc_skyline.jpg';
+import snowy from './images/snowy.jpg';
+import sunset from './images/sunset.jpg';
 
 
 function CarouselFade() {
@@ -17,7 +18,20 @@ function CarouselFade() {
         </Carousel.Caption>          
         <img
           className="d-block" style={{overflow: "hidden"}}
-          src={ ski } 
+          src={ lake } 
+          alt="First slide"
+        />
+      </Carousel.Item>
+
+      <Carousel.Item>
+        <Carousel.Caption>
+          <div className="text-center">
+            <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
+            </div>
+        </Carousel.Caption>          
+        <img
+          className="d-block" style={{overflow: "hidden"}}
+          src={ sunset } 
           alt="First slide"
         />
       </Carousel.Item>
@@ -30,7 +44,7 @@ function CarouselFade() {
          </Carousel.Caption>
          <img
            className="d-block" style={{overflow: "hidden"}}
-           src={ placeroyale } 
+           src={ nyc } 
            alt="Second slide"
          />
         
@@ -44,7 +58,7 @@ function CarouselFade() {
          </Carousel.Caption>
          <img
            className="d-block" style={{overflow: "hidden"}}
-           src={ mountain }
+           src={ snowy }
            alt="Third slide"
          />
 

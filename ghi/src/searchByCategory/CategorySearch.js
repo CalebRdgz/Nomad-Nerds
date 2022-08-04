@@ -157,7 +157,7 @@ function CategorySearch(props) {
           </div>
         </div>
       </div>
-      <div className='text-center' style={{backgroundColor: "white", fontSize: 20, fontWeight: "bold", opacity: .9, borderRadius: 30, overflowX:"hidden", marginTop: -300, width: 650}}>
+      <div className='text-center' style={{backgroundColor: "white", fontSize: 20, fontWeight: "bold", opacity: .9, borderRadius: 30, overflowX:"hidden", marginTop: -200, width: 650}}>
         Your Current Cities Selection
         <div className='text-center' style={{fontSize:17}}> 
           {listSelectedCities(selectedCities)}
