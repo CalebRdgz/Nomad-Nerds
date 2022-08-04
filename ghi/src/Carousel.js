@@ -1,12 +1,8 @@
 import { Carousel } from 'react-bootstrap';
-import image from './images/Hiking.jpeg';
-import image2 from './images/valley.jpg';
-import image3 from './images/swing.jpeg';
-import CitySearch from './searchByCity/citySearch';
 import Button from "react-bootstrap/Button";
 import placeroyale from './images/placeroyale.jpg'
 import ski from './images/ski.jpg';
-import mountain from './images/mountain.jpg';
+import mountain from './images/mountain.webp';
 
 
 function CarouselFade() {
