@@ -129,7 +129,7 @@ function CategorySearch(props) {
               formatResult={formatCategoryResult}
               maxResults={5}
               handleOnSearch={handleOnCategorySearch}
-              placeholder="Seach for a category"
+              placeholder="Search for a thing to do"
               handleOnHover={handleOnCategoryHover}
               handleOnFocus={handleOnCategoryFocus}
               styling={{borderRadius: "10px"}}
@@ -149,7 +149,7 @@ function CategorySearch(props) {
               formatResult={formatCityResult}
               maxResults={5}
               handleOnSearch={handleOnCitySearch}
-              placeholder="Search for a location"
+              placeholder="Search for a city"
               handleOnHover={handleOnCityHover}
               handleOnFocus={handleOnCityFocus}
               styling={{borderRadius: "10px"}}
@@ -157,8 +157,8 @@ function CategorySearch(props) {
           </div>
         </div>
       </div>
-      <div className='text-center' style={{backgroundColor: "white", fontSize: 20, fontWeight: "bold", opacity: .9, borderRadius: 30, overflowX:"hidden"}}>
-        Current Pool of Cities
+      <div className='text-center' style={{backgroundColor: "white", fontSize: 20, fontWeight: "bold", opacity: .9, borderRadius: 30, overflowX:"hidden", marginTop: -300, width: 650}}>
+        Your Current Cities Selection
         <div className='text-center' style={{fontSize:17}}> 
           {listSelectedCities(selectedCities)}
         </div>

@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { AiFillHeart } from "react-icons/ai";
 
 function Favorites() {
 
@@ -48,24 +49,26 @@ function Favorites() {
         }
     }
 
-    async function fetchBusinesses(favorite) {
+    function fetchBusinesses(favorite) {
         const fetchConfig = {
             method: "get",
             headers: {
-                // "Access-Control-Allow-Origin": "*",
-                // "Access-Control-Allow-Headers": "*"
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*"
             }
         };
+        
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
         return fetch(url, fetchConfig);
     }
+    console.log('favorites', favorites)
 
     function getBusinesses() {
         if (favorites && favorites.length > 0) {
             Promise.all(favorites
                 .map(favorite => fetchBusinesses(favorite)
-                    .then(res => res.json())
-                    .then(data => ({[favorite]: data}))))
+                    .then(res => (res.json()))
+                    .then(data => ({favorite: data}))))
                 .then(data => setBusinesses(data))
         }
     }
@@ -97,17 +100,14 @@ function Favorites() {
         console.log('businesses', businesses)
         const data = {}
         for (let business of businesses) {
-            console.log('in the for loop', business)
             const city = Object.values(business)[0]["city"]
             const state = Object.values(business)[0]["state"]
-            console.log(city, state, "city and state")
             const location = city + ", " + state
             if (data.hasOwnProperty(location)) {
                 data[location].push(business)
             } else {
                 data[location] = [business]
             }
-            console.log('data', data)
         } setSortedBusinesses(data);
     } 
 
@@ -131,13 +131,13 @@ function Favorites() {
                 <ul>
                     {console.log('sorted businesses', sortedBusinesses)}
                     {Object.keys(sortedBusinesses).map((location, index) => 
-                        <div key={index}>
-                            <h1>{location}</h1>
+                        <div key={index}>                            
                             <Container className="container-fluid">
+                            <h1 className="card-title">{location}</h1>
                             <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                                 {sortedBusinesses[location].map((store, idx) => (
                                     <Col key={idx} className="col-3">
-                                    <Card>
+                                    <Card style={{width: "18rem"}}>
                                         {console.log('store', store)}
                                     <Card.Img variant="top" src={Object.values(store)[0].image_url} height={200} />
                                     
@@ -149,8 +149,10 @@ function Favorites() {
                                                 {Object.values(store)[0].display_address[2]}<br />
                                                 {Object.values(store)[0].price? `Price: ${Object.values(store)[0].price}`: ''}<br />    
                                                 Rating: {Object.values(store)[0].rating}
+                                            <Button variant="light"  style={{float: "right"}} onClick={(e) => deleteFavorite(Object.values(store)[0].id)}>
+                                                <AiFillHeart style={{color: "red", size:'2em'}} />
+                                            </Button>
                                             </Card.Text>
-                                            <button className="btn btn-danger" onClick={(e) => deleteFavorite(Object.values(store)[0].id)}>X</button>
                                         </Card.Body>
                                     </Card>
                                     </Col>
