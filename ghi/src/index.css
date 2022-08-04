@@ -57,7 +57,7 @@ html {
 
 
 .navbar {
-  background-color: rgb(205, 197, 197);
+  background-color: white;
 }
 
 
@@ -69,13 +69,14 @@ html {
 } */
 
 .text-on-image {
- font-family: "papyrus";
- font-weight: 300;
+ font-family: "verdana";
+ font-weight: 400;
  right: 50%;
  left: 50%;
+ top:50%;
  bottom: 50%;
  margin-top: 100px;
- color: rgb(91, 89, 89);
+ color: white;
 }
 
 .carousel .carousel-item {

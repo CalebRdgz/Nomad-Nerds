@@ -1,8 +1,8 @@
 import { Carousel } from 'react-bootstrap';
-import image from './images/hiking2.png';
-import image2 from './images/picture2.png';
-import image3 from './images/Santorini2.png';
-import CitySearch from './searchByCity/citySearch';
+import Button from "react-bootstrap/Button";
+import placeroyale from './images/placeroyale.webp'
+import ski from './images/ski.jpg';
+import mountain from './images/mountain.webp';
 
 
 function CarouselFade() {
@@ -17,20 +17,20 @@ function CarouselFade() {
         </Carousel.Caption>          
         <img
           className="d-block" style={{overflow: "hidden"}}
-          src={ image } 
+          src={ ski } 
           alt="First slide"
         />
       </Carousel.Item>
 
        <Carousel.Item>
          <Carousel.Caption>
-           <div className="px-5 py-5 my-5 text-center">
+            <div className="text-center">
              <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
-             </div>
+            </div>
          </Carousel.Caption>
          <img
            className="d-block" style={{overflow: "hidden"}}
-           src={ image2 } 
+           src={ placeroyale } 
            alt="Second slide"
          />
         
@@ -38,13 +38,13 @@ function CarouselFade() {
 
        <Carousel.Item>
          <Carousel.Caption>
-           <div className="px-5 py-5 my-5 text-center">
+           <div className="text-center">
              <h1 className="display-5 fw-bold text-on-image">FIND YOUR NEXT ADVENTURE</h1>
              </div>
          </Carousel.Caption>
          <img
            className="d-block" style={{overflow: "hidden"}}
-           src={ image3 }
+           src={ mountain }
            alt="Third slide"
          />
 

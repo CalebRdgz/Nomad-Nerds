@@ -9,9 +9,6 @@ import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 
-
-
-
 function CategoryList() {
     const location = useLocation();
     const [categories, setCategories] = useState([]);
@@ -114,6 +111,29 @@ function CategoryList() {
         }
     }
 
+    async function deleteFavorite(id) {
+        const fetchConfig = {
+            credentials: "include",
+            method: "delete",
+            headers: {
+                // "Access-Control-Allow-Headers": "*",
+                // "Access-Control-Allow-Origin": "*",
+                "Access-Control-Request-Headers": "*",
+                "Authorization": `Bearer ${token}`,
+            }
+        };
+        const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
+        const response = await fetch(url, fetchConfig);
+        console.log('response', response)
+        if (response.ok) {
+            const data = await response.json();
+            console.log('favorites before', favorites)
+            console.log('id', id)
+            setFavorites(favorites.filter(favorite => favorite != id))
+        }
+    }
+
+
     useEffect(() => {
         getFavorites();
     }, []);
@@ -128,15 +148,13 @@ function CategoryList() {
     return (
         <ul>
             {businesses.map((business, index) => (
-            <div key={index}>
-              <h1 className="card-title" style={{fontFamily: "papyrus", fontWeight:"bold", padding:20, paddingTop: 90}}>{Object.keys(business)}</h1>
+            <div key={index}>              
                 <Container className="container-fluid">
-                <h1>{Object.keys(business)}</h1>
+                <h1 className="card-title" style={{fontFamily: "papyrus", fontWeight:"bold", padding:20, paddingTop: 90}}>{Object.keys(business)}</h1>
                 <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
                   {Object.values(business)[0].slice(0,15).map((store, idx) => (
                         <Col key={idx} className="col-3">
-                        <Card>
-                           
+                        <Card style={{width: "18rem"}}>                           
                             <Card.Img variant="top" src={store.image_url} height={250} />
                             <Card.Title style={{fontWeight: "bold", textAlign: "center"}}>{store.name}</Card.Title>
                             <Card.Body>
@@ -147,14 +165,10 @@ function CategoryList() {
                                     {store.location.display_address[2]}<br />
                                     {store.price? `Price: ${store.price}`: ''}<br /> 
                                     Rating: {store.rating}
-                                    <Button variant="light" style={{float: "right"}} onClick={() => {addFavorite(store.id)}}>
-                                        <AiOutlineHeart size="1.5em" />
-                                    </Button>
-                                </Card.Text>
-                                <Button variant="light"  style={{float: "right"}} onClick={() => addFavorite(store.id)}>
-                                    {console.log('favorite inside button', favorites)}
-                                    {favorites.includes(store.id) ?  <AiFillHeart style={{color: "red"}}/> : <AiOutlineHeart />}
-                                </Button>
+                                    <Button variant="light"  style={{float: "right"}}>
+                                    {favorites.includes(store.id) ?  <AiFillHeart style={{color: "red", size:'2em'}} onClick={() => deleteFavorite(store.id)}/> : <AiOutlineHeart onClick={() => addFavorite(store.id)}/>}
+                                     </Button>
+                                </Card.Text>                               
                             </Card.Body>
                         </Card>
                         </Col>

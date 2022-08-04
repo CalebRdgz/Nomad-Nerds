@@ -102,7 +102,7 @@ function CategorySearch(props) {
         <div className='col-6 gx-5' style={{paddingBottom: 400, paddingRight: 100}}>
           <div className='d-flex justify-content-center'>
           </div>
-          <div style={{ width: 200 }}>
+          <div style={{ width: 300 }}>
            <ReactSearchAutocomplete
               key='category search'
               items={categories_id}
@@ -113,7 +113,7 @@ function CategorySearch(props) {
               formatResult={formatCategoryResult}
               maxResults={5}
               handleOnSearch={handleOnCategorySearch}
-              placeholder="Search for a category"
+              placeholder="Search for a thing to do"
               handleOnHover={handleOnCategoryHover}
               handleOnFocus={handleOnCategoryFocus}
               styling={{borderRadius: "10px"}}
@@ -123,7 +123,7 @@ function CategorySearch(props) {
         <div className='col-6' style={{paddingBottom: 400}}>
           <div className='d-flex justify-content-center'>
           </div>
-          <div style={{ width: 200 }}>
+          <div style={{ width: 300 }}>
            <ReactSearchAutocomplete
               items={cities}
               fuseOptions={{keys: ['city', 'country', 'admin_name']}}
@@ -133,7 +133,7 @@ function CategorySearch(props) {
               formatResult={formatCityResult}
               maxResults={5}
               handleOnSearch={handleOnCitySearch}
-              placeholder="Search for a location"
+              placeholder="Search for a city"
               handleOnHover={handleOnCityHover}
               handleOnFocus={handleOnCityFocus}
               styling={{borderRadius: "10px"}}
@@ -141,8 +141,8 @@ function CategorySearch(props) {
           </div>
         </div>
       </div>
-      <div className='text-center' style={{backgroundColor: "white", fontSize: 20, fontWeight: "bold", opacity: .9, borderRadius: 30, overflowX:"hidden"}}>
-        Current Pool of Cities
+      <div className='text-center' style={{backgroundColor: "white", fontSize: 20, fontWeight: "bold", opacity: .9, borderRadius: 30, overflowX:"hidden", marginTop: -300, width: 650}}>
+        Your Current Cities Selection
         <div className='text-center' style={{fontSize:17}}> 
           {listSelectedCities(selectedCities)}
         </div>
