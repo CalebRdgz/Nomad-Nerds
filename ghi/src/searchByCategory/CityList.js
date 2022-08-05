@@ -176,6 +176,17 @@ function CityList() {
 
   return (
     <ul>
+      <h1
+        style={{
+          fontFamily: "verdana",
+          fontWeight: "bold",
+          fontSize: "40px",
+          textAlign: "center",
+          paddingTop: 30,
+        }}
+      >
+        {category.title}
+      </h1>
       {businesses.map((business, index) => (
         <div key={index}>
           <Container className="container-fluid">
@@ -219,15 +230,15 @@ function CityList() {
                           </Row>
                           {store.rating
                             ? [...Array(Math.floor(store.rating))].map(
-                                (_, i) => (
-                                  <span key={i}>
-                                    <BsStarFill
-                                      size="1em"
-                                      color="rgb(222, 190, 60)"
-                                    />
-                                  </span>
-                                )
+                              (_, i) => (
+                                <span key={i}>
+                                  <BsStarFill
+                                    size="1em"
+                                    color="rgb(222, 190, 60)"
+                                  />
+                                </span>
                               )
+                            )
                             : ""}
                           {store.rating ? (
                             String(store.rating).slice(-2) == ".5" ? (

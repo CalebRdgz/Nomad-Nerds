@@ -6,28 +6,18 @@
 | username | string | yes | no |
 | password | string | no  | no |
 | email | string | yes | no |
-| fav_businesses | list | no | yes |
+| first name | string | no | no |
+| last name | string | no  | no |
 
 The `user` entity contains the data about the user.
 
-## Businesses
+## Favorite
 | Name | Type | Unique | Optional |
 |-|-|-|-|
-| business_id | string | yes | no |
-| city | string | no | no |
-| state | string | no | no |
-| country | string | no | no |
-| categories | list | no | no |
-| rating | int | no | no |
+| user | string | no | no |
+| business_id | string | no | no |
 
-The `businesses` entity contains the data about the specified businesses.
 
-<!-- Stretch Goal -->
-<!-- ## Ratings
-| Name | Type | Unique | Optional |
-|-|-|-|-|
-| business_id | yes | no | no |
-| rating | int | no | no |
-| user_id | int | no | yes |
+The `favorite` entity contains the data about users' favorite businesses.  Although user and business_id are not unique individually, they are unique together.
 
-The `ratings` entity contains the data about the ratings provided by the users on specific businesses -->
+
