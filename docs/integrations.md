@@ -4,5 +4,5 @@ The application will require the following kinds of data from third-party source
 
 * Business information from yelp
 
-May utilize more sources if time allows
+
 
