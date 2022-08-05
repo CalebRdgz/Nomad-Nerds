@@ -1,4 +1,5 @@
-body, .list-unstyled {
+body,
+.list-unstyled {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -40,7 +41,6 @@ html {
 .main-footer {
   color: rgb(255, 255, 255);
   background-color: rgb(205, 197, 197);
-  /* margin-top: 20em; */
   position: relative;
   bottom: 0;
   width: 100%;
@@ -90,7 +90,7 @@ html {
 
 
 .card-body {
-  background-color:rgb(250, 250, 250);
+  background-color: rgb(250, 250, 250);
   font-size: 16px;
   /* border-radius: 20px; */
 }

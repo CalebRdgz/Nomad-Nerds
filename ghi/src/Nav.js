@@ -10,7 +10,6 @@ export const loggedIn = [
 ];
 
 export const loggedOut = [
-  { name: "New Here?", path: "instructions" },
   { name: "Log In", path: "user/login/" },
   { name: "Sign Up", path: "user/signup/" },
 ];
@@ -26,7 +25,10 @@ function Nav() {
     <nav className="navbar navbar-expand-lg shadow rounded">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
-          <img className="d-block w-100" src={logo} height={40} />
+          <img
+            className="d-block w-100"
+            src={logo} height={40}
+          />
         </NavLink>
         <div className="fw-bold" to="/"></div>
         <div
@@ -37,7 +39,9 @@ function Nav() {
             {links.map((link, index) => (
               <li className="px-2" key={index}>
                 <NavLink to={link.path}>
-                  <Button variant="outline-secondary">{link.name}</Button>
+                  <Button variant="outline-secondary" >
+                    {link.name}
+                  </Button>
                 </NavLink>
               </li>
             ))}

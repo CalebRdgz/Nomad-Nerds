@@ -4,12 +4,8 @@ import cities from "../worldcities.json";
 import { useNavigate } from "react-router-dom";
 
 function CitySearch(props) {
-  const [selectedCity, setSelectedCity] = useState({
-    city: "Denver",
-    admin_name: "Colorado",
-    country: "United States",
-    id: 0,
-  });
+
+  const [selectedCity, setSelectedCity] = useState({})
 
   const navigate = useNavigate();
 

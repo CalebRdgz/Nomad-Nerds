@@ -47,8 +47,6 @@ def get_categories(location: str, quantity: int = 2):
 
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
-
-## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/search/")
 def get_locations(categories: str, quantity: int = 2, cities: str = "nyc"):
     cities.replace("%20", " ")
@@ -80,8 +78,6 @@ def get_business_list(category: str, location: str, quantity: int = 2):
         categories=category, location=location, quantity=quantity
     )
     return raw_data
-
-    # return {"count": len(raw_data), "businesses": raw_data}
 
 
 ## Input a business ID: Return business Info + Pic

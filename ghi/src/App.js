@@ -7,7 +7,6 @@ import { useToken } from "./users/Auth";
 import Footer from "./Footer";
 import Login from "./users/Login";
 import Signup from "./users/SignupForm";
-import Instructions from "./Instructions";
 import Favorites from "./Favorites";
 import Logout from "./users/Logout";
 import { AuthProvider } from "./users/Auth";
@@ -28,18 +27,9 @@ function App() {
       <Nav token={token} username={userName} />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="instructions" element={<Instructions />} />
         <Route path="user">
-          <Route
-            path="signup"
-            element={
-              <Signup token={token} signup={signup} setUN={setUserName} />
-            }
-          />
-          <Route
-            path="login"
-            element={<Login token={token} login={login} setUN={setUserName} />}
-          />
+          <Route path="signup" element={<Signup token={token} signup={signup} setUN={setUserName} />} />
+          <Route path="login" element={<Login token={token} login={login} setUN={setUserName} />} />
           <Route path="logout" element={<Logout logout={logout} />} />
           <Route path="favorites" element={<Favorites token={token} />} />
         </Route>
