@@ -158,7 +158,7 @@ function CityList() {
     if (citiesLoading === false && rankedCities.length === 0 || businessesLoading === false && businesses.length === 0) {
         return (
             <div className="text-center">
-                <h1>Don't have the info</h1>
+                <h1>Don't have any {category[0]} businesses within for any of these cities</h1>
             </div>
         )
     }
