@@ -6,8 +6,8 @@ import sunset from "./images/sunset.jpg";
 
 function CarouselFade() {
   return (
-    <Carousel fade className="carousel" interval={6000} style={{ zIndex: -1 }}>
-      <Carousel.Item>
+    <Carousel fade className="carousel" interval={6000} >
+      <Carousel.Item style={{ zIndex: -1 }}>
         <Carousel.Caption>
           <div className="text-center">
             <h1 className="display-5 fw-bold text-on-image">
@@ -39,7 +39,7 @@ function CarouselFade() {
         />
       </Carousel.Item>
 
-      <Carousel.Item>
+      <Carousel.Item style={{ zIndex: -1 }}>
         <Carousel.Caption>
           <div className="text-center">
             <h1 className="display-5 fw-bold text-on-image">
@@ -55,7 +55,7 @@ function CarouselFade() {
         />
       </Carousel.Item>
 
-      <Carousel.Item>
+      <Carousel.Item style={{ zIndex: -1 }}>
         <Carousel.Caption>
           <div className="text-center">
             <h1 className="display-5 fw-bold text-on-image">
