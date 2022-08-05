@@ -12,9 +12,12 @@ import Logout from './users/Logout';
 import { AuthProvider } from './users/Auth';
 import CityList from './searchByCategory/CityList';
 import CategoryList from './searchByCity/categoryList';
-import CategorySearch from './searchByCategory/CategorySearch';
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 function App() {
   const [token, login, logout, signup, user, favorites] = useToken();
   const [userName, setUserName] = useState('');

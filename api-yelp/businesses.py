@@ -45,8 +45,11 @@ def get_categories(location: str, quantity: int = 2):
     sorted_cat_list = sorted(cat_list, key=lambda x: x[2], reverse=True)
     return {"categories": sorted_cat_list}
 
+<<<<<<< HEAD
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
+=======
+>>>>>>> main
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/search/")
@@ -80,8 +83,6 @@ def get_business_list(category: str, location: str, quantity: int = 2):
         categories=category, location=location, quantity=quantity
     )
     return raw_data
-
-    # return {"count": len(raw_data), "businesses": raw_data}
 
 
 ## Input a business ID: Return business Info + Pic

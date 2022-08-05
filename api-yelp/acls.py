@@ -15,7 +15,8 @@ def categories_request(location="", quantity=1):
             "categories": "shopping,nightlife,hotelstravel,arts,active",
         }
         res = requests.get(url, headers=headers, params=params)
-        data += res.json().get("businesses")
+        if res.status_code == 200:
+            data += res.json().get("businesses")
     return data
 
 
