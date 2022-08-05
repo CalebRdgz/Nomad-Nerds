@@ -6,7 +6,7 @@ import sunset from "./images/sunset.jpg";
 
 function CarouselFade() {
   return (
-    <Carousel fade className="carousel" interval={6000}>
+    <Carousel fade className="carousel" interval={6000} >
       <Carousel.Item style={{ zIndex: -1 }}>
         <Carousel.Caption>
           <div className="text-center">
