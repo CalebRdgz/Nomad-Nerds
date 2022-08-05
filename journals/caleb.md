@@ -15,11 +15,25 @@
 * With Emma showing her screen, we went through the yelp API and also went through some logo ideas. I edited the logo with some more ideas. We then continued with completing the yelp get requests.
 
 ## July 22nd, 2022
+* Today we didn't have much time to work on the project because of mandatory fun, I did a lot of research to try to understand most of the react we were working with.
 
 ## July 26th, 2022
+* Today we spent most of the day working on the back end of the category list page.
 
 ## July 27th, 2022
+* Today, we worked on finishing the category list page. It took some time to figure out the horizontal scroll.
 
 ## July 28th, 2022
+* Today, we worked on the favorites page so that the favorites list is tied to the current user.
 
 ## August 1st, 2022
+* We worked on the heart button to add a business to the user's favorites list.
+
+## August 2nd, 2022
+* Today, I did a lot of front end, playing around with different background pictures and title fonts that would look good with the rest of the website. I changed some of the color scheme of the navbar and footer. I found that adding too much color can make things worse.
+
+## August 3rd, 2022
+* Today, we went through troubleshooting some CORS errors that we kept getting when going to our favorites page.
+
+## August 4th, 2022
+* Today, I worked on my unit tests to test part of the project and make sure it is working. We then did a lot of little changes to the front end, moving the search bars in the home page and adding a loading screen.
