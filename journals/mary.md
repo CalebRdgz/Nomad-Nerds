@@ -1,3 +1,11 @@
+## August 4, 2022
+* Today, we worked together as a team to make styling choices and apply those choices for the main page, loading spinner, managing edge cases, etc. The aesthetics of our site improved significantly today! In the evening, I worked on styling the business cards by removing extra words and adding stars for rating number because I realized less words on a card looks much better.
+
+
+## August 3, 2022
+* Today, we worked mostly on styling the site as a team and writing unit tests. We ran into a 429 error (too many fetch requests per second -- limited by Yelp), which we haven't actually addressed yet. We also ran into some type errors and key errors, which required us to revamp our businesses.py page to a lot of .get() vs [] for accessing values in a dictionary.
+
+
 ## August 2, 2022
 * Today, we worked as a group to get our favorites page to categorize businesses by location, which required some thinking about mapping through complex objects and arrays once again. We're still having issues with CORS policy errors on the favorites page. Typically, the favorites page works fine after we change the headers for a few calls and then it throws CORS errors for seemingly no reason, so we still need to figure that out. After that, we worked on styling the main page by choosing different, larger images for the carousel, which we still need to work on tomorrow. We figured out how to get the text in the exact location that we want it and determined how to move the search bars onto the images in the carousel. All of that pretty much took up the entire day. In the evening, I tried to figure out how to toggle between an empty heart and full heart for when the "add to favorites" heart button gets clicked by a user, but ultimately wasn't able to figure it out and am concerned about the number of fetches we do to our Yelp API. I also did a little styling of the cards displayed on the category list page.
 

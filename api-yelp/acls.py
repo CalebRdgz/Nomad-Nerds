@@ -51,7 +51,6 @@ def category_request(categories=[], quantity=1, cities=[]):
                 "categories": ",".join(categories),
             }
             res = requests.get(url, headers=headers, params=params)
-            print("res in category_request", city, res)
             if res.status_code == 200:
                 raw_data = res.json()["businesses"]
                 for business in raw_data:
