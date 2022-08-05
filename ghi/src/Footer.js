@@ -12,14 +12,14 @@ function Footer() {
         <Row>
           <Col>
             <h4>About our company</h4>
-              <li>Nomad Nerds</li>
+            <li>Nomad Nerds</li>
           </Col>
           <Col>
-            <SocialIcon url="https://linkedin.com/" style={{ height: 35, width: 35 }}/>
-            <SocialIcon url="https://twitter.com" style={{ height: 35, width: 35 }}/>
-            <SocialIcon url="https://facebook.com" style={{ height: 35, width: 35 }}/>
-            <SocialIcon url="https://instagram.com" style={{ height: 35, width: 35 }}/>
-            <SocialIcon url="https://user@gmail.com" style={{ height: 35, width: 35 }}/>
+            <SocialIcon url="https://linkedin.com/" style={{ height: 35, width: 35 }} />
+            <SocialIcon url="https://twitter.com" style={{ height: 35, width: 35 }} />
+            <SocialIcon url="https://facebook.com" style={{ height: 35, width: 35 }} />
+            <SocialIcon url="https://instagram.com" style={{ height: 35, width: 35 }} />
+            <SocialIcon url="https://user@gmail.com" style={{ height: 35, width: 35 }} />
           </Col>
         </Row>
         <hr />
