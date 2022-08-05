@@ -10,7 +10,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 import no_info from '../images/no_info.png'
 
-function CategoryList() {
+function CityList() {
     const location = useLocation();
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
@@ -210,4 +210,4 @@ function CategoryList() {
         </ul>
     )
 }
-export default CategoryList;
+export default CityList;
