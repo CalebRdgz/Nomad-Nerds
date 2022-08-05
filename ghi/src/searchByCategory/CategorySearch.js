@@ -103,10 +103,10 @@ function CategorySearch(props) {
   function presetButtons() {
     return (
       <>
-        <Button variant="secondary" style={{borderRadius:30, opacity:.9}} onClick={() => setSelectedCities(northAmericaList)}> North America</Button>{' '}
-        <Button variant="secondary" style={{borderRadius:30, opacity:.9}} onClick={() => setSelectedCities(europeList)}> Europe</Button>{' '}
-        <Button variant="secondary" style={{borderRadius:30, opacity:.9}} onClick={() => setSelectedCities(asiaList)}> Asia</Button>{' '}
-        <Button variant="secondary" style={{borderRadius:30, opacity:.9}} onClick={() => setSelectedCities(oceaniaList)}> Oceania</Button> 
+        <Button variant="secondary" style={{borderRadius:30, opacity:.9, marginTop: 10}} onClick={() => setSelectedCities(northAmericaList)}> North America</Button>{' '}
+        <Button variant="secondary" style={{borderRadius:30, opacity:.9, marginTop: 10}} onClick={() => setSelectedCities(europeList)}> Europe</Button>{' '}
+        <Button variant="secondary" style={{borderRadius:30, opacity:.9, marginTop: 10}} onClick={() => setSelectedCities(asiaList)}> Asia</Button>{' '}
+        <Button variant="secondary" style={{borderRadius:30, opacity:.9, marginTop: 10}} onClick={() => setSelectedCities(oceaniaList)}> Oceania</Button> 
       </>
 
     )
