@@ -1,5 +1,4 @@
 import { Carousel } from 'react-bootstrap';
-import Button from "react-bootstrap/Button";
 import lake from './images/lake.jpg'
 import snowy from './images/snowy.jpg';
 import nycSkyline from './images/nyc_skyline.jpg';

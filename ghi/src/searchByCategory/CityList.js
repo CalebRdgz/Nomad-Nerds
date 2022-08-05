@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
+import no_info from '../images/no_info.png'
 
 function CityList() {
     const location = useLocation();
@@ -158,15 +159,19 @@ function CityList() {
     if (citiesLoading === false && rankedCities.length === 0 || businessesLoading === false && businesses.length === 0) {
         return (
             <div className="text-center">
-                <h1>Don't have any {category[0]} businesses within for any of these cities</h1>
+                <img src = {no_info} style={{ height: 400, marginTop: 100}} />
+                {console.log('category', category)}
+                <h1>Can't find any {category.alias} businesses</h1>
+                <p style={{ marginBottom: 250 }}className="large fw-bold mt-2 pt-1">Back to <a href="/"
+                  className="link-danger">Home</a></p>
             </div>
         )
     }
     else if (businessesLoading === true) {
         return (
             <div className="text-center">
-                <h1>LOADING</h1>
-                <h2>Compiling your businesses</h2>
+                <img src = "https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif" style={{ height: 350, marginTop: 100, marginBottom: 30}}/>
+                <h1 style={{ marginBottom: 100 }}>Loading...</h1>
             </div>
         )
     }
