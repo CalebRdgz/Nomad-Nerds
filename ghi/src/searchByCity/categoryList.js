@@ -151,7 +151,7 @@ function CategoryList() {
             <h1
               className="card-title"
               style={{
-                fontFamily: "papyrus",
+                fontFamily: "verdana",
                 fontWeight: "bold",
                 padding: 20,
                 paddingTop: 90,
