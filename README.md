@@ -5,7 +5,7 @@ Emma
 Arthur
 Mary
 
-A travel application that prioritizes location based on available activities.
+A travel application that allows users to find businesses based on categories band locations.
 
 ## Intended market
 
@@ -21,8 +21,8 @@ Our expected intended market are people who are interested in a specific activit
 * If they enter a destination, they can get a ranking of activities to choose from
 * If they enter an activity, they would get a list of locations/destinations to choose from
 * Filtering function specific to location (i.e. specific continent)
-* Users can make preferences based on various parameters
-* Capability to poll from API to determine ranking system for certain locations
+* Users can save businesses under their favorite page. 
+* Capability to poll from API to determine ranking system by rating for certain locations
 
 ## Design
 * [API design](docs/apis.md)

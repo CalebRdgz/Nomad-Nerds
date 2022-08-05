@@ -1,34 +1,39 @@
-## Home page
+## Home page before login
 
-This is the main page that people will see when they get to 
-the Web site.
+This is the home page that people will see when they get to the Web site.  The user can search categories based on a location or location based on categories.  Home page contains information about businesses within popular destinations. 
 
 ![home page](wireframes/homepage.png)
 
 
-## Sign in page
+## Log in page
 
-This is the sign in page.
+This is the log in page.
 
-![sign in page](wireframes/signin.png)
+![log in page](wireframes/login.png)
 
 
-## Create account page
+## Sign up page
 
 This is the page where users can create an account.
 
-![create account page](wireframes/createaccount.png)
+![sign up page](wireframes/signup.png)
 
 
-## Account info page
+## City list page
 
-This is the page that provides user account information and 
-and a list of favorited businesses.
-![account info page](wireframes/accountinfo.png)
+This is the page that contains a list of businesses and cities based on category search.  If logged in, users can add and delete businesses to their favorites.  The list is organized by each city. 
+
+![city list page](wireframes/citylist.png)
 
 
-## Business detail page
+## Category list page
 
-This is the page that gives information about each business.
+This is the page that contains a list of businesses and categories based on city search.  If logged in, users can add and delete businesses to their favorites. The list is organized by each category. 
 
-![business detail page](wireframes/businessdetail.png)
+![category list page](wireframes/categorylist.png)
+
+## Favorite page 
+
+This is the page that users can access their list of favorite businesses if they are logged in.  The list is organized by each city. 
+
+![favorite page](wireframes/favorite.png)

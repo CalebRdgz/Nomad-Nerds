@@ -1,17 +1,47 @@
 # APIS
 
-## Get business Information
+## Get list of categories based on a location
 
 * **Method**: 'GET'
-* **Path**: /api/business
+* **Path**: /api-yelp/businesses/categories/
 
 Input:
 
 ```json
 {
-    "business_id": int,
-    "categories": list,
-    "location": str
+    "location": string representing location,
+    "quantity": integer representing quantity of API fetches
+}
+```
+
+
+Output:
+
+```json
+{
+    "categories": [
+        [
+            string representing category alias,
+            string representing category title,
+            integer representing category count
+        ]
+    ]
+}
+```
+
+
+## Get list of cities based on category and list of cities
+
+* **Method**: 'GET'
+* **Path**: /api-yelp/businesses/categories/search/
+
+Input:
+
+```json
+{
+    "categories": string representing category,
+    "quantity": integer representing quantity of API fetches,
+    "cities": string representing location
 }
 ```
 
@@ -20,28 +50,87 @@ Output
 
 ```json
 {
-    "business_id": int,
-    "categories": list,
-    "rating": int,
-    "location": str,
-    "image_url": str
+    "cities": [
+        [
+            string representing city,
+            integer representing count of businesses related to searched category
+        ]
+    ]
 }
 ```
 
-Input for a business can be any of the three shown above, depending on the need. For example, if you are looking for all businesses in city which match certain categories, you would need 'categories' and 'location'. However, if you were just trying to find the review/rating for a business, you would only need its business_id. The Output will be all information pertinent to our application from the API, which is listed above.
+## Get a list of businesses based on a category and location
 
-## Create a Rating
-
-* **Method**: 'POST'
-* **Path**: /api/business/rating
+* **Method**: 'GET'
+* **Path**: /api-yelp/businesses/list
 
 Input:
 
 ```json
 {
-    "business_id": int,
-    "rating": int,
-    "user_id": int
+    "category": string representing category,
+    "location": string representing location,
+    "quantity": integer representing quantity of API fetches
+}
+```
+
+
+Output
+
+```json
+[
+    { 
+    "id": str ,
+    "alias": str,
+    "name": str,
+    "image_url": str,
+    "is_closed": bool,
+    "url": str,
+    "review_count": int,
+    "categories": [
+      {
+        "alias": str,
+        "title": str
+      }
+    ],
+    "rating": float,
+    "coordinates": {
+      "latitude": float,
+      "longitude": float
+    },
+    "transactions": list,
+    "price": str,
+    "location": {
+      "address1": str,
+      "address2": str,
+      "address3": str,
+      "city": str,
+      "zip_code": str,
+      "country": str,
+      "state": str,
+      "display_address": [
+        str,
+        str,
+        str
+      ]
+    },
+    "phone": str,
+    "display_phone": str,
+    "distance": float
+  },    
+]
+```
+
+## Get Business info based on a business ID
+
+* **Method**: 'GET'
+* **Path**: /api-yelp/businesses/details
+
+Input:
+
+```json
+{
+    "business_id": str
 }
 ```
 
@@ -50,60 +139,99 @@ Output
 
 ```json
 {
-    "business_id": int,
-    "rating": int,
-    "user_id": int
+  "name": str,
+  "id": str,
+  "image_url": str,
+  "rating": float,
+  "price": str,
+  "display_address": [
+    str,
+    str,
+    str
+  ],
+  "state": str,
+  "city": str,
+  "country": str
 }
 ```
 
-Creating a rating for a business would require the. business ID and the new rating. This rating would be averaged with the other internal ratings for specific business and returned along with the business ID.
+## GET a list of user favorite 
 
-## Create a User
+* **Method**: 'GET'
+* **Path**: /user/favorites/
+* **Authorization**: required 
+  
+Output:
+
+```json
+{
+    [strings representing business ids]
+}
+```
+
+## Post user favorite
 
 * **Method**: 'POST'
-* **Path**: /api/user
-
+* **Path**: /user/favorites/
+* **Authorization**: required 
+  
 Input:
 
+```json
+{
+    string representing business id
+}
+```
+Output:
+
+```json
+{
+    "message": str
+}
+```
+
+## Delete user favorite
+
+* **Method**: 'DELETE'
+* **Path**: /user/favorites/
+* **Authorization**: required 
+  
+Input:
+
+```json
+{
+    string representing business id
+}
+```
+Output:
+
+```json
+{
+    "message": str
+}
+```
+
+## Create a user 
+
+* **Method**: 'POST'
+* **Path**: /user/signup/
+  
+Input:
 ```json
 {
     "username": str,
     "password": str,
-    "email": str
+    "email": email,
+    "first_name": str,
+    "last_name": str
 }
 ```
 
-
-Output
-
-```json
-{ 
-    "message": "You have successfully created your account"
-}
-```
-
-Creating a new user will require a username, password, and email. This information will be stored in the database and a success message will be returned.
-
-## Add a favorite business
-
-* **Method**: 'POST'
-* **Path**: /api/user/user_id
-
-Input:
-
+Output:
 ```json
 {
-    "business_id": int
+    "username": user instance
 }
 ```
 
 
-Output
-
-```json
-{ 
-    "message": "You have added {buisness name} to you favorites"
-}
-```
-
-Adding a business to a users list of favorites will requires the user's id and the business_id. Will return a 'success' message.

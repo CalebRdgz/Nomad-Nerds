@@ -20,15 +20,9 @@ class BusinessesOut(BaseModel):
     businesses: list[BusinessOut]
 
 
-## May not Need
-# @yelp_router.get("/api-yelp/businesses/")
-# def get_businesses(categories: str, quantity: int = 2):
-#     raw_data = businesses_request(categories, quantity=quantity)
-#     return {"count": len(raw_data), "businesses": raw_data}
-
 ## Input a location: Return List of ranked Categories (Right side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/")
-def get_categories(location: str, quantity: int = 2):
+def get_categories(location: str, quantity: int = 1):
     raw_data = categories_request(location=location, quantity=quantity)
     categories = {}
     titles = {}
@@ -48,7 +42,7 @@ def get_categories(location: str, quantity: int = 2):
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/search/")
-def get_locations(categories: str, quantity: int = 2, cities: str = "nyc"):
+def get_locations(categories: str, quantity: int = 1, cities: str = "nyc"):
     cities.replace("%20", " ")
     cities = cities.split(";")
     raw_data = category_request(
@@ -73,7 +67,7 @@ def get_locations(categories: str, quantity: int = 2, cities: str = "nyc"):
 
 ## Input a category and Location: Return a list of ranked Businesses
 @yelp_router.get("/api-yelp/businesses/list")
-def get_business_list(category: str, location: str, quantity: int = 2):
+def get_business_list(category: str, location: str, quantity: int = 1):
     raw_data = businesses_request(
         categories=category, location=location, quantity=quantity
     )
@@ -84,7 +78,6 @@ def get_business_list(category: str, location: str, quantity: int = 2):
 @yelp_router.get("/api-yelp/businesses/details")
 def get_business_info(id: str):
     raw_data = get_business(id)
-    print("raw_data", raw_data)
     data = {}
     data["name"] = raw_data.get("name", "")
     data["id"] = raw_data.get("id", "")
@@ -106,15 +99,4 @@ def get_business_info(id: str):
     return data
 
 
-@yelp_router.get("/api-yelp/city/businesses")
-def get_businesses_city(location: str, quantity: int = 1):
-    raw_data = categories_request(location=location, quantity=quantity)
-    data = {}
-    location = (
-        raw_data[0].get("location").get("city")
-        + ", "
-        + raw_data[0].get("location").get("state")
-    )
-    print(location)
-    data[location] = raw_data
-    return data
+
