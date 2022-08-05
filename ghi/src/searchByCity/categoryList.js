@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -10,19 +10,21 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 import { BsStarHalf } from "react-icons/bs";
+import no_info from "../images/no_info.png";
 
 function CategoryList() {
   const location = useLocation();
   const [categories, setCategories] = useState([]);
   const [businesses, setBusinesses] = useState([]);
-  const [business_id, setBusiness_id] = useState("");
+  const [businessesLoading, setBusinessesLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const { token } = useAuthContext();
   const city = location.state.city.city.replace(/ /g, "%20");
   const state = location.state.city.admin_name.replace(/ /g, "%20");
   const cityAndState = city + "%2C%20" + state;
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   async function getFavorites() {
     const fetchConfig = {
@@ -40,7 +42,6 @@ function CategoryList() {
       setFavorites(data);
     }
   }
-
   async function getCategories() {
     const fetchConfig = {
       method: "get",
@@ -55,9 +56,9 @@ function CategoryList() {
       const data = await response.json();
       setCategories(data["categories"]);
     }
+    await setCategoriesLoading(false);
   }
-
-  function fetchBusinesses(category, city) {
+  function fetchBusinesses(category) {
     const fetchConfig = {
       method: "get",
       headers: {
@@ -68,7 +69,6 @@ function CategoryList() {
     const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${cityAndState}&quantity=1`;
     return fetch(url, fetchConfig);
   }
-
   function getBusinesses() {
     if (categories && categories.length > 0) {
       Promise.all(
@@ -77,10 +77,9 @@ function CategoryList() {
             .then((res) => res.json())
             .then((data) => ({ [category[1]]: data }))
         )
-      ).then((data) => setBusinesses(data));
+      ).then((data) => (setBusinessesLoading(false), setBusinesses(data)));
     }
   }
-
   async function addFavorite(id) {
     const url = `${process.env.REACT_APP_USER}/user/favorites/`;
     let content = { business_id: id };
@@ -95,8 +94,6 @@ function CategoryList() {
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const data = await response.json();
-      setBusiness_id(data);
       if (favorites.includes(id) == false) {
         setFavorites([...favorites, id]);
       }
@@ -112,7 +109,6 @@ function CategoryList() {
       }
     }
   }
-
   async function deleteFavorite(id) {
     const fetchConfig = {
       credentials: "include",
@@ -125,12 +121,9 @@ function CategoryList() {
     const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`;
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const data = await response.json();
       setFavorites(favorites.filter((favorite) => favorite != id));
     }
   }
-
-
 
   useEffect(() => {
     getFavorites();
@@ -142,6 +135,33 @@ function CategoryList() {
     getBusinesses();
   }, [categories]);
 
+  if (
+    (categoriesLoading === false && categories.length === 0) ||
+    (businessesLoading === false && businesses.length === 0)
+  ) {
+    return (
+      <div className="text-center">
+        <img src={no_info} style={{ height: 400, marginTop: 100 }} />
+        <h1>Can't find any businesses in {location.state.city.city}</h1>
+        <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
+          Back to{" "}
+          <a href="/" className="link-danger">
+            Home
+          </a>
+        </p>
+      </div>
+    );
+  } else if (businessesLoading === true) {
+    return (
+      <div className="text-center">
+        <img
+          src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
+          style={{ height: 350, marginTop: 100, marginBottom: 30 }}
+        />
+        <h1 style={{ marginBottom: 100 }}>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <ul>
@@ -167,7 +187,7 @@ function CategoryList() {
                 .slice(0, 15)
                 .map((store, idx) => (
                   <Col key={idx} className="col-3">
-                    <Card style={{ width: "19rem" }}>
+                    <Card style={{ width: "18rem" }}>
                       <Card.Img
                         variant="top"
                         src={store.image_url}
@@ -175,24 +195,35 @@ function CategoryList() {
                       />
                       <Card.Body>
                         <Card.Title style={{ fontWeight: "bold" }}>
-                        <Row style={{flexDirection: "row", alignItems: "flex-end"}}>
-                          <div>{store.name}</div> 
-                          <div style={{color: "green", fontSize: "16px"}}>{store.price ? store.price : ""}</div>
-                        </Row>
-                        {console.log('store.rating', store.rating)}
-                        {(store.rating) ? (
-                            [...Array(Math.floor(store.rating))].map((_, i) => 
-                            <span key={i}><BsStarFill size="1em"
-                            color="rgb(222, 190, 60)"/>
-                            </span>)
-                            ) : ( 
-                              ""
-                          )}
-                        {(store.rating) ? (
-                            String(store.rating).slice(-2) == ".5" ? (<BsStarHalf size="1em"
-                            color="rgb(222, 190, 60)"/>) : ("")
+                          <Row>
+                            <div>{store.name}</div>
+                            <div style={{ color: "green", fontSize: "16px" }}>
+                              {store.price ? store.price : ""}
+                            </div>
+                          </Row>
+                          {store.rating
+                            ? [...Array(Math.floor(store.rating))].map(
+                                (_, i) => (
+                                  <span key={i}>
+                                    <BsStarFill
+                                      size="1em"
+                                      color="rgb(222, 190, 60)"
+                                    />
+                                  </span>
+                                )
+                              )
+                            : ""}
+                          {store.rating ? (
+                            String(store.rating).slice(-2) == ".5" ? (
+                              <BsStarHalf
+                                size="1em"
+                                color="rgb(222, 190, 60)"
+                              />
                             ) : (
-                          ""
+                              ""
+                            )
+                          ) : (
+                            ""
                           )}
                         </Card.Title>
                         <Card.Text>
@@ -201,7 +232,7 @@ function CategoryList() {
                           {store.location.display_address[1]}
                           <br />
                           {store.location.display_address[2]}
-                          <Button variant="light"  style={{ float: "right" }}>
+                          <Button variant="light" style={{ float: "right" }}>
                             {favorites.includes(store.id) ? (
                               <AiFillHeart
                                 size="1.8em"

@@ -61,7 +61,6 @@ def user_favorites(request, business_id=None):
         favorite = Favorite.objects.get(
             user=User.objects.get(id=user_id), business_id=business_id
         )
-        print("favorite", favorite)
         favorite.delete()
         return JsonResponse({"message": "Done"})
 
@@ -92,19 +91,6 @@ def users(request):
     else:
         users = User.objects.all()
         return JsonResponse({"users": users}, encoder=UserEncoder, safe=False)
-
-
-@require_http_methods(["GET"])
-def get_specific_user(request, pk):
-    if request.method == "GET":
-        user = User.objects.get(id=pk)
-        return JsonResponse(
-            {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-            }
-        )
 
 
 @require_http_methods(["GET"])

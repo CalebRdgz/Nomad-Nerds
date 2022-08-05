@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { BsStarFill } from "react-icons/bs";
+import { BsStarHalf } from "react-icons/bs";
 
 function SuggestionList() {
   const lowerNum = Math.floor(Math.random() * 11);
@@ -37,30 +39,53 @@ function SuggestionList() {
             <Row className="flex-nowrap flex-row">
               {Object.values(location)[0]
                 .slice(lowerNum, higherNum)
-                .map((activity, idx) => (
+                .map((store, idx) => (
                   <Col key={idx} className="col-3">
                     <Card style={{ width: "18rem" }}>
                       <Card.Img
                         variant="top"
-                        src={activity.image_url}
+                        src={store.image_url}
                         height={250}
                       />
-                      <Card.Title
-                        style={{ fontWeight: "bold", textAlign: "center" }}
-                      >
-                        {activity.name}
-                      </Card.Title>
                       <Card.Body>
+                        <Card.Title style={{ fontWeight: "bold" }}>
+                          <Row>
+                            <div>{store.name}</div>
+                            <div style={{ color: "green", fontSize: "16px" }}>
+                              {store.price ? store.price : ""}
+                            </div>
+                          </Row>
+                          {store.rating
+                            ? [...Array(Math.floor(store.rating))].map(
+                                (_, i) => (
+                                  <span key={i}>
+                                    <BsStarFill
+                                      size="1em"
+                                      color="rgb(222, 190, 60)"
+                                    />
+                                  </span>
+                                )
+                              )
+                            : ""}
+                          {store.rating ? (
+                            String(store.rating).slice(-2) == ".5" ? (
+                              <BsStarHalf
+                                size="1em"
+                                color="rgb(222, 190, 60)"
+                              />
+                            ) : (
+                              ""
+                            )
+                          ) : (
+                            ""
+                          )}
+                        </Card.Title>
                         <Card.Text>
-                          {activity.location.display_address[0]}
+                          {store.location.display_address[0]}
                           <br />
-                          {activity.location.display_address[1]}
+                          {store.location.display_address[1]}
                           <br />
-                          {activity.location.display_address[2]}
-                          <br />
-                          {activity.price ? `Price: ${activity.price}` : ""}
-                          <br />
-                          Rating: {activity.rating}
+                          {store.location.display_address[2]}
                         </Card.Text>
                       </Card.Body>
                     </Card>

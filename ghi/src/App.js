@@ -21,15 +21,22 @@ function App() {
     setUserName(user.username);
   }
 
-
   return (
     <AuthProvider>
       <Nav token={token} username={userName} />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="user">
-          <Route path="signup" element={<Signup token={token} signup={signup} setUN={setUserName} />} />
-          <Route path="login" element={<Login token={token} login={login} setUN={setUserName} />} />
+          <Route
+            path="signup"
+            element={
+              <Signup token={token} signup={signup} setUN={setUserName} />
+            }
+          />
+          <Route
+            path="login"
+            element={<Login token={token} login={login} setUN={setUserName} />}
+          />
           <Route path="logout" element={<Logout logout={logout} />} />
           <Route path="favorites" element={<Favorites token={token} />} />
         </Route>
