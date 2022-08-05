@@ -12,6 +12,7 @@ app.include_router(yelp_router)
 def read_root():
     return {"Testing": "123"}
 
+
 origins = [
     "http://localhost:3000",
     "http://localhost",

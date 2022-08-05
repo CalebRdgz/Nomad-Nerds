@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (
-    user_favorites, 
+    user_favorites,
     users,
     get_specific_user,
     user_token,

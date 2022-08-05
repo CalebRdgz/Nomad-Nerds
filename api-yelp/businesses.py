@@ -6,6 +6,7 @@ from acls import businesses_request, category_request, get_business, categories_
 
 yelp_router = APIRouter()
 
+
 class BusinessOut(BaseModel):
     business_id: int
     city: str
@@ -13,8 +14,11 @@ class BusinessOut(BaseModel):
     country: str
     categories: list
     rating: float
+
+
 class BusinessesOut(BaseModel):
     businesses: list[BusinessOut]
+
 
 ## May not Need
 # @yelp_router.get("/api-yelp/businesses/")
@@ -40,23 +44,26 @@ def get_categories(location: str, quantity: int = 2):
         cat_list.append((key, titles[key], value))
     sorted_cat_list = sorted(cat_list, key=lambda x: x[2], reverse=True)
     return {"categories": sorted_cat_list}
+
+
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 
 ## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/search/")
-def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
-    cities.replace('%20', ' ')
-    cities = cities.split(';')
+def get_locations(categories: str, quantity: int = 2, cities: str = "nyc"):
+    cities.replace("%20", " ")
+    cities = cities.split(";")
     raw_data = category_request(
         categories=[
             categories,
         ],
-        quantity=quantity, cities = cities
+        quantity=quantity,
+        cities=cities,
     )
     locations = {}
     local_list = []
     for business in raw_data:
-        location = business['city_info']  
+        location = business["city_info"]
         if location not in locations:
             locations[location] = 0
         locations[location] += 1
@@ -69,7 +76,9 @@ def get_locations(categories: str, quantity: int = 2, cities: str = 'nyc'):
 ## Input a category and Location: Return a list of ranked Businesses
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 2):
-    raw_data = businesses_request(categories=category, location=location, quantity=quantity)
+    raw_data = businesses_request(
+        categories=category, location=location, quantity=quantity
+    )
     return raw_data
 
     # return {"count": len(raw_data), "businesses": raw_data}
@@ -79,31 +88,37 @@ def get_business_list(category: str, location: str, quantity: int = 2):
 @yelp_router.get("/api-yelp/businesses/details")
 def get_business_info(id: str):
     raw_data = get_business(id)
-    print('raw_data', raw_data)
+    print("raw_data", raw_data)
     data = {}
-    data['name'] = raw_data.get('name', '')
-    data['id'] = raw_data.get('id', '')
-    data['image_url'] = raw_data.get('image_url', '')
-    data['rating'] = raw_data.get('rating', '')
-    data['price'] = raw_data.get('price', '')
+    data["name"] = raw_data.get("name", "")
+    data["id"] = raw_data.get("id", "")
+    data["image_url"] = raw_data.get("image_url", "")
+    data["rating"] = raw_data.get("rating", "")
+    data["price"] = raw_data.get("price", "")
     try:
-        data['display_address'] = raw_data.get('location').get('display_address', ['', '', ''])
-        data['state'] = raw_data.get('location').get('state', '')
-        data['city'] = raw_data.get('location').get('city', '')
-        data['country'] = raw_data.get('location').get('country', '')
+        data["display_address"] = raw_data.get("location").get(
+            "display_address", ["", "", ""]
+        )
+        data["state"] = raw_data.get("location").get("state", "")
+        data["city"] = raw_data.get("location").get("city", "")
+        data["country"] = raw_data.get("location").get("country", "")
     except:
-        data['display_address'] = ['', '', '']
-        data['state'] = ''
-        data['city'] = ''
-        data['country'] = ''
+        data["display_address"] = ["", "", ""]
+        data["state"] = ""
+        data["city"] = ""
+        data["country"] = ""
     return data
+
 
 @yelp_router.get("/api-yelp/city/businesses")
 def get_businesses_city(location: str, quantity: int = 1):
     raw_data = categories_request(location=location, quantity=quantity)
     data = {}
-    location = raw_data[0].get('location').get('city') + ', ' + raw_data[0].get('location').get('state')
+    location = (
+        raw_data[0].get("location").get("city")
+        + ", "
+        + raw_data[0].get("location").get("state")
+    )
     print(location)
     data[location] = raw_data
     return data
-

@@ -35,8 +35,8 @@ def user_favorites(request, business_id=None):
         content = json.loads(request.body)
         try:
             favorite = Favorite.objects.create(
-                    business_id=content["business_id"], user=User.objects.get(id=user_id)
-                )
+                business_id=content["business_id"], user=User.objects.get(id=user_id)
+            )
             return JsonResponse({"message": "Done"})
         except Exception as e:
             response = JsonResponse({"message": "Could not create a favorite"})
@@ -58,10 +58,13 @@ def user_favorites(request, business_id=None):
             return response
 
     elif request.method == "DELETE":
-        favorite = Favorite.objects.get(user=User.objects.get(id=user_id), business_id=business_id)
-        print('favorite', favorite)
+        favorite = Favorite.objects.get(
+            user=User.objects.get(id=user_id), business_id=business_id
+        )
+        print("favorite", favorite)
         favorite.delete()
         return JsonResponse({"message": "Done"})
+
 
 @require_http_methods(["GET", "POST"])
 def users(request):
@@ -77,7 +80,7 @@ def users(request):
             )
             return JsonResponse(
                 {"username": user},
-                safe = False,
+                safe=False,
                 encoder=UserEncoder,
             )
         except IntegrityError:
@@ -88,11 +91,7 @@ def users(request):
             return response
     else:
         users = User.objects.all()
-        return JsonResponse(
-            {"users": users},
-            encoder=UserEncoder,
-            safe=False
-        )
+        return JsonResponse({"users": users}, encoder=UserEncoder, safe=False)
 
 
 @require_http_methods(["GET"])

@@ -3,7 +3,6 @@ from user_rest.models import models
 
 
 class TestModels(TestCase):
-
     def test_project_favorite_has_char_name_field(self):
         try:
             from user_rest.models import Favorite
@@ -21,7 +20,6 @@ class TestModels(TestCase):
         except AttributeError:
             self.fail("Could not find 'Favorite.business_id'")
 
-    
     def test_favorite_model_has_users_related_to_auth_user(self):
         try:
             from django.contrib.auth.models import User

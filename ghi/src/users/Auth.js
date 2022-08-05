@@ -75,15 +75,13 @@ export function useToken() {
 
   async function logout() {
     if (login) {
-      console.log('logging out')
       const url = `${process.env.REACT_APP_USER}/api/token/refresh/logout/`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
-      console.log('token', token)
       setToken(null);
       window.location.reload();
     } else {
-      console.log('not logged out')
+      console.log("not logged out");
     }
   }
 
@@ -125,31 +123,12 @@ export function useToken() {
       await login(username, password);
       window.location.reload(navigate("/"));
     } else {
-      window.alert("That username already exists. Please choose a different username")
+      window.alert(
+        "That username already exists. Please choose a different username"
+      );
     }
     return false;
   }
-
-  // async function update(username, password, email, firstName, lastName) {
-  //   const url = `${process.env.REACT_APP_USER}/user/accounts/`;
-  //   const response = await fetch(url, {
-  //     method: "post",
-  //     body: JSON.stringify({
-  //       username,
-  //       password,
-  //       email,
-  //       first_name: firstName,
-  //       last_name: lastName,
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   if (response.ok) {
-  //     await login(username, password);
-  //   }
-  //   return false;
-  // }
 
   return [token, login, logout, signup];
 }
