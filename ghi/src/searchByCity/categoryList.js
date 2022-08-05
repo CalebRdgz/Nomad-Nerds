@@ -179,20 +179,21 @@ function CategoryList() {
                           <div>{store.name}</div> 
                           <div style={{color: "green", fontSize: "16px"}}>{store.price ? store.price : ""}</div>
                         </Row>
+                        {console.log('store.rating', store.rating)}
                         {(store.rating) ? (
                             [...Array(Math.floor(store.rating))].map((_, i) => 
                             <span key={i}><BsStarFill size="1em"
                             color="rgb(222, 190, 60)"/>
                             </span>)
-                          ) : ( 
-                            ""
+                            ) : ( 
+                              ""
                           )}
                         {(store.rating) ? (
-                          String(store.rating).slice(-2) == ".5" ? (<BsStarHalf size="1em"
-                          color="rgb(222, 190, 60)"/>) : ("")
-                        ) : (
+                            String(store.rating).slice(-2) == ".5" ? (<BsStarHalf size="1em"
+                            color="rgb(222, 190, 60)"/>) : ("")
+                            ) : (
                           ""
-                        )}
+                          )}
                         </Card.Title>
                         <Card.Text>
                           {store.location.display_address[0]}
