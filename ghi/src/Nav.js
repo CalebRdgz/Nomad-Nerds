@@ -5,13 +5,13 @@ import logo from './images/logo.png';
 import './index.css';
 
 export const loggedIn = [
-  { name: "Favorites", path:"user/favorites/"},
-  { name: "Log Out", path:"user/logout/"}
+  { name: "Favorites", path: "user/favorites/" },
+  { name: "Log Out", path: "user/logout/" }
 ]
 
 export const loggedOut = [
-  { name: "Log In", path:"user/login/" },
-  { name: "Sign Up", path:"user/signup/"}
+  { name: "Log In", path: "user/login/" },
+  { name: "Sign Up", path: "user/signup/" }
 ]
 
 const ifLoggedIn = "navbar-nav";
@@ -27,8 +27,8 @@ function Nav() {
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           <img
-          className="d-block w-100"
-          src={ logo } height={40} 
+            className="d-block w-100"
+            src={logo} height={40}
           />
         </NavLink>
         <div className="fw-bold" to="/"></div>
@@ -39,15 +39,15 @@ function Nav() {
             {links.map((link, index) => (
               <li className="px-2" key={index}>
                 <NavLink to={link.path}>
-                <Button variant="outline-secondary" >
-                  {link.name}
-                </Button>
-              </NavLink>
+                  <Button variant="outline-secondary" >
+                    {link.name}
+                  </Button>
+                </NavLink>
               </li>
             ))}
           </ul>
         </div>
-    </div>
+      </div>
     </nav>
   )
 }

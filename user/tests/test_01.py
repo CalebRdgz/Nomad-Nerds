@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+
 class FeatureTests(TestCase):
     def test_django_installed(self):
         pass

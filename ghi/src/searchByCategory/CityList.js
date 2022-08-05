@@ -8,14 +8,15 @@ import Col from "react-bootstrap/Col";
 import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
+import no_info from '../images/no_info.png'
 
-function CategoryList() {
+function CityList() {
     const location = useLocation();
     const [rankedCities, setRankedCities] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
     const [businessesLoading, setBusinessesLoading] = useState(true)
-    const [citiesLoading, setCitiesLoading]  = useState(true)
+    const [citiesLoading, setCitiesLoading] = useState(true)
     const [favorites, setFavorites] = useState([]);
     const { token } = useAuthContext();
     const category = location.state.category
@@ -57,20 +58,21 @@ function CategoryList() {
         }
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/search/?categories=${category.alias}&quantity=2&cities=${formatted_cities}`
         const response = await fetch(url, fetchConfig)
-        
+
         if (response.ok) {
             const data = await response.json()
-            setRankedCities(data['cities'])}
-            setCitiesLoading(false)
+            setRankedCities(data['cities'])
+        }
+        setCitiesLoading(false)
     }
-    
-    
+
+
     function fetchBusinesses(cat, city) {
         const fetchConfig = {
             method: "get",
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin":"*",
+                "Access-Control-Allow-Origin": "*",
             },
         };
         const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${cat}&location=${city}&quantity=1`;
@@ -83,7 +85,7 @@ function CategoryList() {
             Promise.all(rankedCities
                 .map(city => fetchBusinesses(category.alias, city)
                     .then(res => res.json())
-                    .then(data => ({[city[0].replaceAll(',', ', ')]: data}))))
+                    .then(data => ({ [city[0].replaceAll(',', ', ')]: data }))))
                 .then(data => (setBusinessesLoading(false), setBusinesses(data)))
         }
     }
@@ -91,7 +93,7 @@ function CategoryList() {
 
     async function addFavorite(id) {
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
-        let content = {business_id: id}
+        let content = { business_id: id }
         const fetchConfig = {
             credentials: "include",
             method: "post",
@@ -101,7 +103,7 @@ function CategoryList() {
             },
             body: JSON.stringify(content)
         };
-        
+
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             const data = await response.json();
@@ -114,7 +116,7 @@ function CategoryList() {
                 navigate('/user/login/');
             } else {
             }
-            
+
         }
     }
 
@@ -152,20 +154,24 @@ function CategoryList() {
     useEffect(() => {
         getBusinesses();
     }, [rankedCities]);
-    
+
 
     if (citiesLoading === false && rankedCities.length === 0 || businessesLoading === false && businesses.length === 0) {
         return (
             <div className="text-center">
-                <h1>Don't have the info</h1>
+                <img src = {no_info} style={{ height: 400, marginTop: 100}} />
+                {console.log('category', category)}
+                <h1>Can't find any {category.alias} businesses</h1>
+                <p style={{ marginBottom: 250 }}className="large fw-bold mt-2 pt-1">Back to <a href="/"
+                  className="link-danger">Home</a></p>
             </div>
         )
-    } 
+    }
     else if (businessesLoading === true) {
         return (
             <div className="text-center">
-                <h1>LOADING</h1>
-                <h2>Compiling your businesses</h2>
+                <img src = "https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif" style={{ height: 350, marginTop: 100, marginBottom: 30}}/>
+                <h1 style={{ marginBottom: 100 }}>Loading...</h1>
             </div>
         )
     }
@@ -173,36 +179,36 @@ function CategoryList() {
     return (
         <ul>
             {businesses.map((business, index) => (
-            <div key={index}>
-              <h1 className="card-title">{Object.keys(business)}</h1>
-                <Container className="container-fluid">
-                <Row className="flex-nowrap flex-row" style={{overflowX: "scroll"}}>
-                  {Object.values(business)[0].slice(0,15).map((store, idx) => (
-                        <Col key={idx} className="col-3">
-                        <Card style={{backgroundColor: "light gray", width: "18rem"}} >
-                        <Card.Img variant="top" src={store.image_url} height={200} />
-                            <Card.Title>{store.name}</Card.Title>
-                            <Card.Body>
-                                <Card.Text>
-                                    {store.location.display_address[0]} <br />
-                                    {store.location.display_address[1]}<br />
-                                    {store.location.display_address[2]}<br />
-                                    {store.price? `Price: ${store.price}`: ''}<br /> 
-                                    Rating: {store.rating}
-                                </Card.Text>
-                                <Button variant="light"  style={{float: "right"}}>
-                                    {favorites.includes(store.id) ?  <AiFillHeart style={{color: "red", size:'2em'}} onClick={() => deleteFavorite(store.id)}/> : <AiOutlineHeart onClick={() => addFavorite(store.id)}/>}
-                                </Button>
-                            </Card.Body>
-                        </Card>
-                        </Col>
-                ))}
-                </Row>
-                </Container> 
+                <div key={index}>
+                    <h1 className="card-title">{Object.keys(business)}</h1>
+                    <Container className="container-fluid">
+                        <Row className="flex-nowrap flex-row" style={{ overflowX: "scroll" }}>
+                            {Object.values(business)[0].slice(0, 15).map((store, idx) => (
+                                <Col key={idx} className="col-3">
+                                    <Card style={{ backgroundColor: "light gray", width: "18rem" }} >
+                                        <Card.Img variant="top" src={store.image_url} height={200} />
+                                        <Card.Title>{store.name}</Card.Title>
+                                        <Card.Body>
+                                            <Card.Text>
+                                                {store.location.display_address[0]} <br />
+                                                {store.location.display_address[1]}<br />
+                                                {store.location.display_address[2]}<br />
+                                                {store.price ? `Price: ${store.price}` : ''}<br />
+                                                Rating: {store.rating}
+                                            </Card.Text>
+                                            <Button variant="light" style={{ float: "right" }}>
+                                                {favorites.includes(store.id) ? <AiFillHeart style={{ color: "red", size: '2em' }} onClick={() => deleteFavorite(store.id)} /> : <AiOutlineHeart onClick={() => addFavorite(store.id)} />}
+                                            </Button>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            ))}
+                        </Row>
+                    </Container>
                 </div>
-                            
+
             ))}
         </ul>
     )
 }
-export default CategoryList;
+export default CityList;

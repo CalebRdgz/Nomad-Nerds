@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "djwto"
+    "djwto",
 ]
 
 MIDDLEWARE = [
@@ -54,18 +54,14 @@ MIDDLEWARE = [
 
 # AUTH_USER_MODEL = "user_rest.User"
 
-ALLOWED_HOSTS = [
-    'localhost',
-    'user',
-    os.environ.get("HOST_NAME", "127.0.0.1")
-]
+ALLOWED_HOSTS = ["localhost", "user", os.environ.get("HOST_NAME", "127.0.0.1")]
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    'http://localhost:8000',
-    os.environ.get("CORS_HOST", "http://localhost:3001")
+    "http://localhost:8000",
+    os.environ.get("CORS_HOST", "http://localhost:3001"),
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -102,7 +98,7 @@ WSGI_APPLICATION = "user.wsgi.application"
 DATABASES = {}
 DATABASES["default"] = dj_database_url.config()
 
-#telling django to use environment variable to connect to the database
+# telling django to use environment variable to connect to the database
 
 
 # Password validation

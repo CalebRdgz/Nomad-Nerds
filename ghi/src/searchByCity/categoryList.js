@@ -8,21 +8,22 @@ import Col from "react-bootstrap/Col";
 import { useAuthContext } from "../users/Auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
+import no_info from '../images/no_info.png'
 
 function CategoryList() {
     const location = useLocation();
     const [categories, setCategories] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [business_id, setBusiness_id] = useState('');
+    const [businessesLoading, setBusinessesLoading] = useState(true)
+    const [categoriesLoading, setCategoriesLoading]  = useState(true)
     const [favorites, setFavorites] = useState([]);
     const { token } = useAuthContext();
     const city = (location.state.city.city).replace(/ /g, '%20');
     const state = (location.state.city.admin_name).replace(/ /g, '%20');
     const cityAndState = city + '%2C%20' + state
-    console.log('location.state', location.state)
     const navigate = useNavigate();
-
-
+    
     async function getFavorites() {
         const fetchConfig = {
             credentials: "include",
@@ -36,17 +37,12 @@ function CategoryList() {
             }
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
-        console.log('url', url)
         const response = await fetch(url, fetchConfig);
-        console.log('response', response)
         if (response.ok) {
-            console.log('got response')
             const data = await response.json();
             setFavorites(data);
         }
     }
-
-
     async function getCategories() {
         const fetchConfig = {
             method: "get",
@@ -55,39 +51,37 @@ function CategoryList() {
                 "Content-Type": "application/json",
             },
         };
-        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${cityAndState}&quantity=1`;
+        const categories_url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/categories/?location=${city}&quantity=1`;
         const response = await fetch(categories_url, fetchConfig);
         if (response.ok) {
             const data = await response.json();
-            setCategories(data["categories"]);
-        }
+            setCategories(data["categories"])}
+            setCategoriesLoading(false)        
     }
-    
+
     function fetchBusinesses(category, city) {
         const fetchConfig = {
             method: "get",
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin":"*",
+                "Access-Control-Allow-Origin": "*",
             },
         };
-        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${cityAndState}&quantity=1`;
+        const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${city}&quantity=1`;
         return fetch(url, fetchConfig);
     }
-
     function getBusinesses() {
         if (categories && categories.length > 0) {
             Promise.all(categories.slice(0, 5)
                 .map(category => fetchBusinesses(category[0], city)
                     .then(res => res.json())
                     .then(data => ({[category[1]]: data}))))
-                .then(data => setBusinesses(data))
+                .then(data => (setBusinessesLoading(false), setBusinesses(data)))
         }
     }
-
     async function addFavorite(id) {
         const url = `${process.env.REACT_APP_USER}/user/favorites/`
-        let content = {business_id: id}
+        let content = { business_id: id }
         const fetchConfig = {
             credentials: "include",
             method: "post",
@@ -98,7 +92,6 @@ function CategoryList() {
             body: JSON.stringify(content)
         };
         const response = await fetch(url, fetchConfig);
-        console.log('response', response)
         if (response.ok) {
             const data = await response.json();
             setBusiness_id(data);
@@ -110,10 +103,9 @@ function CategoryList() {
                 navigate('/user/login/');
             } else {
             }
-            
+
         }
     }
-
     async function deleteFavorite(id) {
         const fetchConfig = {
             credentials: "include",
@@ -127,13 +119,14 @@ function CategoryList() {
         };
         const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`
         const response = await fetch(url, fetchConfig);
+        console.log('response', response)
         if (response.ok) {
             const data = await response.json();
+            console.log('favorites before', favorites)
+            console.log('id', id)
             setFavorites(favorites.filter(favorite => favorite != id))
         }
     }
-
-
     useEffect(() => {
         getFavorites();
     }, []);
@@ -143,7 +136,27 @@ function CategoryList() {
     useEffect(() => {
         getBusinesses();
     }, [categories]);
-    console.log('businesses', businesses)
+
+    if (categoriesLoading === false && categories.length === 0 || businessesLoading === false && businesses.length === 0) {
+        return (
+            <div className="text-center">
+                <img src = {no_info} style={{ height: 400, marginTop: 100}} />
+                {console.log('city', location.state.city.city)}
+                <h1>Can't find any businesses in {location.state.city.city}</h1>
+                <p style={{ marginBottom: 250 }}className="large fw-bold mt-2 pt-1">Back to <a href="/"
+                  className="link-danger">Home</a></p>
+            </div>
+        )
+    } 
+
+    else if (businessesLoading === true) {
+        return (
+            <div className="text-center">
+                <img src = "https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif" style={{ height: 350, marginTop: 100, marginBottom: 30}}/>
+                <h1 style={{ marginBottom: 100 }}>Loading...</h1>
+            </div>
+        )
+    }
 
     return (
         <ul>
@@ -156,9 +169,8 @@ function CategoryList() {
                         <Col key={idx} className="col-3">
                         <Card style={{width: "18rem"}}>                           
                             <Card.Img variant="top" src={store.image_url} height={250} />
-                            <Card.Title style={{fontWeight: "bold"}}>{store.name}</Card.Title>
                             <Card.Body>
-                            <Card.Title>{store.name}</Card.Title>
+                            <Card.Title style={{fontWeight: "bold"}}>{store.name}</Card.Title>
                                 <Card.Text>
                                     {store.location.display_address[0]}<br />
                                     {store.location.display_address[1]}<br />
