@@ -14,10 +14,6 @@ import CityList from './searchByCategory/CityList';
 import CategoryList from './searchByCity/categoryList';
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 function App() {
   const [token, login, logout, signup, user, favorites] = useToken();
   const [userName, setUserName] = useState('');

@@ -12,19 +12,11 @@ function SuggestionList() {
 
     return (
         <ul>
-<<<<<<< HEAD
-            <h2 style={{ fontFamily: "verdana", fontWeight: "bold", paddingTop: 15, textAlign: 'center' }}>Popular Destinations</h2>
-            {activities.map((location, index) => (
-                <div key={index}>
-                    <Container className="container-fluid">
-                        <h3 className="card-title" style={{ fontFamily: "verdana", fontWeight: "bold", padding: 15, paddingTop: 15 }}>{Object.keys(location)}</h3>
-=======
             <h1 style={{ fontWeight: "bold", paddingTop: 15, textAlign: 'center' }}>Popular Destinations</h1>
             {activities.map((location, index) => (
                 <div key={index}>
                     <Container className="container-fluid">
                         <h3 className="card-title" style={{ fontWeight: "bolder", padding: 15, paddingTop: 15 }}>{Object.keys(location)}</h3>
->>>>>>> main
                         <Row className="flex-nowrap flex-row">
                             {Object.values(location)[0].slice(lowerNum, higherNum).map((activity, idx) => (
                                 <Col key={idx} className="col-3">

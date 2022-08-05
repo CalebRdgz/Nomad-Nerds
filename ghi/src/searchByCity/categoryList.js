@@ -75,13 +75,8 @@ function CategoryList() {
             Promise.all(categories.slice(0, 5)
                 .map(category => fetchBusinesses(category[0], city)
                     .then(res => res.json())
-<<<<<<< HEAD
-                    .then(data => ({ [category[1]]: data }))))
-                .then(data => setBusinesses(data))
-=======
                     .then(data => ({[category[1]]: data}))))
                 .then(data => (setBusinessesLoading(false), setBusinesses(data)))
->>>>>>> main
         }
     }
     async function addFavorite(id) {
