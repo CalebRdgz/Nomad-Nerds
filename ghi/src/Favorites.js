@@ -50,7 +50,6 @@ function Favorites() {
         "Access-Control-Allow-Headers": "*",
       },
     };
-
     const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
     return fetch(url, fetchConfig);
   }
