@@ -64,4 +64,4 @@ def get_business(id=""):
     headers = {"Authorization": "Bearer {}".format(os.environ["API_YELP_KEY"])}
     res = requests.get(url, headers=headers)
     data = res.json()
-    return data
+    return data, res.status_code
