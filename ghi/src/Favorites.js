@@ -8,7 +8,6 @@ import Col from "react-bootstrap/Col";
 import { AiFillHeart } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 import { BsStarHalf } from "react-icons/bs";
-import debounce from "lodash.debounce";
 
 function Favorites() {
   const { token } = useAuthContext();
@@ -55,18 +54,27 @@ function Favorites() {
     return fetch(url, fetchConfig);
   }
 
-  function getBusinesses() {
+  const throttleBusinesses = (favorite) =>             
+     fetchBusinesses(favorite)
+    .then((res) => res.json())
+    .then((data) => ({ [favorite]: data }))
+
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+  async function getBusinesses() {
     if (favorites && favorites.length > 0) {
-      Promise.all(
-        favorites.map((favorite) =>
-          fetchBusinesses(favorite)
-            .then((res) => res.json())
-            .then((data) => ({ [favorite]: data }))
-        )
-      ).then((data) => setBusinesses(data));
+      const data = []
+      for (let i=0;i<favorites.length;i++){
+        data.push(throttleBusinesses(favorites[i]))
+        await sleep(250)
+      }
+      Promise.all(data).then((data) => setBusinesses(data))
+
     }
   }
-
+  
   async function deleteFavorite(id) {
     const fetchConfig = {
       credentials: "include",
@@ -85,6 +93,7 @@ function Favorites() {
 
   function sortBusinesses() {
     const data = {};
+    console.log('businesses', businesses)
     for (let business of businesses) {
       const city = Object.values(business)[0]["city"];
       const state = Object.values(business)[0]["state"];
@@ -175,7 +184,6 @@ function Favorites() {
     );
   };
 
-  console.log("sortedBusinesses", sortedBusinesses);
   return (
     <div>
       <h1
