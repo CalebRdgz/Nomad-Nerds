@@ -64,7 +64,7 @@ function Favorites() {
   function getBusinesses() {
     if (favorites && favorites.length > 0) {
       Promise.all(
-        favorites.map((favorite) => 
+        favorites.map((favorite) =>
           fetchBusinesses(favorite)
             .then((res) => res.json())
             .then((data) => ({ [favorite]: data }))
