@@ -8,12 +8,15 @@ import Col from "react-bootstrap/Col";
 import { AiFillHeart } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 import { BsStarHalf } from "react-icons/bs";
+import no_info from "./images/no_info.png";
 
 function Favorites() {
   const { token } = useAuthContext();
   const [favorites, setFavorites] = useState([]);
   const [businesses, setBusinesses] = useState([]);
   const [sortedBusinesses, setSortedBusinesses] = useState([]);
+  const [businessesLoading, setBusinessesLoading] = useState(true);
+  const [favoritesLoading, setFavoritesLoading] = useState(true);
 
   function parseJwt(token) {
     if (!token) {
@@ -54,27 +57,29 @@ function Favorites() {
     return fetch(url, fetchConfig);
   }
 
-  const throttleBusinesses = (favorite) =>             
-     fetchBusinesses(favorite)
-    .then((res) => res.json())
-    .then((data) => ({ [favorite]: data }))
+  const throttleBusinesses = (favorite) =>
+    fetchBusinesses(favorite)
+      .then((res) => res.json())
+      .then((data) => ({ [favorite]: data }));
 
   const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
 
   async function getBusinesses() {
     if (favorites && favorites.length > 0) {
-      const data = []
-      for (let i=0;i<favorites.length;i++){
-        data.push(throttleBusinesses(favorites[i]))
-        await sleep(250)
+      const data = [];
+      for (let i = 0; i < favorites.length; i++) {
+        data.push(throttleBusinesses(favorites[i]));
+        await sleep(250);
       }
-      Promise.all(data).then((data) => setBusinesses(data))
-
+      Promise.all(data).then(
+        (data) => setBusinesses(data),
+        setBusinessesLoading(false)
+      );
     }
   }
-  
+
   async function deleteFavorite(id) {
     const fetchConfig = {
       credentials: "include",
@@ -93,7 +98,7 @@ function Favorites() {
 
   function sortBusinesses() {
     const data = {};
-    console.log('businesses', businesses)
+    console.log("businesses", businesses);
     for (let business of businesses) {
       const city = Object.values(business)[0]["city"];
       const state = Object.values(business)[0]["state"];
@@ -183,6 +188,39 @@ function Favorites() {
       </Card.Body>
     );
   };
+
+  if (
+    (favoritesLoading === false && favorites.length === 0) ||
+    (businessesLoading === false && businesses.length === 0)
+  ) {
+    return (
+      <div className="text-center">
+        <img
+          src={no_info}
+          style={{ height: 400, marginTop: 100 }}
+          alt="no_info"
+        />
+        <h1>No favorites have been chosen.</h1>
+        <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
+          Back to{" "}
+          <a href="/" className="link-danger">
+            Home
+          </a>
+        </p>
+      </div>
+    );
+  } else if (businessesLoading === true) {
+    return (
+      <div className="text-center">
+        <img
+          src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
+          style={{ height: 350, marginTop: 100, marginBottom: 30 }}
+          alt="loading"
+        />
+        <h1 style={{ marginBottom: 100 }}>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
