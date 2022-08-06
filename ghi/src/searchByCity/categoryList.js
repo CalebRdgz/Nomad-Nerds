@@ -95,7 +95,7 @@ function CategoryList() {
         };
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
-            if (favorites.includes(id) == false) {
+            if (favorites.includes(id) === false) {
                 setFavorites([...favorites, id]);
             }
         }
@@ -122,7 +122,7 @@ function CategoryList() {
         const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`;
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
-            setFavorites(favorites.filter((favorite) => favorite != id));
+            setFavorites(favorites.filter((favorite) => favorite !== id));
         }
     }
 
@@ -142,7 +142,7 @@ function CategoryList() {
     ) {
         return (
             <div className="text-center">
-                <img src={no_info} style={{ height: 400, marginTop: 100 }} />
+                <img src={no_info} style={{ height: 400, marginTop: 100 }} alt='no_info' />
                 <h1>Can't find any businesses in {location.state.city.city}</h1>
                 <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
                     Back to{" "}
@@ -157,7 +157,7 @@ function CategoryList() {
             <div className="text-center">
                 <img
                     src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
-                    style={{ height: 350, marginTop: 100, marginBottom: 30 }}
+                    style={{ height: 350, marginTop: 100, marginBottom: 30 }} alt='loading'
                 />
                 <h1 style={{ marginBottom: 100 }}>Loading...</h1>
             </div>
@@ -175,7 +175,7 @@ function CategoryList() {
                     paddingTop: 30,
                 }}
             >
-                {city.replace('%20',' ')}{state? ', ' + state.replace('%20', ' '):' '}
+                {city.replace('%20', ' ')}{state ? ', ' + state.replace('%20', ' ') : ' '}
             </h1>
             {businesses.map((business, index) => (
                 <div key={index}>
@@ -226,7 +226,7 @@ function CategoryList() {
                                                         )
                                                         : ""}
                                                     {store.rating ? (
-                                                        String(store.rating).slice(-2) == ".5" ? (
+                                                        String(store.rating).slice(-2) === ".5" ? (
                                                             <BsStarHalf
                                                                 size="1em"
                                                                 color="rgb(222, 190, 60)"

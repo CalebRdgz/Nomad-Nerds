@@ -57,18 +57,18 @@ function SuggestionList() {
                           </Row>
                           {store.rating
                             ? [...Array(Math.floor(store.rating))].map(
-                                (_, i) => (
-                                  <span key={i}>
-                                    <BsStarFill
-                                      size="1em"
-                                      color="rgb(222, 190, 60)"
-                                    />
-                                  </span>
-                                )
+                              (_, i) => (
+                                <span key={i}>
+                                  <BsStarFill
+                                    size="1em"
+                                    color="rgb(222, 190, 60)"
+                                  />
+                                </span>
                               )
+                            )
                             : ""}
                           {store.rating ? (
-                            String(store.rating).slice(-2) == ".5" ? (
+                            String(store.rating).slice(-2) === ".5" ? (
                               <BsStarHalf
                                 size="1em"
                                 color="rgb(222, 190, 60)"
