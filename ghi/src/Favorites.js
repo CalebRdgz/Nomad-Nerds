@@ -8,7 +8,6 @@ import Col from "react-bootstrap/Col";
 import { AiFillHeart } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 import { BsStarHalf } from "react-icons/bs";
-import debounce from 'lodash.debounce';
 
 function Favorites() {
   const { token } = useAuthContext();
