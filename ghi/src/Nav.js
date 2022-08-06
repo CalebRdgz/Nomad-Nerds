@@ -25,7 +25,7 @@ function Nav() {
     <nav className="navbar navbar-expand-lg shadow rounded">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
-          <img className="d-block w-100" src={logo} height={40} />
+          <img className="d-block w-100" src={logo} height={40} alt='logo' />
         </NavLink>
         <div className="fw-bold" to="/"></div>
         <div

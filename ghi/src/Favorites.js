@@ -8,12 +8,17 @@ import Col from "react-bootstrap/Col";
 import { AiFillHeart } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 import { BsStarHalf } from "react-icons/bs";
+import pThrottle from 'p-throttle';
 
 function Favorites() {
   const { token } = useAuthContext();
   const [favorites, setFavorites] = useState([]);
   const [businesses, setBusinesses] = useState([]);
   const [sortedBusinesses, setSortedBusinesses] = useState([]);
+  const throttle = pThrottle({
+    limit: 2,
+    interval: 1000
+  })
 
   function parseJwt(token) {
     if (!token) {
@@ -51,8 +56,9 @@ function Favorites() {
       },
     };
     const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
-    return fetch(url, fetchConfig);
+    return fetch(url, fetchConfig)
   }
+
 
   function getBusinesses() {
     if (favorites && favorites.length > 0) {
@@ -62,7 +68,7 @@ function Favorites() {
             .then((res) => res.json())
             .then((data) => ({ [favorite]: data }))
         )
-      ).then((data) => setBusinesses(data));
+      ).then((data) => setBusinesses(data))
     }
   }
 
@@ -78,8 +84,7 @@ function Favorites() {
     const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`;
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const data = await response.json();
-      setFavorites(favorites.filter((favorite) => favorite != id));
+      setFavorites(favorites.filter((favorite) => favorite !== id));
     }
   }
 
@@ -134,15 +139,15 @@ function Favorites() {
         </div>
         {Object.values(store)[0].rating
           ? [...Array(Math.floor(Object.values(store)[0].rating))].map(
-              (_, i) => (
-                <span key={i}>
-                  <BsStarFill size="1em" color="rgb(222, 190, 60)" />
-                </span>
-              )
+            (_, i) => (
+              <span key={i}>
+                <BsStarFill size="1em" color="rgb(222, 190, 60)" />
+              </span>
             )
+          )
           : ""}
         {Object.values(store)[0].rating ? (
-          String(Object.values(store)[0].rating).slice(-2) == ".5" ? (
+          String(Object.values(store)[0].rating).slice(-2) === ".5" ? (
             <BsStarHalf size="1em" color="rgb(222, 190, 60)" />
           ) : (
             ""
