@@ -42,8 +42,10 @@ function CategoryList() {
       setFavorites(data);
     }
   }
+  console.log('favorites', favorites)
 
   const favoriteList = favorites.map((favorite) => favorite.business_id);
+
 
   async function getCategories() {
     const fetchConfig = {
@@ -61,6 +63,8 @@ function CategoryList() {
     }
     await setCategoriesLoading(false);
   }
+
+  console.log('categories', categories)
 
   function fetchBusinesses(category) {
     const fetchConfig = {
@@ -86,15 +90,15 @@ function CategoryList() {
     }
   }
 
-  function parseJwt(token) {
-    if (!token) {
-      return;
-    }
-    const base64Url = token.split(".")[1];
-    const base64 = base64Url.replace("-", "+").replace("_", "/");
-    const token_info = JSON.parse(window.atob(base64));
-    const user = token_info.user.user_id;
-  }
+  // function parseJwt(token) {
+  //   if (!token) {
+  //     return;
+  //   }
+  //   const base64Url = token.split(".")[1];
+  //   const base64 = base64Url.replace("-", "+").replace("_", "/");
+  //   const token_info = JSON.parse(window.atob(base64));
+  //   const user = token_info.user.user_id;
+  // }
 
   async function addFavorite(
     id,
@@ -172,38 +176,38 @@ function CategoryList() {
     getBusinesses();
   }, [categories]);
 
-  if (
-    (categoriesLoading === false && categories.length === 0) ||
-    (businessesLoading === false && businesses.length === 0)
-  ) {
-    return (
-      <div className="text-center">
-        <img
-          src={no_info}
-          style={{ height: 400, marginTop: 100 }}
-          alt="no_info"
-        />
-        <h1>Can't find any businesses in {location.state.city.city}</h1>
-        <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
-          Back to{" "}
-          <a href="/" className="link-danger">
-            Home
-          </a>
-        </p>
-      </div>
-    );
-  } else if (businessesLoading === true) {
-    return (
-      <div className="text-center">
-        <img
-          src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
-          style={{ height: 350, marginTop: 100, marginBottom: 30 }}
-          alt="loading"
-        />
-        <h1 style={{ marginBottom: 100 }}>Loading...</h1>
-      </div>
-    );
-  }
+  // if (
+  //   (categoriesLoading === false && categories.length === 0) ||
+  //   (businessesLoading === false && businesses.length === 0)
+  // ) {
+  //   return (
+  //     <div className="text-center">
+  //       <img
+  //         src={no_info}
+  //         style={{ height: 400, marginTop: 100 }}
+  //         alt="no_info"
+  //       />
+  //       <h1>Can't find any businesses in {location.state.city.city}</h1>
+  //       <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
+  //         Back to{" "}
+  //         <a href="/" className="link-danger">
+  //           Home
+  //         </a>
+  //       </p>
+  //     </div>
+  //   );
+  // } else if (businessesLoading === true) {
+  //   return (
+  //     <div className="text-center">
+  //       <img
+  //         src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
+  //         style={{ height: 350, marginTop: 100, marginBottom: 30 }}
+  //         alt="loading"
+  //       />
+  //       <h1 style={{ marginBottom: 100 }}>Loading...</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <ul>
@@ -216,7 +220,7 @@ function CategoryList() {
           paddingTop: 30,
         }}
       >
-        {city.replace("%20", " ")}
+        {location.state.city.city.replace("%20", " ")}
         {state ? ", " + location.state.city.admin_name : " "}
       </h1>
       {businesses.map((business, index) => (
