@@ -145,6 +145,7 @@ function CategoryList() {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       setFavorites(favorites.filter((favorite) => favorite !== id));
+      console.log('setFavorites', setFavorites)
     }
   }
 

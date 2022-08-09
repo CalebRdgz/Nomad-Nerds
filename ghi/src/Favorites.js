@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useAuthContext } from "./users/Auth";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -47,41 +46,6 @@ function Favorites() {
     }
   }
 
-  // function fetchBusinesses(favorite) {
-  //   const fetchConfig = {
-  //     method: "get",
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "*",
-  //       "Access-Control-Allow-Headers": "*",
-  //     },
-  //   };
-  //   const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
-  //   return fetch(url, fetchConfig);
-  // }
-
-  // const throttleBusinesses = (favorite) =>
-  //   fetchBusinesses(favorite)
-  //     .then((res) => res.json())
-  //     .then((data) => ({ [favorite]: data }));
-
-  // const sleep = (milliseconds) => {
-  //   return new Promise((resolve) => setTimeout(resolve, milliseconds));
-  // };
-
-  // async function getBusinesses() {
-  //   if (favorites && favorites.length > 0) {
-  //     const data = [];
-  //     for (let i = 0; i < favorites.length; i++) {
-  //       data.push(throttleBusinesses(favorites[i]));
-  //       await sleep(250);
-  //     }
-  //     Promise.all(data).then(
-  //       (data) => setBusinesses(data),
-  //       setBusinessesLoading(false)
-  //     );
-  //   }
-  // }
-
   async function deleteFavorite(id) {
     const fetchConfig = {
       credentials: "include",
@@ -93,8 +57,10 @@ function Favorites() {
     };
     const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`;
     const response = await fetch(url, fetchConfig);
+    console.log('id', id)
     if (response.ok) {
-      setFavorites(favorites.filter((favorite) => favorite !== id));
+      
+      setFavorites(favorites.filter((favorite) => favorite["business_id"] !== id));
     }
   }
 
@@ -181,7 +147,7 @@ function Favorites() {
           <Button
             variant="light"
             style={{ float: "right" }}
-            onClick={(e) => deleteFavorite(Object.values(store)[0].id)}
+            onClick={(e) => deleteFavorite(store["business_id"])}
           >
             <AiFillHeart size="1.8em" color="red" />
           </Button>
