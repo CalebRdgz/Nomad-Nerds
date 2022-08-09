@@ -86,16 +86,6 @@ function CategoryList() {
     }
   }
 
-  function parseJwt(token) {
-    if (!token) {
-      return;
-    }
-    const base64Url = token.split(".")[1];
-    const base64 = base64Url.replace("-", "+").replace("_", "/");
-    const token_info = JSON.parse(window.atob(base64));
-    const user = token_info.user.user_id;
-  }
-
   async function addFavorite(
     id,
     business_name,
@@ -205,6 +195,7 @@ function CategoryList() {
     );
   }
 
+  console.log('businesses', businesses)
   return (
     <ul>
       <h1
