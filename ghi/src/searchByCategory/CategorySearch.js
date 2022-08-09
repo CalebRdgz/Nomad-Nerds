@@ -283,9 +283,6 @@ function CategorySearch() {
         {city_list.map((item) => {
           return (
             <div key={item.id} className="row">
-              <div className="col-11" style={{ height: 30 }}>
-                {item.city}, {item.admin_name}, {item.country}
-              </div>
               <div className="col-1">
                 <button
                   onClick={() =>
@@ -297,6 +294,9 @@ function CategorySearch() {
                 >
                   X
                 </button>
+              </div>
+              <div className="col-11" style={{ height: 30 }}>
+                {item.city}, {item.admin_name}, {item.country}
               </div>
             </div>
           );

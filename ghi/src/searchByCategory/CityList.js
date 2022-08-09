@@ -85,7 +85,6 @@ function CityList() {
       ).then((data) => (setBusinessesLoading(false), setBusinesses(data)));
     }
   }
-
   async function addFavorite(
     id,
     business_name,
@@ -120,7 +119,7 @@ function CityList() {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       if (favorites.includes(id) === false) {
-        setFavorites([...favorites, id]);
+        setFavorites([...favorites, content]);
       }
     }
     if (response.status === 403) {
@@ -147,9 +146,13 @@ function CityList() {
     const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`;
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      setFavorites(favorites.filter((favorite) => favorite !== id));
+      setFavorites(
+        favorites.filter((favorite) => favorite["business_id"] !== id)
+      );
     }
   }
+
+  const favoriteList = favorites.map((favorite) => favorite.business_id);
 
   useEffect(() => {
     getFavorites();
@@ -195,7 +198,7 @@ function CityList() {
       </div>
     );
   }
-
+  console.log("favorites", favorites);
   return (
     <ul>
       <h1
@@ -235,6 +238,7 @@ function CityList() {
                       <Card.Img
                         variant="top"
                         src={store.image_url}
+                        onError = {e => e.target.src = no_info}
                         height={250}
                       />
                       <Card.Body>
@@ -282,7 +286,7 @@ function CityList() {
                           <br />
                           {store.location.display_address[2]}
                           <Button variant="light" style={{ float: "right" }}>
-                            {favorites.includes(store.id) ? (
+                            {favoriteList.includes(store.id) ? (
                               <AiFillHeart
                                 size="1.8em"
                                 style={{ color: "red" }}

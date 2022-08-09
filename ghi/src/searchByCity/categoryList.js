@@ -24,6 +24,8 @@ function CategoryList() {
   const state = location.state.city.admin_name.replace(/ /g, "%20");
   const cityAndState = city + "%2C%20" + state;
 
+  console.log("state", state);
+
   const navigate = useNavigate();
 
   async function getFavorites() {
@@ -42,6 +44,8 @@ function CategoryList() {
       setFavorites(data);
     }
   }
+
+  const favoriteList = favorites.map((favorite) => favorite.business_id);
 
   async function getCategories() {
     const fetchConfig = {
@@ -68,6 +72,7 @@ function CategoryList() {
         "Access-Control-Allow-Origin": "*",
       },
     };
+    console.log("category", category);
     const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${cityAndState}&quantity=1`;
     return fetch(url, fetchConfig);
   }
@@ -82,6 +87,16 @@ function CategoryList() {
         )
       ).then((data) => (setBusinessesLoading(false), setBusinesses(data)));
     }
+  }
+
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    const token_info = JSON.parse(window.atob(base64));
+    const user = token_info.user.user_id;
   }
 
   async function addFavorite(
@@ -117,7 +132,7 @@ function CategoryList() {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       if (favorites.includes(id) === false) {
-        setFavorites([...favorites, id]);
+        setFavorites([...favorites, content]);
       }
     }
     if (response.status === 403) {
@@ -144,8 +159,10 @@ function CategoryList() {
     const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`;
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      setFavorites(favorites.filter((favorite) => favorite !== id));
-      console.log('setFavorites', setFavorites)
+      setFavorites(
+        favorites.filter((favorite) => favorite["business_id"] !== id)
+      );
+      console.log("setFavorites", setFavorites);
     }
   }
 
@@ -192,6 +209,7 @@ function CategoryList() {
     );
   }
   console.log("businesses", businesses);
+  console.log("favorites", favorites);
 
   return (
     <ul>
@@ -205,7 +223,7 @@ function CategoryList() {
         }}
       >
         {city.replace("%20", " ")}
-        {state ? ", " + state.replace("%20", " ") : " "}
+        {state ? ", " + location.state.city.admin_name : " "}
       </h1>
       {businesses.map((business, index) => (
         <div key={index}>
@@ -233,6 +251,7 @@ function CategoryList() {
                       <Card.Img
                         variant="top"
                         src={store.image_url}
+                        onError={(e) => (e.target.src = no_info)}
                         height={250}
                       />
                       <Card.Body>
@@ -275,7 +294,7 @@ function CategoryList() {
                           <br />
                           {store.location.display_address[2]}
                           <Button variant="light" style={{ float: "right" }}>
-                            {favorites.includes(store.id) ? (
+                            {favoriteList.includes(store.id) ? (
                               <AiFillHeart
                                 size="1.8em"
                                 style={{ color: "red" }}

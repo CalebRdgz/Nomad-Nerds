@@ -57,20 +57,19 @@ function Favorites() {
     };
     const url = `${process.env.REACT_APP_USER}/user/favorites/${id}`;
     const response = await fetch(url, fetchConfig);
-    console.log('id', id)
     if (response.ok) {
-      
-      setFavorites(favorites.filter((favorite) => favorite["business_id"] !== id));
+      setFavorites(
+        favorites.filter((favorite) => favorite["business_id"] !== id)
+      );
     }
   }
 
   function sortBusinesses() {
     const data = {};
     for (let business of favorites) {
-      console.log('business', business)
       const city = business["business_city"];
       const state = business["business_state"];
-      
+
       const location = city + ", " + state;
       if (data.hasOwnProperty(location)) {
         data[location].push(business);
@@ -87,15 +86,11 @@ function Favorites() {
   useEffect(() => {
     sortBusinesses();
   }, [favorites]);
-  console.log('favorites', favorites)
 
   const cardImage = (store) => {
     return (
-      <Card.Img
-        variant="top"
-        src={store["business_image"]}
-        height={250}
-      />
+      <Card.Img variant="top" src={store["business_image"]} 
+      onError = {e => e.target.src = no_info} height={250} />
     );
   };
 
@@ -114,13 +109,11 @@ function Favorites() {
           {store["business_price"] ? store["business_price"] : ""}
         </div>
         {store["business_rating"]
-          ? [...Array(Math.floor(store["business_rating"]))].map(
-              (_, i) => (
-                <span key={i}>
-                  <BsStarFill size="1em" color="rgb(222, 190, 60)" />
-                </span>
-              )
-            )
+          ? [...Array(Math.floor(store["business_rating"]))].map((_, i) => (
+              <span key={i}>
+                <BsStarFill size="1em" color="rgb(222, 190, 60)" />
+              </span>
+            ))
           : ""}
         {store["business_rating"] ? (
           String(store["business_rating"]).slice(-2) === ".5" ? (
@@ -156,7 +149,7 @@ function Favorites() {
     );
   };
 
-
+  console.log("favorites", favorites);
   return (
     <div>
       <h1
