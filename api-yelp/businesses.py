@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 from acls import (
     businesses_request,
     category_request,
@@ -81,8 +81,8 @@ def get_business_list(category: str, location: str, quantity: int = 1):
 
 # Input a business ID: Return business Info + Pic
 @yelp_router.get("/api-yelp/businesses/details")
-def get_business_info(id: str, response: Response):
-    raw_data, status = get_business(id)
+def get_business_info(id: str):
+    raw_data = get_business(id)
     data = {}
     data["name"] = raw_data.get("name", "")
     data["id"] = raw_data.get("id", "")
@@ -101,4 +101,4 @@ def get_business_info(id: str, response: Response):
         data["state"] = ""
         data["city"] = ""
         data["country"] = ""
-    return JSONResponse(content=data, status_code=status)
+    return JSONResponse(content=data)
