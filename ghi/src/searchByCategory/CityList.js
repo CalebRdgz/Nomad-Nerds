@@ -86,9 +86,27 @@ function CityList() {
     }
   }
 
-  async function addFavorite(id) {
+  async function addFavorite(
+    id,
+    business_name,
+    business_image,
+    business_rating,
+    business_price,
+    business_display_address,
+    business_city,
+    business_state
+  ) {
     const url = `${process.env.REACT_APP_USER}/user/favorites/`;
-    let content = { business_id: id };
+    let content = {
+      business_id: id,
+      business_name,
+      business_image,
+      business_rating,
+      business_price,
+      business_display_address,
+      business_city,
+      business_state,
+    };
     const fetchConfig = {
       credentials: "include",
       method: "post",
@@ -151,7 +169,11 @@ function CityList() {
   ) {
     return (
       <div className="text-center">
-        <img src={no_info} style={{ height: 400, marginTop: 100 }} alt='no_info' />
+        <img
+          src={no_info}
+          style={{ height: 400, marginTop: 100 }}
+          alt="no_info"
+        />
         <h1>Can't find any {category.alias} businesses</h1>
         <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
           Back to{" "}
@@ -166,7 +188,8 @@ function CityList() {
       <div className="text-center">
         <img
           src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
-          style={{ height: 350, marginTop: 100, marginBottom: 30 }} alt='loading'
+          style={{ height: 350, marginTop: 100, marginBottom: 30 }}
+          alt="loading"
         />
         <h1 style={{ marginBottom: 100 }}>Loading...</h1>
       </div>
@@ -229,15 +252,15 @@ function CityList() {
                           </Row>
                           {store.rating
                             ? [...Array(Math.floor(store.rating))].map(
-                              (_, i) => (
-                                <span key={i}>
-                                  <BsStarFill
-                                    size="1em"
-                                    color="rgb(222, 190, 60)"
-                                  />
-                                </span>
+                                (_, i) => (
+                                  <span key={i}>
+                                    <BsStarFill
+                                      size="1em"
+                                      color="rgb(222, 190, 60)"
+                                    />
+                                  </span>
+                                )
                               )
-                            )
                             : ""}
                           {store.rating ? (
                             String(store.rating).slice(-2) === ".5" ? (
@@ -268,7 +291,18 @@ function CityList() {
                             ) : (
                               <AiOutlineHeart
                                 size="1.8em"
-                                onClick={() => addFavorite(store.id)}
+                                onClick={() =>
+                                  addFavorite(
+                                    store.id,
+                                    store.name,
+                                    store.image_url,
+                                    store.rating,
+                                    store.price,
+                                    store.location.display_address,
+                                    store.location.city,
+                                    store.location.state
+                                  )
+                                }
                               />
                             )}
                           </Button>

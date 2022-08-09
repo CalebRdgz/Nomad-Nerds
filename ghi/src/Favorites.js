@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useAuthContext } from "./users/Auth";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -38,6 +39,7 @@ function Favorites() {
       },
     };
     const url = `${process.env.REACT_APP_USER}/user/favorites/`;
+    console.log("url", url);
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const data = await response.json();
@@ -45,40 +47,40 @@ function Favorites() {
     }
   }
 
-  function fetchBusinesses(favorite) {
-    const fetchConfig = {
-      method: "get",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-      },
-    };
-    const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
-    return fetch(url, fetchConfig);
-  }
+  // function fetchBusinesses(favorite) {
+  //   const fetchConfig = {
+  //     method: "get",
+  //     headers: {
+  //       "Access-Control-Allow-Origin": "*",
+  //       "Access-Control-Allow-Headers": "*",
+  //     },
+  //   };
+  //   const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/details?id=${favorite}`;
+  //   return fetch(url, fetchConfig);
+  // }
 
-  const throttleBusinesses = (favorite) =>
-    fetchBusinesses(favorite)
-      .then((res) => res.json())
-      .then((data) => ({ [favorite]: data }));
+  // const throttleBusinesses = (favorite) =>
+  //   fetchBusinesses(favorite)
+  //     .then((res) => res.json())
+  //     .then((data) => ({ [favorite]: data }));
 
-  const sleep = (milliseconds) => {
-    return new Promise((resolve) => setTimeout(resolve, milliseconds));
-  };
+  // const sleep = (milliseconds) => {
+  //   return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  // };
 
-  async function getBusinesses() {
-    if (favorites && favorites.length > 0) {
-      const data = [];
-      for (let i = 0; i < favorites.length; i++) {
-        data.push(throttleBusinesses(favorites[i]));
-        await sleep(250);
-      }
-      Promise.all(data).then(
-        (data) => setBusinesses(data),
-        setBusinessesLoading(false)
-      );
-    }
-  }
+  // async function getBusinesses() {
+  //   if (favorites && favorites.length > 0) {
+  //     const data = [];
+  //     for (let i = 0; i < favorites.length; i++) {
+  //       data.push(throttleBusinesses(favorites[i]));
+  //       await sleep(250);
+  //     }
+  //     Promise.all(data).then(
+  //       (data) => setBusinesses(data),
+  //       setBusinessesLoading(false)
+  //     );
+  //   }
+  // }
 
   async function deleteFavorite(id) {
     const fetchConfig = {
@@ -98,10 +100,11 @@ function Favorites() {
 
   function sortBusinesses() {
     const data = {};
-    console.log("businesses", businesses);
-    for (let business of businesses) {
-      const city = Object.values(business)[0]["city"];
-      const state = Object.values(business)[0]["state"];
+    for (let business of favorites) {
+      console.log('business', business)
+      const city = business["business_city"];
+      const state = business["business_state"];
+      
       const location = city + ", " + state;
       if (data.hasOwnProperty(location)) {
         data[location].push(business);
@@ -116,17 +119,15 @@ function Favorites() {
     getFavorites();
   }, []);
   useEffect(() => {
-    getBusinesses();
-  }, [favorites]);
-  useEffect(() => {
     sortBusinesses();
-  }, [businesses]);
+  }, [favorites]);
+  console.log('favorites', favorites)
 
   const cardImage = (store) => {
     return (
       <Card.Img
         variant="top"
-        src={Object.values(store)[0].image_url}
+        src={store["business_image"]}
         height={250}
       />
     );
@@ -142,12 +143,12 @@ function Favorites() {
           paddingTop: 10,
         }}
       >
-        {Object.values(store)[0].name}
+        {store["business_name"]}
         <div style={{ color: "green", fontSize: "16px" }}>
-          {Object.values(store)[0].price ? Object.values(store)[0].price : ""}
+          {store["business_price"] ? store["business_price"] : ""}
         </div>
-        {Object.values(store)[0].rating
-          ? [...Array(Math.floor(Object.values(store)[0].rating))].map(
+        {store["business_rating"]
+          ? [...Array(Math.floor(store["business_rating"]))].map(
               (_, i) => (
                 <span key={i}>
                   <BsStarFill size="1em" color="rgb(222, 190, 60)" />
@@ -155,8 +156,8 @@ function Favorites() {
               )
             )
           : ""}
-        {Object.values(store)[0].rating ? (
-          String(Object.values(store)[0].rating).slice(-2) === ".5" ? (
+        {store["business_rating"] ? (
+          String(store["business_rating"]).slice(-2) === ".5" ? (
             <BsStarHalf size="1em" color="rgb(222, 190, 60)" />
           ) : (
             ""
@@ -172,11 +173,11 @@ function Favorites() {
     return (
       <Card.Body>
         <Card.Text>
-          {Object.values(store)[0].display_address[0]}
+          {store["business_display_address"][0]}
           <br />
-          {Object.values(store)[0].display_address[1]}
+          {store["business_display_address"][1]}
           <br />
-          {Object.values(store)[0].display_address[2]}
+          {store["business_display_address"][2]}
           <Button
             variant="light"
             style={{ float: "right" }}
@@ -189,38 +190,39 @@ function Favorites() {
     );
   };
 
-  if (
-    (favoritesLoading === false && favorites.length === 0) ||
-    (businessesLoading === false && businesses.length === 0)
-  ) {
-    return (
-      <div className="text-center">
-        <img
-          src={no_info}
-          style={{ height: 400, marginTop: 100 }}
-          alt="no_info"
-        />
-        <h1>No favorites have been chosen.</h1>
-        <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
-          Back to{" "}
-          <a href="/" className="link-danger">
-            Home
-          </a>
-        </p>
-      </div>
-    );
-  } else if (businessesLoading === true) {
-    return (
-      <div className="text-center">
-        <img
-          src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
-          style={{ height: 350, marginTop: 100, marginBottom: 30 }}
-          alt="loading"
-        />
-        <h1 style={{ marginBottom: 100 }}>Loading...</h1>
-      </div>
-    );
-  }
+  // if (
+  //   (favoritesLoading === false && favorites.length === 0) ||
+  //   (businessesLoading === false && businesses.length === 0)
+  // ) {
+  //   return (
+  //     <div className="text-center">
+  //       <img
+  //         src={no_info}
+  //         style={{ height: 400, marginTop: 100 }}
+  //         alt="no_info"
+  //       />
+  //       <h1>No favorites have been chosen.</h1>
+  //       <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
+  //         Back to{" "}
+  //         <a href="/" className="link-danger">
+  //           Home
+  //         </a>
+  //       </p>
+  //     </div>
+  //   );
+  // } else if (favoritesLoading === true) {
+  //   return (
+  //     <div className="text-center">
+  //       <img
+  //         src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
+  //         style={{ height: 350, marginTop: 100, marginBottom: 30 }}
+  //         alt="loading"
+  //       />
+  //       <h1 style={{ marginBottom: 100 }}>Loading...</h1>
+  //     </div>
+  //   );
+  // }
+  console.log("sortedBusinesses", sortedBusinesses);
 
   return (
     <div>

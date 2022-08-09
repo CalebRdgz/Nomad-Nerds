@@ -21,6 +21,13 @@ class FavoriteEncoder(ModelEncoder):
         "id",
         "username",
         "business_id",
+        "business_name",
+        "business_image",
+        "business_rating",
+        "business_price",
+        "business_display_address",
+        "business_city",
+        "business_state"
     ]
 
 
@@ -35,7 +42,15 @@ def user_favorites(request, business_id=None):
         content = json.loads(request.body)
         try:
             favorite = Favorite.objects.create(
-                business_id=content["business_id"], user=User.objects.get(id=user_id)
+                business_id=content["business_id"],
+                business_name=content["business_name"],
+                business_image=content.get("business_image"),
+                business_rating=content.get("business_rating"),
+                business_price=content.get("business_price", ""),
+                business_display_address=content.get("business_display_address", ["", "", ""]),
+                business_city = content.get("business_city", ""),
+                business_state = content.get("business_state", ""),
+                user=User.objects.get(id=user_id)
             )
             return JsonResponse({"message": "Done"})
         except Exception as e:
@@ -47,10 +62,15 @@ def user_favorites(request, business_id=None):
         try:
             favorite = list(
                 map(
-                    (lambda item: item.business_id),
-                    Favorite.objects.filter(user=user_id),
-                )
+                    (lambda item: vars(item)),
+                    Favorite.objects.filter(user=user_id))
             )
+            print("favorite", favorite)
+            for item in favorite:
+                item.pop("_state")
+                if item["business_display_address"] == None:
+                    item["business_display_address"] == ["","",""]
+            print("after for loop favorite", favorite)
             return JsonResponse(favorite, safe=False)
         except Favorite.DoesNotExist:
             response = JsonResponse({"message": "No favorited businesses"})
