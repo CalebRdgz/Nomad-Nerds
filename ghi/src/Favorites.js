@@ -156,39 +156,6 @@ function Favorites() {
     );
   };
 
-  // if (
-  //   (favoritesLoading === false && favorites.length === 0) ||
-  //   (businessesLoading === false && businesses.length === 0)
-  // ) {
-  //   return (
-  //     <div className="text-center">
-  //       <img
-  //         src={no_info}
-  //         style={{ height: 400, marginTop: 100 }}
-  //         alt="no_info"
-  //       />
-  //       <h1>No favorites have been chosen.</h1>
-  //       <p style={{ marginBottom: 250 }} className="large fw-bold mt-2 pt-1">
-  //         Back to{" "}
-  //         <a href="/" className="link-danger">
-  //           Home
-  //         </a>
-  //       </p>
-  //     </div>
-  //   );
-  // } else if (favoritesLoading === true) {
-  //   return (
-  //     <div className="text-center">
-  //       <img
-  //         src="https://theimaa.com.au/wp-content/uploads/2022/06/IMAA_Plan_Around_Globe_Gif_one.gif"
-  //         style={{ height: 350, marginTop: 100, marginBottom: 30 }}
-  //         alt="loading"
-  //       />
-  //       <h1 style={{ marginBottom: 100 }}>Loading...</h1>
-  //     </div>
-  //   );
-  // }
-  console.log("sortedBusinesses", sortedBusinesses);
 
   return (
     <div>
