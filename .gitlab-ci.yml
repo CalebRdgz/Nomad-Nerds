@@ -64,3 +64,5 @@ build-back-end-job:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push ${CI_REGISTRY_IMAGE}/user:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/user:latest
+
+    
