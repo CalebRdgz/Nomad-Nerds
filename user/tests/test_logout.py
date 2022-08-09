@@ -1,32 +1,30 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
-from django.urls import reverse
-import json
+
 
 class LogoutTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-    
+
     def test_login(self):
-        #Get login page
+        # Get login page
         response = self.client.get('admin/')
 
-        #Check response code
+        # Check response code
         self.assertEquals(response.status_code, 200)
 
-        #Check 'Log in' in response
+        # Check 'Log in' in response
         self.assertTrue("Log in" in response.content)
 
-        #Log the user in
+        # Log the user in
         self.client.login(username="XXX", password="XXX")
 
-        #Check response code
+        # Check response code
         response = self.client.get('admin/')
         self.assertTrue('Log out' in response.content)
-    
+
     def test_logout(self):
-        #Log in
+        # Log in
         self.client.login(username='XXX', password="XXX")
 
         # Check response code

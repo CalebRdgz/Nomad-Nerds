@@ -1,6 +1,5 @@
 from fastapi.testclient import TestClient
 from main import app
-from businesses import get_business_info
 
 client = TestClient(app)
 
@@ -8,10 +7,14 @@ sample_data = {
     "id": "WavvLdfdP6g8aZTtbBQHTw",
     "alias": "gary-danko-san-francisco",
     "name": "Gary Danko",
-    "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/CPc91bGzKBe95aM5edjhhQ/o.jpg",
+    "image_url":
+        "https://s3-media2.fl.yelpcdn.com/bphoto/CPc91bGzKBe95aM5edjhhQ/o.jpg",
     "is_claimed": True,
     "is_closed": False,
-    "url": "https://www.yelp.com/biz/gary-danko-san-francisco?adjust_creative=wpr6gw4FnptTrk1CeT8POg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wpr6gw4FnptTrk1CeT8POg",
+    """
+    "url":
+        "https://www.yelp.com/biz/gary-danko-san-francisco?adjust_creative=wpr6gw4FnptTrk1CeT8POg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wpr6gw4FnptTrk1CeT8POg",
+    """ # noqa
     "phone": "+14157492060",
     "display_phone": "(415) 749-2060",
     "review_count": 5296,
@@ -42,13 +45,48 @@ sample_data = {
     "hours": [
         {
             "open": [
-                {"is_overnight": False, "start": "1730", "end": "2200", "day": 0},
-                {"is_overnight": False, "start": "1730", "end": "2200", "day": 1},
-                {"is_overnight": False, "start": "1730", "end": "2200", "day": 2},
-                {"is_overnight": False, "start": "1730", "end": "2200", "day": 3},
-                {"is_overnight": False, "start": "1730", "end": "2200", "day": 4},
-                {"is_overnight": False, "start": "1730", "end": "2200", "day": 5},
-                {"is_overnight": False, "start": "1730", "end": "2200", "day": 6},
+                {
+                    "is_overnight": False,
+                    "start": "1730",
+                    "end": "2200",
+                    "day": 0
+                },
+                {
+                    "is_overnight": False,
+                    "start": "1730",
+                    "end": "2200",
+                    "day": 1
+                },
+                {
+                    "is_overnight": False,
+                    "start": "1730",
+                    "end": "2200",
+                    "day": 2
+                },
+                {
+                    "is_overnight": False,
+                    "start": "1730",
+                    "end": "2200",
+                    "day": 3
+                },
+                {
+                    "is_overnight": False,
+                    "start": "1730",
+                    "end": "2200",
+                    "day": 4
+                },
+                {
+                    "is_overnight": False,
+                    "start": "1730",
+                    "end": "2200",
+                    "day": 5
+                },
+                {
+                    "is_overnight": False,
+                    "start": "1730",
+                    "end": "2200",
+                    "day": 6
+                },
             ],
             "hours_type": "REGULAR",
             "is_open_now": False,
@@ -71,14 +109,19 @@ def test_get_business_info(mocker):
     # ARRANGE
     mocker.patch("businesses.get_business", return_value=sample_data)
     # ACT
-    response = client.get("api-yelp/businesses/details?id=WavvLdfdP6g8aZTtbBQHTw")
+    response = client.get(
+        "api-yelp/businesses/details?id=WavvLdfdP6g8aZTtbBQHTw"
+    )
     d = response.json()
 
     # ASSERT
     expected = {
         "name": "Gary Danko",
         "id": "WavvLdfdP6g8aZTtbBQHTw",
-        "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/CPc91bGzKBe95aM5edjhhQ/o.jpg",
+        """
+        "image_url":
+            "https://s3-media2.fl.yelpcdn.com/bphoto/CPc91bGzKBe95aM5edjhhQ/o.jpg",
+        """ # noqa
         "rating": 4.5,
         "price": "$$$$",
         "display_address": ["800 N Point St", "San Francisco, CA 94109"],

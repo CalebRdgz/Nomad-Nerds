@@ -47,13 +47,16 @@ def user_favorites(request, business_id=None):
                 business_image=content.get("business_image"),
                 business_rating=content.get("business_rating"),
                 business_price=content.get("business_price", ""),
-                business_display_address=content.get("business_display_address", ["", "", ""]),
-                business_city = content.get("business_city", ""),
-                business_state = content.get("business_state", ""),
+                business_display_address=content.get(
+                    "business_display_address",
+                    ["", "", ""]
+                ),
+                business_city=content.get("business_city", ""),
+                business_state=content.get("business_state", ""),
                 user=User.objects.get(id=user_id)
             )
             return JsonResponse({"message": "Done"})
-        except Exception as e:
+        except Exception:
             response = JsonResponse({"message": "Could not create a favorite"})
             response.status_code = 400
             return response
@@ -65,12 +68,10 @@ def user_favorites(request, business_id=None):
                     (lambda item: vars(item)),
                     Favorite.objects.filter(user=user_id))
             )
-            print("favorite", favorite)
             for item in favorite:
                 item.pop("_state")
-                if item["business_display_address"] == None:
-                    item["business_display_address"] == ["","",""]
-            print("after for loop favorite", favorite)
+                if item["business_display_address"] is None:
+                    item["business_display_address"] == ["", "", ""]
             return JsonResponse(favorite, safe=False)
         except Favorite.DoesNotExist:
             response = JsonResponse({"message": "No favorited businesses"})

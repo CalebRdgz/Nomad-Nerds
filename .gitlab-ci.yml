@@ -1,6 +1,6 @@
 stages:
-  - test   # Run tests first
-  - build  # Run build after tests
+  - test # Run tests first
+  - build # Run build after tests
 
 services:
   - postgres:14.2-bullseye
@@ -9,6 +9,13 @@ variables:
   DATABASE_URL: postgresql://users:password@postgres:5432/users
   POSTGRES_PASSWORD: test_databases
   API_YELP_KEY: ${API_YELP_KEY}
+
+lint-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 user api-yelp
 
 django-app-unit-test-job:
   image: python:3-bullseye
@@ -25,13 +32,6 @@ yelp-api-unit-test-job:
     - cd api-yelp
     - pip install -r requirements.txt
     - python -m pytest
-
-lint-test-job:
-  image: python:3-bullseye
-  stage: test
-  script:
-    - pip install flake8
-    - flake8 user api-yelp
 
 build-front-end-job:
   rules:
@@ -64,5 +64,3 @@ build-back-end-job:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push ${CI_REGISTRY_IMAGE}/user:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/user:latest
-
-    

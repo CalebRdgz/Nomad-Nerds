@@ -1,9 +1,12 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from pydantic import BaseModel
-import psycopg
-import os
 from fastapi.responses import JSONResponse, Response
-from acls import businesses_request, category_request, get_business, categories_request
+from acls import (
+    businesses_request,
+    category_request,
+    get_business,
+    categories_request
+)
 
 yelp_router = APIRouter()
 
@@ -21,7 +24,7 @@ class BusinessesOut(BaseModel):
     businesses: list[BusinessOut]
 
 
-## Input a location: Return List of ranked Categories (Right side of Main Page)
+# Input a location: Return List of ranked Categories (Right side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/")
 def get_categories(location: str, quantity: int = 1):
     raw_data = categories_request(location=location, quantity=quantity)
@@ -41,7 +44,8 @@ def get_categories(location: str, quantity: int = 1):
     return {"categories": sorted_cat_list}
 
 
-## Input a string of categories and a string of cities: Returns a ranked list of cities (Left side of Main Page)
+# Input a string of categories and a string of cities:
+# Returns a ranked list of cities (Left side of Main Page)
 @yelp_router.get("/api-yelp/businesses/categories/search/")
 def get_locations(categories: str, quantity: int = 1, cities: str = "nyc"):
     cities.replace("%20", " ")
@@ -66,7 +70,7 @@ def get_locations(categories: str, quantity: int = 1, cities: str = "nyc"):
     return {"cities": sorted_local_list}
 
 
-## Input a category and Location: Return a list of ranked Businesses
+# Input a category and Location: Return a list of ranked Businesses
 @yelp_router.get("/api-yelp/businesses/list")
 def get_business_list(category: str, location: str, quantity: int = 1):
     raw_data = businesses_request(
@@ -75,7 +79,7 @@ def get_business_list(category: str, location: str, quantity: int = 1):
     return raw_data
 
 
-## Input a business ID: Return business Info + Pic
+# Input a business ID: Return business Info + Pic
 @yelp_router.get("/api-yelp/businesses/details")
 def get_business_info(id: str, response: Response):
     raw_data, status = get_business(id)
@@ -92,12 +96,9 @@ def get_business_info(id: str, response: Response):
         data["state"] = raw_data.get("location").get("state", "")
         data["city"] = raw_data.get("location").get("city", "")
         data["country"] = raw_data.get("location").get("country", "")
-    except:
+    except Exception:
         data["display_address"] = ["", "", ""]
         data["state"] = ""
         data["city"] = ""
         data["country"] = ""
     return JSONResponse(content=data, status_code=status)
-
-
-

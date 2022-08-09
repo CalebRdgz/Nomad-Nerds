@@ -1,6 +1,4 @@
-from django.contrib.auth.models import User
 from django.test import TestCase, Client
-from django.urls import reverse
 import json
 
 
@@ -18,7 +16,11 @@ class SignUpTests(TestCase):
                 "email": "johndoe@email.com",
             }
         )
-        response = self.client.post("/user/signup/", credentials, "application/json")
+        response = self.client.post(
+            "/user/signup/",
+            credentials,
+            "application/json"
+        )
         content = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertIn("username", content)
