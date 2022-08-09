@@ -24,8 +24,6 @@ function CategoryList() {
   const state = location.state.city.admin_name.replace(/ /g, "%20");
   const cityAndState = city + "%2C%20" + state;
 
-  console.log("state", state);
-
   const navigate = useNavigate();
 
   async function getFavorites() {
@@ -72,7 +70,6 @@ function CategoryList() {
         "Access-Control-Allow-Origin": "*",
       },
     };
-    console.log("category", category);
     const url = `${process.env.REACT_APP_API_YELP}/api-yelp/businesses/list?category=${category}&location=${cityAndState}&quantity=1`;
     return fetch(url, fetchConfig);
   }
@@ -162,7 +159,6 @@ function CategoryList() {
       setFavorites(
         favorites.filter((favorite) => favorite["business_id"] !== id)
       );
-      console.log("setFavorites", setFavorites);
     }
   }
 
@@ -208,8 +204,6 @@ function CategoryList() {
       </div>
     );
   }
-  console.log("businesses", businesses);
-  console.log("favorites", favorites);
 
   return (
     <ul>

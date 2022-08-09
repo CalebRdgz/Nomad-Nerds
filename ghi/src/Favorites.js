@@ -38,7 +38,6 @@ function Favorites() {
       },
     };
     const url = `${process.env.REACT_APP_USER}/user/favorites/`;
-    console.log("url", url);
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const data = await response.json();
@@ -89,8 +88,12 @@ function Favorites() {
 
   const cardImage = (store) => {
     return (
-      <Card.Img variant="top" src={store["business_image"]} 
-      onError = {e => e.target.src = no_info} height={250} />
+      <Card.Img
+        variant="top"
+        src={store["business_image"]}
+        onError={(e) => (e.target.src = no_info)}
+        height={250}
+      />
     );
   };
 
@@ -149,7 +152,6 @@ function Favorites() {
     );
   };
 
-  console.log("favorites", favorites);
   return (
     <div>
       <h1

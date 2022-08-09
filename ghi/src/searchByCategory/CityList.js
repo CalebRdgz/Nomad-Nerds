@@ -198,7 +198,7 @@ function CityList() {
       </div>
     );
   }
-  console.log("favorites", favorites);
+
   return (
     <ul>
       <h1
@@ -238,7 +238,7 @@ function CityList() {
                       <Card.Img
                         variant="top"
                         src={store.image_url}
-                        onError = {e => e.target.src = no_info}
+                        onError={(e) => (e.target.src = no_info)}
                         height={250}
                       />
                       <Card.Body>
