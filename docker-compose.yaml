@@ -38,7 +38,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgresql://users:password@postgres:5432/users
+      DATABASE_URL: postgresql://users:password@postgres/users
       WAIT_HOSTS: postgres:5432
       DJWTO_SIGNING_KEY: 26e7594eaae00351c1beeed9f357e35c12d7d3c86d3a90175f747a5892dff30a
   ghi:
