@@ -119,7 +119,9 @@ deploy-api-yelp-job:
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/api-yelp:latest
     - docker tag ${CI_REGISTRY_IMAGE}/api-yelp:latest registry.heroku.com/$HEROKU_ACCOUNT_API_YELP/web:latest
+    - heroku container:login
     - docker push registry.heroku.com/$HEROKU_ACCOUNT_API_YELP/web:latest
+
 
 deploy-user-job:
   rules:
@@ -135,7 +137,9 @@ deploy-user-job:
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/user:latest
     - docker tag ${CI_REGISTRY_IMAGE}/user:latest registry.heroku.com/$HEROKU_ACCOUNT_USER/web:latest
+    - heroku container:login
     - docker push registry.heroku.com/$HEROKU_ACCOUNT_USER/web:latest
+
 
 release-api-yelp-job:
   stage: deploy
