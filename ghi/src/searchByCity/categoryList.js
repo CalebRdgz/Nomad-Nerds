@@ -27,21 +27,22 @@ function CategoryList() {
   const navigate = useNavigate();
 
   async function getFavorites() {
-    const fetchConfig = {
-      credentials: "include",
-      method: "get",
-      headers: {
-        "Access-Control-Request-Headers": "*",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const url = `${process.env.REACT_APP_USER}/user/favorites/`;
-    const response = await fetch(url, fetchConfig);
-    if (response.ok) {
-      const data = await response.json();
-      setFavorites(data);
-    }
-  }
+    if (token) {
+      const fetchConfig = {
+        credentials: "include",
+        method: "get",
+        headers: {
+          "Access-Control-Request-Headers": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const url = `${process.env.REACT_APP_USER}/user/favorites/`;
+      const response = await fetch(url, fetchConfig);
+      if (response.ok) {
+        const data = await response.json();
+        setFavorites(data);
+      }
+  }}
 
   const favoriteList = favorites.map((favorite) => favorite.business_id);
 

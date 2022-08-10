@@ -13,10 +13,7 @@ import no_info from "./images/no_info.png";
 function Favorites() {
   const { token } = useAuthContext();
   const [favorites, setFavorites] = useState([]);
-  const [businesses, setBusinesses] = useState([]);
   const [sortedBusinesses, setSortedBusinesses] = useState([]);
-  const [businessesLoading, setBusinessesLoading] = useState(true);
-  const [favoritesLoading, setFavoritesLoading] = useState(true);
 
   function parseJwt(token) {
     if (!token) {

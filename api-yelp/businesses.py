@@ -67,7 +67,7 @@ def get_locations(categories: str, quantity: int = 1, cities: str = "nyc"):
     for key, value in locations.items():
         local_list.append((key, value))
     sorted_local_list = sorted(local_list, key=lambda x: x[1], reverse=True)
-    return {"cities": sorted_local_list}
+    return {"cities": [x[0] for x in sorted_local_list]}
 
 
 # Input a category and Location: Return a list of ranked Businesses
@@ -76,6 +76,7 @@ def get_business_list(category: str, location: str, quantity: int = 1):
     raw_data = businesses_request(
         categories=category, location=location, quantity=quantity
     )
+    print('raw data', raw_data)
     return raw_data
 
 

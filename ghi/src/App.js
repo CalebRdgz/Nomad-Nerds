@@ -40,7 +40,7 @@ function App() {
           <Route path="logout" element={<Logout logout={logout} />} />
           <Route path="favorites" element={<Favorites token={token} />} />
         </Route>
-        <Route path="category" element={<CityList />} />
+        <Route path="category" element={<CityList token={token} />} />
         <Route path="city" element={<CategoryList token={token} />} />
       </Routes>
       <Footer />

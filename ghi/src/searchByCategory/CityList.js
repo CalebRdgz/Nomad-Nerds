@@ -26,23 +26,25 @@ function CityList() {
     .map((city) => [city.city, city.admin_name, city.country].join(","))
     .join(";");
   const navigate = useNavigate();
+  console.log('formatted cities', formatted_cities)
 
   async function getFavorites() {
-    const fetchConfig = {
-      credentials: "include",
-      method: "get",
-      headers: {
-        "Access-Control-Request-Headers": "*",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const url = `${process.env.REACT_APP_USER}/user/favorites/`;
-    const response = await fetch(url, fetchConfig);
-    if (response.ok) {
-      const data = await response.json();
-      setFavorites(data);
-    }
-  }
+    if (token) {
+      const fetchConfig = {
+        credentials: "include",
+        method: "get",
+        headers: {
+          "Access-Control-Request-Headers": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const url = `${process.env.REACT_APP_USER}/user/favorites/`;
+      const response = await fetch(url, fetchConfig);
+      if (response.ok) {
+        const data = await response.json();
+        setFavorites(data);
+      }
+  }}
 
   async function getCities() {
     const fetchConfig = {
@@ -82,7 +84,7 @@ function CityList() {
             .then((res) => res.json())
             .then((data) => ({ [city[0].replaceAll(",", ", ")]: data }))
         )
-      ).then((data) => (setBusinessesLoading(false), setBusinesses(data)));
+      ).then((data) => (setBusinessesLoading(false) && setBusinesses(data)));
     }
   }
   async function addFavorite(
@@ -166,6 +168,7 @@ function CityList() {
     getBusinesses();
   }, [rankedCities]);
 
+  console.log('rankedcities', rankedCities)
   if (
     (citiesLoading === false && rankedCities.length === 0) ||
     (businessesLoading === false && businesses.length === 0)
@@ -198,6 +201,7 @@ function CityList() {
       </div>
     );
   }
+  console.log('businesses', businesses)
 
   return (
     <ul>
