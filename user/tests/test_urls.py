@@ -1,6 +1,6 @@
-from django.urls import reverse, resolve
-from django.test import SimpleTestCase
-from user_rest.views import user_favorites, users, user_token, get_current_user
+# from django.urls import reverse, resolve
+# from django.test import SimpleTestCase
+# from user_rest.views import user_favorites, users, user_token, get_current_user
 
 
 # class TestUrls(SimpleTestCase):
