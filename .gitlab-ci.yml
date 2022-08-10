@@ -45,6 +45,7 @@ build-front-end-job:
   script:
     - cd ghi
     - npm install
+    - npm install react-search-autocomplete --legacy-peer-deps
     - npm run build
   artifacts:
     paths:
