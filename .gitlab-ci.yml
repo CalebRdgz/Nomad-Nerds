@@ -39,7 +39,7 @@ build-front-end-job:
   stage: build
   image: node:lts-bullseye
   needs:
-    - django-app-unit-test-job
+    # - django-app-unit-test-job
     - yelp-api-unit-test-job
     - lint-test-job
   script:
