@@ -5,14 +5,12 @@ WORKDIR /app
 # Copy the top-level files in your service's directory
 # Modify these instructions to do that
 COPY requirements.txt requirements.txt
-COPY manage.py manage.py
+COPY acls.py acls.py 
+COPY main.py main.py
+COPY businesses.py businesses.py
 
 # Copy all of the subdirectories in your service's directory
 # Modify these instructions to do that
-COPY user user
-COPY user_rest user_rest
-COPY common common
-
 
 RUN pip install -r requirements.txt
-CMD python manage.py migrate && gunicorn user.wsgi --bind 0.0.0.0:$PORT --log-file -
+CMD uvicorn main:app --reload --host 0.0.0.0 --port $PORT
