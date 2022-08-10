@@ -35,6 +35,8 @@ services:
       - "8001:8000"
     volumes:
       - ./user:/app
+    depends_on:
+      - postgres
     environment:
       DATABASE_URL: postgresql://users:password@postgres:5432/users
       WAIT_HOSTS: postgres:5432
