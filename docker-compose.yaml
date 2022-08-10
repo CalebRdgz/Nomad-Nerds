@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=user
+      - POSTGRES_MULTIPLE_DATABASES=users
       - POSTGRES_PASSWORD=test-databases
     ports:
       - 15432:5432
@@ -24,7 +24,7 @@ services:
     volumes:
       - ./api-yelp:/app
     environment:
-      DATABASE_URL: postgresql://user:password@postgres/user
+      DATABASE_URL: postgresql://users:password@postgres/users
       WAIT_HOSTS: postgres:5432
       API_YELP_KEY: ${API_YELP_KEY}
   user:
@@ -36,6 +36,7 @@ services:
     volumes:
       - ./user:/app
     environment:
+      WAIT_TIMEOUT: 240
       DATABASE_URL: postgresql://users:password@postgres:5432/users
       WAIT_HOSTS: postgres:5432
       DJWTO_SIGNING_KEY: 26e7594eaae00351c1beeed9f357e35c12d7d3c86d3a90175f747a5892dff30a
