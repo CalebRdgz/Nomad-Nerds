@@ -1,3 +1,4 @@
+from time import time
 import requests
 import os
 
@@ -33,7 +34,7 @@ def businesses_request(categories="", location="", quantity=1):
             "categories": categories,
         }
         res = requests.get(url, headers=headers, params=params)
-        data += res.json().get("businesses")
+        data += res.json().get("businesses", {})
     return data
 
 

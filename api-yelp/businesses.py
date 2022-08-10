@@ -76,7 +76,6 @@ def get_business_list(category: str, location: str, quantity: int = 1):
     raw_data = businesses_request(
         categories=category, location=location, quantity=quantity
     )
-    print('raw data', raw_data)
     return raw_data
 
 

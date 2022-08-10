@@ -82,9 +82,9 @@ function CityList() {
         rankedCities.map((city) =>
           fetchBusinesses(category.alias, city)
             .then((res) => res.json())
-            .then((data) => ({ [city[0].replaceAll(",", ", ")]: data }))
+            .then((data) => ({ [city.replaceAll(",", ", ")]: data }))
         )
-      ).then((data) => (setBusinessesLoading(false) && setBusinesses(data)));
+      ).then((data) => (setBusinessesLoading(false), setBusinesses(data)));
     }
   }
   async function addFavorite(
