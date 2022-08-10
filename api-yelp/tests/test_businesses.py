@@ -12,8 +12,8 @@ sample_data = {
     "is_claimed": True,
     "is_closed": False,
     "url":
-        "https://www.yelp.com/biz/gary-danko-san-francisco?adjust_creative=" \
-        "wpr6gw4FnptTrk1CeT8POg&utm_campaign=yelp_api_v3&utm_medium=api_v3_" \
+        "https://www.yelp.com/biz/gary-danko-san-francisco?adjust_creative="
+        "wpr6gw4FnptTrk1CeT8POg&utm_campaign=yelp_api_v3&utm_medium=api_v3_"
         "business_lookup&utm_source=wpr6gw4FnptTrk1CeT8POg",
     "phone": "+14157492060",
     "display_phone": "(415) 749-2060",
@@ -118,10 +118,9 @@ def test_get_business_info(mocker):
     expected = {
         "name": "Gary Danko",
         "id": "WavvLdfdP6g8aZTtbBQHTw",
-        """
         "image_url":
-            "https://s3-media2.fl.yelpcdn.com/bphoto/CPc91bGzKBe95aM5edjhhQ/o.jpg",
-        """ # noqa
+            "https://s3-media2.fl.yelpcdn.com/bphoto/"
+            "CPc91bGzKBe95aM5edjhhQ/o.jpg",
         "rating": 4.5,
         "price": "$$$$",
         "display_address": ["800 N Point St", "San Francisco, CA 94109"],
