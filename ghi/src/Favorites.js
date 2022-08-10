@@ -78,10 +78,10 @@ function Favorites() {
 
   useEffect(() => {
     getFavorites();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     sortBusinesses();
-  }, [favorites]);
+  }, [favorites]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const cardImage = (store) => {
     return (

@@ -84,7 +84,7 @@ function CityList() {
             .then((res) => res.json())
             .then((data) => ({ [city.replaceAll(",", ", ")]: data }))
         )
-      ).then((data) => (setBusinessesLoading(false), setBusinesses(data)));
+      ).then(function(data) {setBusinessesLoading(false); setBusinesses(data)});
     }
   }
   async function addFavorite(
@@ -158,15 +158,15 @@ function CityList() {
 
   useEffect(() => {
     getFavorites();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getCities();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getBusinesses();
-  }, [rankedCities]);
+  }, [rankedCities]); // eslint-disable-line react-hooks/exhaustive-deps
 
   console.log('rankedcities', rankedCities)
   if (

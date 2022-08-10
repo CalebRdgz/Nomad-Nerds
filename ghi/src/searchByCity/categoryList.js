@@ -83,7 +83,7 @@ function CategoryList() {
             .then((res) => res.json())
             .then((data) => ({ [category[1]]: data }))
         )
-      ).then((data) => (setBusinessesLoading(false), setBusinesses(data)));
+      ).then(function(data) {setBusinessesLoading(false); setBusinesses(data)});
     }
   }
 
@@ -155,13 +155,13 @@ function CategoryList() {
 
   useEffect(() => {
     getFavorites();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     getCategories();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     getBusinesses();
-  }, [categories]);
+  }, [categories]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (
     (categoriesLoading === false && categories.length === 0) ||
