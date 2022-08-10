@@ -29,7 +29,8 @@
 #             self.assertEqual(
 #                 user.field.related_model,
 #                 User,
-#                 msg="Favorite.user should be related to the 'auth.User' model"
+#                 msg=
+#               "Favorite.user should be related to the 'auth.User' model"
 #             )
 #         except ModuleNotFoundError:
 #             self.fail("Could not find 'user_rest.models'")
