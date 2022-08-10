@@ -11,10 +11,10 @@ sample_data = {
         "https://s3-media2.fl.yelpcdn.com/bphoto/CPc91bGzKBe95aM5edjhhQ/o.jpg",
     "is_claimed": True,
     "is_closed": False,
-    """
     "url":
-        "https://www.yelp.com/biz/gary-danko-san-francisco?adjust_creative=wpr6gw4FnptTrk1CeT8POg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wpr6gw4FnptTrk1CeT8POg",
-    """ # noqa
+        "https://www.yelp.com/biz/gary-danko-san-francisco?adjust_creative=" \
+        "wpr6gw4FnptTrk1CeT8POg&utm_campaign=yelp_api_v3&utm_medium=api_v3_" \
+        "business_lookup&utm_source=wpr6gw4FnptTrk1CeT8POg",
     "phone": "+14157492060",
     "display_phone": "(415) 749-2060",
     "review_count": 5296,
