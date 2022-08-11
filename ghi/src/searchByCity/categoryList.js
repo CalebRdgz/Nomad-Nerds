@@ -196,7 +196,6 @@ function CategoryList() {
     );
   }
 
-  console.log('businesses', businesses)
   return (
     <ul>
       <h1

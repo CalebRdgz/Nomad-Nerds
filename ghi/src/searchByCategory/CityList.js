@@ -26,7 +26,6 @@ function CityList() {
     .map((city) => [city.city, city.admin_name, city.country].join(","))
     .join(";");
   const navigate = useNavigate();
-  console.log('formatted cities', formatted_cities)
 
   async function getFavorites() {
     if (token) {
@@ -168,7 +167,6 @@ function CityList() {
     getBusinesses();
   }, [rankedCities]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log('rankedcities', rankedCities)
   if (
     (citiesLoading === false && rankedCities.length === 0) ||
     (businessesLoading === false && businesses.length === 0)
@@ -201,7 +199,6 @@ function CityList() {
       </div>
     );
   }
-  console.log('businesses', businesses)
 
   return (
     <ul>
