@@ -10,6 +10,10 @@ variables:
   DATABASE_URL: postgresql://users:password@postgres:5432/users
   POSTGRES_PASSWORD: test_databases
   API_YELP_KEY: ${API_YELP_KEY}
+  REACT_APP_API_YELP: https://${HEROKU_ACCOUNT_API_YELP}.herokuapp.com
+  REACT_APP_USER: https://${HEROKU_ACCOUNT_USER}.herokuapp.com
+  REACT_APP_THIRD_PARTY_SERVICE: https://api.yelp.com/v3
+  DJWTO_SIGNING_KEY: ${DJWTO_SIGNING_KEY}
 
 lint-test-job:
   image: python:3-bullseye
