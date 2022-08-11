@@ -13,4 +13,4 @@ COPY businesses.py businesses.py
 # Modify these instructions to do that
 
 RUN pip install -r requirements.txt
-CMD uvicorn main:app --reload --host 0.0.0.0 --port $PORT
+CMD uvicorn main:app --host 0.0.0.0 --port $PORT
