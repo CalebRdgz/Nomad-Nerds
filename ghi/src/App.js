@@ -20,9 +20,6 @@ function App() {
   if (user && !userName) {
     setUserName(user.username);
   }
-
-  const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, '');
   
   return (
     <AuthProvider>
