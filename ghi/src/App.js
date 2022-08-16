@@ -20,7 +20,7 @@ function App() {
   if (user && !userName) {
     setUserName(user.username);
   }
-
+  
   return (
     <AuthProvider>
       <Nav token={token} username={userName} />
